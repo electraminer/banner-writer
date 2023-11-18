@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ForceSize {
+  position: relative;
+}
+
+.ForceSize > * {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
