@@ -23,6 +23,9 @@ function App() {
         <div className='App'>
             <div className='AppHeader'>
                 <BannerFontText text='￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷'/>
+                <a href='https://banner-writer.web.app/about'>
+                    <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
+                </a>
                 <div className='AppHeaderSpacer'/>
                 <button
                     onClick={() => writingContext.updateWriting(
