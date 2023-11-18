@@ -1,0 +1,23 @@
+.LayerDisplay {
+    display: flex;
+    flex-direction: row;
+}
+
+.LayerDisplay > .BannerButton {
+    flex: 1;
+}
+
+.LayerDisplayButtons {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.LayerDisplayButtons > .BannerButton {
+    flex: 1;
+}
+
+.LayerDisplayButtons > .BannerButton img {
+    aspect-ratio: 1;
+}

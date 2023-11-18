@@ -1,0 +1,8 @@
+.BannerFontText {
+    display: inline-block;
+}
+
+.BannerFontText > .BannerComponent {
+    float: left;
+    margin: 0px;
+}

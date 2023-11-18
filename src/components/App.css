@@ -1,0 +1,64 @@
+.App {
+    background-color: #282c34;
+    min-height: 100vh;
+    max-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.AppHeader {
+    display: flex;
+
+    color: white;
+    margin: 0px 10px;
+}
+
+.AppHeaderSpacer {
+    flex: 1;
+}
+
+.AppHeader > * {
+    margin: 5px;
+    border: 0;
+    padding: 0;
+}
+.AppHeader > button {
+    height: 0;
+}
+
+.AppWritingComponent {
+    aspect-ratio: 16/2;
+}
+
+.AppBannerSelect {
+    flex: 12;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.AppBannerEditor {
+    aspect-ratio: 12/12;
+    min-width: 0px;
+}
+
+.AppBannerDisplay {
+    aspect-ratio: 1/2;
+    min-width: 0px;
+}
+
+.AppHistorySection {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.AppRecentBanners {
+    aspect-ratio: 20/4;
+}
+
+.AppSavedWritings {
+    flex: 1;
+}

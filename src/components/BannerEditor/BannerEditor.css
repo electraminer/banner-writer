@@ -1,0 +1,15 @@
+.BannerEditor {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.BannerEditorLayerSelector {
+    aspect-ratio: 10/12;
+    min-width: 0px;
+}
+
+.BannerEditorLayerStack {
+    aspect-ratio: 2/12;
+    min-width: 0px;
+}

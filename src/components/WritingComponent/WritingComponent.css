@@ -1,0 +1,58 @@
+.WritingComponent {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    align-content: start;
+}
+
+.WCDirection_LeftToRight {
+    flex-direction: row;
+}
+
+.WCDirection_RightToLeft {
+    flex-direction: row-reverse;
+}
+
+.WCSize_1, .WCSize_2, .WCSize_3, .WCSize_4 {
+    overflow-y: hidden;
+}
+
+.WCSize_1 > * {
+    aspect-ratio: 1/2;
+    height: 100%;
+}
+
+.WCSize_2 > * {
+    aspect-ratio: 1/2;
+    height: 50%;
+}
+
+.WCSize_3 > * {
+    aspect-ratio: 1/2;
+    height: 33%;
+}
+
+.WCSize_4 > * {
+    aspect-ratio: 1/2;
+    height: 25%;
+}
+
+.WCCursor {
+    width: 3px;
+    margin: 1px;
+    animation-name: cursor;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.WCCursorEndHitbox {
+    flex: 1;
+}
+
+@keyframes cursor {
+    0%  {background-color: white;}
+    1%  {background-color: transparent;}
+    50% {background-color: transparent;}
+    51% {background-color: white;}
+    100% {background-color: white;}
+}

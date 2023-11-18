@@ -1,0 +1,8 @@
+.ColorSelector {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ColorSelector > .BannerButton {
+    width: 12.5%;
+}

@@ -1,0 +1,31 @@
+.SavedWritings {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.SavedWritingsWriting {
+    display: flex;
+    flex-direction: row;
+}
+
+.SavedWritingsText {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.SWDirection_LeftToRight {
+    flex-direction: row;
+}
+
+.SWDirection_RightToLeft {
+    flex-direction: row-reverse;
+}
+
+.SavedWritingsControls > button {
+    margin: 0px 2px;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+}

@@ -1,0 +1,8 @@
+.PatternSelector {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.PatternSelector > .BannerButton {
+    width: 10%;
+}

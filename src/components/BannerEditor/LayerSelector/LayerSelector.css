@@ -1,0 +1,20 @@
+.LayerSelector {
+    display: flex;
+    flex-direction: column;
+}
+
+.LayerSelectorColorRow {
+    display: flex;
+}
+
+.LayerSelectorColorRow > .ColorSelector {
+    width: 80%;
+    position: relative;
+}
+
+.LayerSelectorColorRow > .ColorDisplay {
+    flex: 1;
+}
+.LayerSelectorColorRow > .ColorSelector {
+    flex: 4;
+}
