@@ -62,21 +62,25 @@ export default class Writing {
     }
 
     optimizedCharacters() {
+        let banners = this.banners;
+        if (this.rightToLeft) {
+            banners = banners.slice().reverse();
+        }
         const generateSpace = (size) => String.fromCodePoint(0xD0000 + size * 9);
 
         let characters = '';
         let maxLayer = 0;
         let skipCounts = [];
-        for (const banner of this.banners) {
+        for (const banner of banners) {
             characters += banner.backgroundLayer().characters();
             maxLayer = Math.max(maxLayer, banner.layers.length)
             skipCounts.push(0);
         }
         console.log(skipCounts);    
-        let position = this.banners.length;
+        let position = banners.length;
         for (let layer = 0; layer <= maxLayer; layer++) {
-            for (let i = 0; i < this.banners.length; i++) {
-                const banner = this.banners[i];
+            for (let i = 0; i < banners.length; i++) {
+                const banner = banners[i];
                 if (layer < banner.layers.length) {
                     if (position == i - 1) {
                         skipCounts[position] += 1;
@@ -85,10 +89,10 @@ export default class Writing {
                 }
             }
         }
-        position = this.banners.length;
+        position = banners.length;
         for (let layer = 0; layer <= maxLayer; layer++) {
-            for (let i = 0; i < this.banners.length; i++) {
-                const banner = this.banners[i];
+            for (let i = 0; i < banners.length; i++) {
+                const banner = banners[i];
                 if (layer - skipCounts[i] < banner.layers.length) {
                     if (position != i) {
                         characters += generateSpace(i - position);
