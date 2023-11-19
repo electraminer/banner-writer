@@ -60,4 +60,49 @@ export default class Writing {
         }
         return banners;
     }
+
+    optimizedCharacters() {
+        const generateSpace = (size) => String.fromCodePoint(0xD0000 + size * 9);
+
+        let characters = '';
+        let maxLayer = 0;
+        let skipCounts = [];
+        for (const banner of this.banners) {
+            characters += banner.backgroundLayer().characters();
+            maxLayer = Math.max(maxLayer, banner.layers.length)
+            skipCounts.push(0);
+        }
+        console.log(skipCounts);    
+        let position = this.banners.length;
+        for (let layer = 0; layer <= maxLayer; layer++) {
+            for (let i = 0; i < this.banners.length; i++) {
+                const banner = this.banners[i];
+                if (layer < banner.layers.length) {
+                    if (position == i - 1) {
+                        skipCounts[position] += 1;
+                    }
+                    position = i + 1;
+                }
+            }
+        }
+        position = this.banners.length;
+        for (let layer = 0; layer <= maxLayer; layer++) {
+            for (let i = 0; i < this.banners.length; i++) {
+                const banner = this.banners[i];
+                if (layer - skipCounts[i] < banner.layers.length) {
+                    if (position != i) {
+                        characters += generateSpace(i - position);
+                    }
+                    if (layer - skipCounts[i] < 0) {
+                        characters += banner.backgroundLayer().characters();
+                    } else {
+                        characters += banner.layers[layer - skipCounts[i]].characters();
+                    }
+                    position = i + 1;
+                }
+            }
+        }
+
+        return characters;
+    }
 }

@@ -19,6 +19,25 @@ function App() {
     const writingContext = React.useContext(WritingContext);
     const recentContext = React.useContext(RecentContext);
     const savedContext = React.useContext(SavedContext);
+    const anvilNumbers = [
+        '󏿷󏿷󏿷󏿷󏿷󏿷',
+        '󏿷󏿷󏿷󏿷',
+        '󏿷󏿷󏿷󏿷󏿷',
+        '󏿷󏿷󏿷󏿷󏿷󏿷',
+        '󏿷󏿷󏿷󏿷󏿷',
+        '󏿷󏿷󏿷󏿷󏿷',
+        '󏿷󏿷󏿷󏿷󏿷󏿷',
+        '󏿷󏿷󏿷',
+        '󏿷󏿷󏿷󏿷󏿷󏿷',
+        '󏿷󏿷󏿷󏿷󏿷󏿷',
+    ];
+    const createNumber = function(string) {
+        let characters = '';
+        for (const char of string) {
+            characters += anvilNumbers[char.charCodeAt(0) - 0x30];
+        }
+        return characters;
+    }
     return (
         <div className='App'>
             <div className='AppHeader'>
@@ -54,6 +73,15 @@ function App() {
                             }
                         })}>
                     <BannerFontText text='￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷'/>
+                </button>
+                <button
+                    onClick={() => navigator.clipboard.writeText(writingContext.writing.optimizedCharacters())}>
+                    <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
+                    <BannerFontText text={createNumber(
+                        Math.min(writingContext.writing.optimizedCharacters().length, 99)
+                            .toString().padStart(2, '0'))}/>
+                    <BannerFontText text='󏿷󏿷'/>
+                    <BannerFontText text={createNumber('50')}/>
                 </button>
             </div>
             <div className='AppWritingComponent ForceSize'>
