@@ -5,6 +5,11 @@
     align-content: start;
 }
 
+.WritingComponent > * {
+    aspect-ratio: 19/40;
+    height: 25%;
+}
+
 .WCDirection_LeftToRight {
     flex-direction: row;
 }
@@ -18,23 +23,30 @@
 }
 
 .WCSize_1 > * {
-    aspect-ratio: 1/2;
     height: 100%;
 }
 
 .WCSize_2 > * {
-    aspect-ratio: 1/2;
     height: 50%;
 }
 
 .WCSize_3 > * {
-    aspect-ratio: 1/2;
-    height: 33%;
+    height: 33.3%;
 }
 
-.WCSize_4 > * {
-    aspect-ratio: 1/2;
-    height: 25%;
+@media (max-width: 782px) {
+    
+    .WCSize_1 > * {
+        height: 50%;
+    }
+
+    .WCSize_2 > *, .WCSize_3 > *, .WCSize_4 > * {
+        height: 25%;
+    }
+
+    .WCSize_3, .WCSize_4 {
+        overflow-y: scroll;
+    }
 }
 
 .WCCursor {

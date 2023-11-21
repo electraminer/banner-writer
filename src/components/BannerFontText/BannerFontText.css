@@ -5,4 +5,11 @@
 .BannerFontText > .BannerComponent {
     float: left;
     margin: 0px;
+    width: 1.5vw;
+}
+
+@media (max-width: 782px) {
+    .BannerFontText > .BannerComponent  {
+        width: 3vw;
+    }
 }

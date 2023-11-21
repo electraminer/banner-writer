@@ -9,9 +9,14 @@
 
 .AppHeader {
     display: flex;
+    flex-wrap: wrap;
 
     color: white;
     margin: 0px 10px;
+}
+
+.App > .AppHeader { 
+    justify-content: space-evenly;
 }
 
 .AppHeaderSpacer {
@@ -24,11 +29,17 @@
     padding: 0;
 }
 .AppHeader > button {
-    height: 0;
+    background-color: transparent;
 }
 
 .AppWritingComponent {
     aspect-ratio: 16/2;
+}
+
+@media (max-width: 782px) {
+    .AppWritingComponent {
+        aspect-ratio: 8/4;
+    }
 }
 
 .AppBannerSelect {
@@ -38,9 +49,25 @@
     flex-direction: row;
 }
 
+
+@media (max-width: 782px) {
+    .AppBannerSelect {
+        flex-direction: column;
+    }
+}
+
+.AppFullBannerEditor {
+    aspect-ratio: 18/12;
+    min-height: 100%;
+}
+
+.AppFBEFlexbox {
+    display: flex;
+}
+
 .AppBannerEditor {
     aspect-ratio: 12/12;
-    min-width: 0px;
+    min-height: 100%;
 }
 
 .AppBannerDisplay {

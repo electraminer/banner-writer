@@ -9,6 +9,7 @@ import RecentContext from './context/RecentContext';
 import WritingComponent from 'components/WritingComponent/WritingComponent';
 import BannerFontText from 'components/BannerFontText/BannerFontText';
 import SavedWritings from 'components/SavedWritings/SavedWritings';
+import ForceSize from 'components/ForceSize/ForceSize';
 import Writing from 'model/Writing';
 
 import React from 'react';
@@ -84,27 +85,31 @@ function App() {
                     <BannerFontText text={createNumber('50')}/>
                 </button>
             </div>
-            <div className='AppWritingComponent ForceSize'>
+            <ForceSize className='AppWritingComponent'>
                 <WritingComponent/>
-            </div>
+            </ForceSize>
             <div className='AppBannerSelect'>
-                <div className='AppBannerEditor ForceSize'>
-                    <BannerEditor banner={bannerContext.banner}
-                        onBannerUpdate={bannerContext.updateBanner}/>
-                </div>
-                <div className='AppBannerDisplay ForceSize'>
-                    <BannerButton banner={bannerContext.banner}
-                        onLeftClick={() => writingContext.addBanner(bannerContext.banner)}
-                        onRightClick={() => writingContext.updateWriting(
-                            (w) => w.backspace())}/>
-                </div>
+                <ForceSize className='AppFullBannerEditor'>
+                    <div className='AppFBEFlexbox'>
+                        <ForceSize className='AppBannerEditor'>
+                            <BannerEditor banner={bannerContext.banner}
+                                onBannerUpdate={bannerContext.updateBanner}/>
+                        </ForceSize>
+                        <ForceSize className='AppBannerDisplay'>
+                            <BannerButton banner={bannerContext.banner}
+                                    onLeftClick={() => writingContext.addBanner(bannerContext.banner)}
+                                    onRightClick={() => writingContext.updateWriting(
+                                        (w) => w.backspace())}/>
+                        </ForceSize>
+                    </div>
+                </ForceSize>
                 <div className='AppHistorySection'>
                     <div className='AppHeader'>
                         <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
                     </div>
-                    <div className='AppRecentBanners ForceSize'>
+                    <ForceSize className='AppRecentBanners'>
                         <RecentBanners/>
-                    </div>
+                    </ForceSize>
                     <div className='AppHeader'>
                         <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
                         <div className='AppHeaderSpacer'/>
@@ -113,9 +118,9 @@ function App() {
                             <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
                         </button>
                     </div>
-                    <div className='AppSavedWritings ForceSize'>
+                    <ForceSize className='AppSavedWritings'>
                         <SavedWritings/>
-                    </div>
+                    </ForceSize>
                 </div>
             </div>
         </div>
