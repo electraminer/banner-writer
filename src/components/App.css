@@ -104,8 +104,11 @@
     flex: 1;
 }
 
-
 @media (max-width: 782px) {
+    .AppRecentBanners {
+        aspect-ratio: 12/4;
+    }
+    
     .AppSavedWritings {
         min-height: 25vh;
     }
