@@ -13,9 +13,9 @@ export default function RecentBanners() {
     const bannerContext = React.useContext(BannerContext);
 
     return (
-        <div class='RecentBanners'>
+        <div className='RecentBanners'>
             {recentContext.recent.slice().reverse().map((banner, i) =>
-                <BannerButton banner={banner} id={i}
+                <BannerButton banner={banner} key={i}
                     onLeftClick={() => writingContext.addBanner(banner)}
                     onRightClick={() => bannerContext.setBanner(banner)}/>
             )}

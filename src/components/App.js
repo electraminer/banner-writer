@@ -14,8 +14,11 @@ import Writing from 'model/Writing';
 
 import React from 'react';
 import SavedContext from './context/SavedContext';
+import html2canvas from 'html2canvas';
 
 function App() {
+    const screenshotRef = React.useRef(null);
+
     const bannerContext = React.useContext(BannerContext);
     const writingContext = React.useContext(WritingContext);
     const recentContext = React.useContext(RecentContext);
@@ -53,6 +56,34 @@ function App() {
                     <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
                 </button>
                 <button
+                    onClick={async () => {
+                        const canvas = await html2canvas(screenshotRef.current);
+                        console.log(canvas);
+                        const blob = await new Promise(resolve => canvas.toBlob(resolve));
+                        if (navigator.clipboard.write == undefined) {
+                            if (navigator.userAgent.toLowerCase().includes('firefox')) {
+                                alert("To allow copying images to clipboard, you must change your Firefox settings.\n\
+                                Here are some steps to fix this issue:\n\
+                                1) Navigate to the url 'about:config'.\n\
+                                2) Click 'Accept the Risk and Continue'.\n\
+                                3) Type 'dom.events.asyncClipboard.clipboardItem' in the box.\n\
+                                4) Click the button with the two-arrows symbol to the right.\n\
+                                5) The value in the middle should now appear as 'true'.\n\
+                                6) Return to banner-writer and reload the page.")
+                            } else {
+                                alert("Copying images to your clipboard is unsupported for an unknown reason.\n\
+                                Contact Electra with information about your browser to get this fixed.")
+                            }
+                            
+                        } else {
+                            navigator.clipboard.write([new window.ClipboardItem(
+                                { [blob.type]: blob }
+                            )])
+                        }
+                    }}>
+                    <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
+                </button>
+                <button
                     onClick={() => writingContext.updateWriting(
                         (w) => {w.rightToLeft = !w.rightToLeft})}>
                     {writingContext.writing.rightToLeft ?
@@ -77,16 +108,21 @@ function App() {
                 </button>
                 <button
                     onClick={() => navigator.clipboard.writeText(writingContext.writing.optimizedCharacters())}>
-                    <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
-                    <BannerFontText text={createNumber(
-                        Math.min(writingContext.writing.optimizedCharacters().length, 99)
-                            .toString().padStart(2, '0'))}/>
-                    <BannerFontText text='󏿷󏿷'/>
-                    <BannerFontText text={createNumber('50')}/>
+                    <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
+                    <div className='AppAnvilDetails'>
+                        <BannerFontText text=''/>
+                        <BannerFontText text={createNumber(
+                            Math.min(writingContext.writing.optimizedCharacters().length, 99)
+                                .toString().padStart(2, '0'))}/>
+                        <BannerFontText text='󏿷󏿷'/>
+                        <BannerFontText text={createNumber('50')}/>
+                    </div>
                 </button>
             </div>
             <ForceSize className='AppWritingComponent'>
-                <WritingComponent/>
+                <div className='AppScreenshotZone ForceSize' ref={screenshotRef}>
+                    <WritingComponent/>
+                </div>
             </ForceSize>
             <div className='AppBannerSelect'>
                 <ForceSize className='AppFullBannerEditor'>

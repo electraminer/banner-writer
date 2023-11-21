@@ -39,8 +39,8 @@ export default function SavedWritings() {
                             Writing.fromCharacters(text.characters).slice().reverse()
                         :
                             Writing.fromCharacters(text.characters)
-                        ).map((banner, i) =>
-                            <BannerButton banner={banner} key={i}
+                        ).map((banner, j) =>
+                            <BannerButton banner={banner} key={j}
                                 onLeftClick={() => writingContext.addBanner(banner)}
                                 onRightClick={() => bannerContext.setBanner(banner)}/>
                         )}

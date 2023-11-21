@@ -5,9 +5,9 @@ import Writing from "model/Writing"
 
 export default function BannerFontText({text}) {
     return (
-        <div class='BannerFontText'>
+        <div className='BannerFontText'>
             {Writing.fromCharacters(text).map((banner, i) =>
-                <BannerComponent banner={banner} id={i}></BannerComponent>
+                <BannerComponent banner={banner} key={i}></BannerComponent>
             )}
         </div>
     );
