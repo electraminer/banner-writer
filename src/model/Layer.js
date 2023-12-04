@@ -1,7 +1,7 @@
-import {immerable} from 'immer';
+const Immer = require("immer");
 
-export default class Layer {
-    [immerable] = true;
+module.exports = class Layer {
+    [Immer.immerable] = true;
 
     constructor(color, pattern) {
         this.color = color;

@@ -41,13 +41,13 @@
     }
 
     .WCSize_2 > *, .WCSize_3 > *, .WCSize_4 > * {
-        height: 25%;
+        height: 50%;
     }
 
     .WCSize_3, .WCSize_4 {
         overflow-y: scroll;
     }
-}
+} 
 
 .WCCursor {
     width: 3px;

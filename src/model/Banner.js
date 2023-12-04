@@ -1,12 +1,12 @@
-import Layer from './Layer.js';
-import Writing from './Writing.js';
+const Layer = require("./Layer.js");
+const Writing = require("./Writing.js");
 
-import {immerable} from 'immer';
+const Immer = require("immer");
 
 const MAX_LAYERS = 6;
 
-export default class Banner {
-    [immerable] = true;
+module.exports = class Banner {
+    [Immer.immerable] = true;
 
     constructor(background, ...layers) {
         this.background = background;
