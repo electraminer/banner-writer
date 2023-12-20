@@ -1,5 +1,6 @@
 {
   "name": "banner-writer",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,6 +12,7 @@
     "firebase": "^10.6.0",
     "helmet": "^7.1.0",
     "html2canvas": "^1.4.1",
+    "immer": "^10.0.3",
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
@@ -42,5 +44,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.5",
+    "@babel/preset-env": "^7.23.5",
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/jest": "^29.5.11",
+    "babel-jest": "^29.7.0",
+    "ts-jest": "^29.1.1"
   }
 }

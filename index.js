@@ -1,7 +1,7 @@
-const Express = require("express");
-const Canvas = require("canvas");
-const Writing = require("./src/model/Writing.js");
-const Helmet = require("helmet");
+import Writing from "./src/model/Writing.js";
+
+import Express from "express";
+import Canvas from "canvas";
 
 const app = Express();
 
