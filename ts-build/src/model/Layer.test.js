@@ -15,6 +15,32 @@ test("Test fetching URL path to dynamically served Layer textures.", function ()
     expect(LAYER.imagePath())
         .toBe("/.png"); // E631
 });
+test("Test /getbannercode encoding of Layers.", function () {
+    expect(BG_LAYER.toCode())
+        .toBe("b0");
+    expect(LAYER.toCode())
+        .toBe("dls14");
+});
+test("Test /getbannercode decoding of Layers.", function () {
+    expect(Layer_1.default.fromCode("b0dls14"))
+        .toStrictEqual([BG_LAYER, 2]);
+    expect(Layer_1.default.fromCode("b0dls14", 2))
+        .toStrictEqual([LAYER, 7]);
+});
+test("Test /getbannercode decoding of Layers fails on invalid codes.", function () {
+    expect(function () { return Layer_1.default.fromCode("invalid0"); })
+        .toThrow(Error);
+    expect(function () { return Layer_1.default.fromCode("b16"); })
+        .toThrow(Error);
+});
+test("Test /getbannercode decoding of Layers fails on missing color.", function () {
+    expect(function () { return Layer_1.default.fromCode("b"); })
+        .toThrow(Error);
+});
+test("Test /getbannercode decoding of Layers fails on empty string.", function () {
+    expect(function () { return Layer_1.default.fromCode(""); })
+        .toThrow(Error);
+});
 test("Test BannerFont encoding of Layers.", function () {
     expect(BG_LAYER.toString())
         .toBe(""); // E000
@@ -22,8 +48,6 @@ test("Test BannerFont encoding of Layers.", function () {
         .toBe(""); // E631
 });
 test("Test BannerFont decoding of Layers.", function () {
-    expect(Layer_1.default.fromString("")) // E000
-        .toStrictEqual([BG_LAYER, 1]);
     expect(Layer_1.default.fromString("󏿷")) // E000 CFFF9 E631
         .toStrictEqual([BG_LAYER, 1]);
     expect(Layer_1.default.fromString("󏿷", 3)) // E000 CFFF9 E631

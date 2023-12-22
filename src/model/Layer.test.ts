@@ -20,6 +20,37 @@ test("Test fetching URL path to dynamically served Layer textures.", () => {
         .toBe("/.png"); // E631
 });
 
+test("Test /getbannercode encoding of Layers.", () => {
+    expect(BG_LAYER.toCode())
+        .toBe("b0");
+    expect(LAYER.toCode())
+        .toBe("dls14");
+})
+
+test("Test /getbannercode decoding of Layers.", () => {
+    expect(Layer.fromCode("b0dls14"))
+        .toStrictEqual([BG_LAYER, 2]);
+    expect(Layer.fromCode("b0dls14", 2))
+        .toStrictEqual([LAYER, 7]);
+})
+
+test("Test /getbannercode decoding of Layers fails on invalid codes.", () => {
+    expect(() => Layer.fromCode("invalid0"))
+        .toThrow(Error);
+    expect(() => Layer.fromCode("b16"))
+        .toThrow(Error);
+})
+
+test("Test /getbannercode decoding of Layers fails on missing color.", () => {
+    expect(() => Layer.fromCode("b"))
+        .toThrow(Error);
+})
+
+test("Test /getbannercode decoding of Layers fails on empty string.", () => {
+    expect(() => Layer.fromCode(""))
+        .toThrow(Error);
+})
+
 test("Test BannerFont encoding of Layers.", () => {
     expect(BG_LAYER.toString())
         .toBe(""); // E000
@@ -28,8 +59,6 @@ test("Test BannerFont encoding of Layers.", () => {
 });
 
 test("Test BannerFont decoding of Layers.", () => {
-    expect(Layer.fromString("")) // E000
-        .toStrictEqual([BG_LAYER, 1]);
     expect(Layer.fromString("󏿷")) // E000 CFFF9 E631
         .toStrictEqual([BG_LAYER, 1]);
     expect(Layer.fromString("󏿷", 3)) // E000 CFFF9 E631

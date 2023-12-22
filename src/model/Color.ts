@@ -22,3 +22,24 @@ const enum Color {
 
 export default Color;
 export const NUM_COLORS = 16;
+
+const COLOR_CODES = [
+    0, 8, 7, 15, 4, 1, 14, 12,
+    5, 13, 3, 9, 11, 6, 2, 10,
+];
+export function toColorCode(color: Color): number {
+    return COLOR_CODES[color];
+}
+
+const REVERSE_COLOR_CODES = {};
+for (let color = 0; color < NUM_COLORS; color++) {
+    const value = COLOR_CODES[color as Color];
+    REVERSE_COLOR_CODES[value] = color as Color;
+}
+export function fromColorCode(code: number): Color {
+    let color = REVERSE_COLOR_CODES[code];
+    if (color == undefined) {
+        throw new Error(`${code} is not a valid Color code.`);
+    }
+    return color;
+}

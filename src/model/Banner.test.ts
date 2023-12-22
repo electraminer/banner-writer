@@ -6,10 +6,10 @@ import Pattern from "./Pattern";
 
 const BANNER = new Banner(
     Color.WHITE,
-    new Layer(Color.RED, Pattern.LEFT_SIDE),
-    new Layer(Color.RED, Pattern.HORIZONTAL_LINE),
-    new Layer(Color.RED, Pattern.RIGHT_SIDE),
-    new Layer(Color.RED, Pattern.TOP_SIDE),
+    new Layer(Color.RED, Pattern.LEFT_STRIPE),
+    new Layer(Color.RED, Pattern.HORIZONTAL_STRIPE),
+    new Layer(Color.RED, Pattern.RIGHT_STRIPE),
+    new Layer(Color.RED, Pattern.TOP_STRIPE),
     new Layer(Color.WHITE, Pattern.SQUARE_BORDER),
 );
 
@@ -17,6 +17,42 @@ test("Test fetching URL path to Banner textures.", () => {
     expect(BANNER.imagePath())
         .toBe("/󏿷󏿷󏿷󏿷󏿷.png"); // [BANNER]
 });
+
+
+
+test("Test /getbannercode encoding of Banners.", () => {
+    expect(BANNER.toCode())
+        .toBe("b0ls14ms14rs14ts14bo0");
+})
+
+test("Test /getbannercode decoding of Banners.", () => {
+    expect(Banner.fromCode("b0ls14ms14rs14ts14bo0 b0dls14"))
+        .toStrictEqual([BANNER, 21]);
+    expect(Banner.fromCode("b0dls14 b0ls14ms14rs14ts14bo0", 8))
+        .toStrictEqual([BANNER, 29]);
+})
+
+test("Test /getbannercode decoding of Banners fails on invalid codes.", () => {
+    expect(() => Banner.fromCode("b0invalid0"))
+        .toThrow(Error);
+    expect(() => Banner.fromCode("b16"))
+        .toThrow(Error);
+})
+
+test("Test /getbannercode decoding of Banners fails on no background.", () => {
+    expect(() => Banner.fromCode("ls14ms14rs14ts14bo0"))
+        .toThrow(Error);
+})
+
+test("Test /getbannercode decoding of Banners fails on missing color.", () => {
+    expect(() => Banner.fromCode("b0b"))
+        .toThrow(Error);
+})
+
+test("Test /getbannercode decoding of Banners fails on empty string.", () => {
+    expect(() => Banner.fromCode(""))
+        .toThrow(Error);
+})
 
 test("Test BannerFont encoding of Banners.", () => {
     expect(BANNER.toString())
@@ -35,17 +71,22 @@ test("Test BannerFont decoding of Banners fails on non-BannerFont.", () => {
         .toThrow(Error);
 });
 
-test("Test BannerFont decoding of Banners fails with two backspaces.", () => {
+test("Test BannerFont decoding of Banners fails on two backspaces.", () => {
     expect(() => Banner.fromString("󏿷󏿷")) // E000 CFFF9 CFFF9 E631
         .toThrow(Error);
 });
 
-test("Test BannerFont decoding of Banners fails with no background.", () => {
+test("Test BannerFont decoding of Banners fails on no background.", () => {
     expect(() => Banner.fromString("󏿷")) // E631 CFFF9 E631
         .toThrow(Error);
 });
 
-test("Test BannerFont decoding of Banners fails with terminating string.", () => {
+test("Test BannerFont decoding of Banners fails on terminating string.", () => {
     expect(() => Banner.fromString("󏿷")) // E000 CFFF9
         .toThrow(Error);
 });
+
+test("Test BannerFont decoding of Banners fails on empty string.", () => {
+    expect(() => Banner.fromString(""))
+        .toThrow(Error);
+})
