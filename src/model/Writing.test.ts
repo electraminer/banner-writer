@@ -1,14 +1,11 @@
-import Banner from "./Banner";
-// Internal dependencies
-import Layer from "./Layer";
-import Color from "./Color";
-import Pattern from "./Pattern";
 import Writing from "./Writing";
+// Internal dependencies
+import Banner from "./Banner";
 
 const BANNER_A = Banner.fromString("󏿷󏿷󏿷󏿷󏿷")[0];
 const BANNER_B = Banner.fromString("󏿷󏿷󏿷󏿷󏿷󏿷")[0];
 const BANNER_C = Banner.fromString("󏿷󏿷󏿷󏿷")[0];
-''
+
 const ONE_LINE = new Writing(
     false,
     [BANNER_A, BANNER_B, BANNER_C],
@@ -120,4 +117,14 @@ test("Test BannerFont decoding of Writings fails with non-BannerFont characters.
     expect(() => Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷abc󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
             // E00F [BANNER_A] 20 [BANNER_B] [BANNER_C] abc [BANNER_A] [BANNER_B] 20 [BANNER_C] E00A
         .toThrow(Error);
+})
+
+test("Test optimized BannerFont encoding of writing works.", () => {
+    expect(ONE_LINE.toOptimizedString())
+        .toBe("󏿥󏿥󏿥󏿥󏿥󏿷");
+    expect(MULTI_LINE.toOptimizedString())
+        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷\n󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
+    expect(RIGHT_TO_LEFT.toOptimizedString())
+        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷\n󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
+    
 })

@@ -1,11 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var Banner_1 = require("./Banner");
-var Writing_1 = require("./Writing");
+var Writing_1 = __importDefault(require("./Writing"));
+// Internal dependencies
+var Banner_1 = __importDefault(require("./Banner"));
 var BANNER_A = Banner_1.default.fromString("󏿷󏿷󏿷󏿷󏿷")[0];
 var BANNER_B = Banner_1.default.fromString("󏿷󏿷󏿷󏿷󏿷󏿷")[0];
 var BANNER_C = Banner_1.default.fromString("󏿷󏿷󏿷󏿷")[0];
-'';
 var ONE_LINE = new Writing_1.default(false, [BANNER_A, BANNER_B, BANNER_C]);
 var MULTI_LINE = new Writing_1.default(false, [BANNER_A, undefined, BANNER_B, BANNER_C], [BANNER_A, BANNER_B, undefined, BANNER_C]);
 var RIGHT_TO_LEFT = new Writing_1.default(true, [BANNER_C, BANNER_B, undefined, BANNER_A], [BANNER_C, undefined, BANNER_B, BANNER_A]);
@@ -95,4 +98,12 @@ test("Test BannerFont decoding of Writings fails with non-BannerFont characters.
     expect(function () { return Writing_1.default.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷abc󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"); })
         // E00F [BANNER_A] 20 [BANNER_B] [BANNER_C] abc [BANNER_A] [BANNER_B] 20 [BANNER_C] E00A
         .toThrow(Error);
+});
+test("Test optimized BannerFont encoding of writing works.", function () {
+    expect(ONE_LINE.toOptimizedString())
+        .toBe("󏿥󏿥󏿥󏿥󏿥󏿷");
+    expect(MULTI_LINE.toOptimizedString())
+        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷\n󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
+    expect(RIGHT_TO_LEFT.toOptimizedString())
+        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷\n󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
 });

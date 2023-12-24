@@ -1,8 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var Banner_1 = require("./Banner");
+var Banner_1 = __importDefault(require("./Banner"));
 // Internal dependencies
-var Layer_1 = require("./Layer");
+var Layer_1 = __importDefault(require("./Layer"));
 var BANNER = new Banner_1.default(0 /* Color.WHITE */, new Layer_1.default(6 /* Color.RED */, 33 /* Pattern.LEFT_STRIPE */), new Layer_1.default(6 /* Color.RED */, 34 /* Pattern.HORIZONTAL_STRIPE */), new Layer_1.default(6 /* Color.RED */, 35 /* Pattern.RIGHT_STRIPE */), new Layer_1.default(6 /* Color.RED */, 36 /* Pattern.TOP_STRIPE */), new Layer_1.default(0 /* Color.WHITE */, 1 /* Pattern.SQUARE_BORDER */));
 test("Test fetching URL path to Banner textures.", function () {
     expect(BANNER.imagePath())

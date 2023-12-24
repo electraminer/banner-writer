@@ -3,5 +3,7 @@
         "baseUrl": "src",
         "outDir": "ts-build",
         "rootDir": "./",
+        "esModuleInterop": true,
+        "jsx": "react",
     },
 }

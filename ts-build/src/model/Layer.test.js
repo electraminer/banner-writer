@@ -1,6 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var Layer_1 = require("./Layer");
+var Layer_1 = __importDefault(require("./Layer"));
 var BG_LAYER = new Layer_1.default(0 /* Color.WHITE */, 0 /* Pattern.BACKGROUND */);
 var LAYER = new Layer_1.default(6 /* Color.RED */, 31 /* Pattern.FORWARD_SLASH */);
 test("Test fetching URL path to statically served Layer textures.", function () {
