@@ -11,6 +11,7 @@ import BannerFontText from 'components/BannerFontText/BannerFontText';
 import SavedWritings from 'components/SavedWritings/SavedWritings';
 import ForceSize from 'components/ForceSize/ForceSize';
 import Writing from 'model/Writing';
+import Banner from 'model/Banner';
 
 import React from 'react';
 import SavedContext from './context/SavedContext';
@@ -50,6 +51,15 @@ function App() {
                     <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
                 </a>
                 <div className='AppHeaderSpacer'/>
+                <button
+                    onClick={() => {
+                        let code = prompt('Insert /getbannercode code');
+                        if (code) {
+                            bannerContext.setBanner(Banner.fromBannerCode(code));
+                        }
+                    }}>
+                    <BannerFontText text='󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷'/>
+                </button>
                 <button
                     onClick={() => writingContext.updateWriting(
                         (w) => w.backspace())}>
