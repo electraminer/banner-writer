@@ -13,7 +13,7 @@ import ForceSize from 'components/ForceSize/ForceSize';
 import Writing from 'model/Writing';
 import Banner from 'model/Banner';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import SavedContext from './context/SavedContext';
 import html2canvas from 'html2canvas';
 
@@ -43,6 +43,18 @@ function App() {
         }
         return characters;
     }
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const characters = urlParams.get('paste');
+
+        if (!characters) return
+        writingContext.updateWriting(
+            (w) => {
+                w.banners = Writing.fromCharacters(characters, w.rightToLeft);
+            })
+    }, [])
+
     return (
         <div className='App'>
             <div className='AppHeader'>
