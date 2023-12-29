@@ -46,9 +46,11 @@ function App() {
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
-        const characters = urlParams.get('paste');
+        const characters = urlParams.get('writing');
 
-        if (!characters) return
+        if (!characters) {
+            return;
+        }
         writingContext.updateWriting(
             (w) => {
                 w.banners = Writing.fromCharacters(characters, w.rightToLeft);
