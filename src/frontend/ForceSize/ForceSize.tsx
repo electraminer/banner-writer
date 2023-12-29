@@ -1,5 +1,5 @@
 import './ForceSize.css';
-
+// External dependencies
 import React from 'react';
 
 export default function ForceSize({className, children}) {
@@ -10,7 +10,7 @@ export default function ForceSize({className, children}) {
         ref.current.style.height = null;
         const style = window.getComputedStyle(ref.current);
         const [numerator, denominator] = style.aspectRatio.split('/');
-        const aspectRatio = numerator / denominator;
+        const aspectRatio = +numerator / +denominator;
         if (style.width == '0px') {
             ref.current.style.width = (ref.current.clientHeight * aspectRatio) + 'px';
         }
