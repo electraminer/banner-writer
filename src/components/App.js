@@ -47,14 +47,15 @@ function App() {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const characters = urlParams.get('writing');
+        const rightToLeft = urlParams.get('direction') == 'rtl';
 
-        if (!characters) {
-            return;
-        }
-        writingContext.updateWriting(
-            (w) => {
-                w.banners = Writing.fromCharacters(characters, w.rightToLeft);
+        if (characters) {
+            writingContext.updateWriting((w) => {
+                w.banners = Writing.fromCharacters(characters, rightToLeft);
+                w.rightToLeft = rightToLeft;
+                w.cursor = w.banners.length;
             })
+        }
     }, [])
 
     return (
@@ -126,6 +127,7 @@ function App() {
                             const characters = prompt('Insert banner-font writing');
                             if (characters) {
                                 w.banners = Writing.fromCharacters(characters, w.rightToLeft);
+                                w.cursor = w.banners.length;
                             }
                         })}>
                     <BannerFontText text='￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷￷'/>
