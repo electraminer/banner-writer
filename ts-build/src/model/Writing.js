@@ -212,5 +212,5 @@ var Writing = /** @class */ (function () {
     };
     return Writing;
 }());
-_a = immer_1.immerable;
 exports.default = Writing;
+_a = immer_1.immerable;

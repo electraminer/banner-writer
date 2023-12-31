@@ -1,0 +1,35 @@
+.Text {
+    position: relative;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    margin: 1px;
+}
+
+.Text img {
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.Text p {
+    position: relative;
+    z-index: 1;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    font-weight: bolder;
+    text-align: center;
+    margin: 0;
+}
+
+.TextColor_White {
+    color: white;
+}
+
+.TextColor_Black {
+    color: black;
+}

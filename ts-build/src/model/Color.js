@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fromColorCode = exports.toColorCode = exports.NUM_COLORS = void 0;
+exports.contrastingColor = exports.fromColorCode = exports.toColorCode = exports.NUM_COLORS = void 0;
 exports.NUM_COLORS = 16;
 var COLOR_CODES = [
     0, 8, 7, 15, 4, 1, 14, 12,
@@ -23,3 +23,11 @@ function fromColorCode(code) {
     return color;
 }
 exports.fromColorCode = fromColorCode;
+var LIGHT_COLORS = [0 /* Color.WHITE */, 1 /* Color.LIGHT_GRAY */, 4 /* Color.YELLOW */, 5 /* Color.ORANGE */,
+    8 /* Color.LIME */, 10 /* Color.LIGHT_BLUE */, 11 /* Color.CYAN */, 13 /* Color.PINK */, 14 /* Color.MAGENTA */];
+function contrastingColor(color, dark, light) {
+    light !== null && light !== void 0 ? light : (light = 1 /* Color.LIGHT_GRAY */);
+    dark !== null && dark !== void 0 ? dark : (dark = 2 /* Color.GRAY */);
+    return LIGHT_COLORS.includes(color) ? dark : light;
+}
+exports.contrastingColor = contrastingColor;

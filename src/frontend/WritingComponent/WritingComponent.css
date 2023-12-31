@@ -1,0 +1,19 @@
+.WritingComponent {
+    display: block;
+}
+
+.WritingComponentLine {
+    display: inline-block;
+}
+
+.WritingComponentLine > .BannerComponent {
+    float: left;
+    margin: 0px;
+    width: 1.5vw;
+}
+
+@media (max-width: 782px) {
+    .WritingComponentLine > .BannerComponent  {
+        width: 3vw;
+    }
+}

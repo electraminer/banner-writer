@@ -43,3 +43,11 @@ export function fromColorCode(code: number): Color {
     }
     return color;
 }
+
+const LIGHT_COLORS = [Color.WHITE, Color.LIGHT_GRAY, Color.YELLOW, Color.ORANGE,
+    Color.LIME, Color.LIGHT_BLUE, Color.CYAN, Color.PINK, Color.MAGENTA];
+export function contrastingColor(color: Color, dark?: Color, light?: Color): Color {
+    light ??= Color.LIGHT_GRAY;
+    dark ??= Color.GRAY;
+    return LIGHT_COLORS.includes(color) ? dark : light;
+}

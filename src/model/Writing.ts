@@ -61,8 +61,8 @@ export default class Writing {
             index++;
         }
         
-        let lines = [];
-        let line = [];
+        let lines: (Banner | undefined)[][] = [];
+        let line: (Banner | undefined)[] = [];
         while (true) {
             const codePoint = str.codePointAt(index);
             // End of writing / file
@@ -126,7 +126,7 @@ export default class Writing {
         // The maximum layer count of all banners in the list.
         let maxLayer = 0;
         // The number of "skips" (extra background layers) to add to each banner.
-        let skipCounts = [];
+        let skipCounts: number[] = [];
         for (const banner of banners) {
             // Begin by adding all background layers
             str += banner.backgroundLayer().toString();
@@ -187,12 +187,12 @@ export default class Writing {
                 line = line.slice().reverse();
             }
             // split line by spaces
-            let groups = [[]];
+            let groups: Banner[][] = [[]];
             for (const banner of line) {
                 if (banner == undefined) {
                     groups.push([]);
                 } else {
-                    groups.at(-1).push(banner);
+                    groups.at(-1)!.push(banner);
                 }
             }
             // optimize groups one at a time

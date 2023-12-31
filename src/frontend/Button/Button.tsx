@@ -2,23 +2,25 @@ import './Button.css'
 // External dependencies
 import React from 'react';
 
-export default function BannerButton({children, onLeftClick, onRightClick}) {
+export default function BannerButton(props: {
+    children: React.ReactNode,
+    onLeftClick: () => void,
+    onRightClick?: () => void,
+}) {
     const onClick = function(e) {
-        onLeftClick();
+        props.onLeftClick();
     };
 
     const onContextMenu = function(e) {
-        onRightClick();
-        e.preventDefault();
+        if (props.onRightClick) {
+            props.onRightClick();
+            e.preventDefault();
+        }
     };
-
-    if (onRightClick == undefined) {
-        onRightClick = onLeftClick;
-    }
 
     return (
         <button className='Button' onClick={onClick} onContextMenu={onContextMenu}>
-            {children}
+            {props.children}
         </button>
     );
 }

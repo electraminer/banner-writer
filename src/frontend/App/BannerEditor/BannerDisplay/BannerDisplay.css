@@ -1,0 +1,20 @@
+.BannerDisplay {
+    display: flex;
+    flex-direction: column;
+}
+.BannerDisplayControls {
+    flex: 1;
+}
+
+.BannerDisplayControls {
+    display: flex;
+    flex-direction: column;
+}
+.BannerDisplayControls > * {
+    flex: 1;
+}
+
+.BannerDisplayControls .Text {
+    font-size: 1.33rem;
+    line-height: 0;
+}
