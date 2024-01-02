@@ -30,10 +30,10 @@
 .AppHeader > button {
     background-color: transparent;
     display: flex;
-    height: 20px;
+    height: 40px;
 }
 
-@media (max-width: 782px) {
+@media (max-aspect-ratio: 1/1) {
     .AppAnvilDetails {
         visibility: hidden;
         width: 0px;
@@ -48,7 +48,7 @@
     background-color: #282c34;
 }
 
-@media (max-width: 782px) {
+@media (max-aspect-ratio: 4/3) {
     .AppWritingComponent {
         aspect-ratio: 8/4;
     }
@@ -62,7 +62,7 @@
 }
 
 
-@media (max-width: 782px) {
+@media (max-aspect-ratio: 1/1) {
     .AppBannerSelect {
         flex-direction: column;
         overflow-y: scroll
@@ -104,7 +104,7 @@
     flex: 1;
 }
 
-@media (max-width: 782px) {
+@media (max-aspect-ratio: 1/1) {
     .AppRecentBanners {
         aspect-ratio: 12/4;
     }

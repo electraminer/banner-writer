@@ -8,7 +8,7 @@
     width: 1.5vw;
 }
 
-@media (max-width: 782px) {
+@media (max-aspect-ratio: 1/1) {
     .BannerFontText > .BannerComponent  {
         width: 3vw;
     }

@@ -34,7 +34,7 @@
     height: 33.3%;
 }
 
-@media (max-width: 782px) {
+@media (max-aspect-ratio: 4/3) {
     
     .WCSize_1 > * {
         height: 50%;
