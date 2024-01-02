@@ -1,6 +1,5 @@
 // Internal dependencies
-import Writing from "./model/Writing";
-import renderImage from "./image/RenderImage";
+import loadImage from "./image/LoadImage";
 // External dependencies
 import Express from "express";
 
@@ -10,13 +9,13 @@ app.use('/', Express.static('build'));
 
 app.get("/:bannerfont", async (req, res, next) => {
     const bannerfont = req.params.bannerfont;
-    let writing = undefined;
+    let canvas = undefined;
+    console.log("test");
     try {
-        [writing] = Writing.fromString(bannerfont);
+        canvas = await loadImage(bannerfont);
     } catch {
         return next();
     }
-    const canvas = await renderImage(writing);
 
     res.writeHead(200, {
         "Content-Type": "image/png",
@@ -24,6 +23,6 @@ app.get("/:bannerfont", async (req, res, next) => {
     res.end(canvas.toBuffer("image/png"));
 });
 
-app.listen(3000, () => {
+app.listen(80, () => {
     console.log("Server is active");
 });
