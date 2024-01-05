@@ -1,0 +1,67 @@
+.WritingEditor {
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    align-content: start;
+}
+.WritingEditorSize_1 > * {
+    height: 99%;
+    width: 6.25%;
+}
+.WritingEditorSize_2 > * {
+    height: 48.5%;
+    width: 3.125%;
+}
+.WritingEditorSize_3 > * {
+    height: 33%;
+    width: 2.0833%;
+}
+.WritingEditorSize_4 > * {
+    height: 24.75%;
+    width: 1.5625%;
+}
+.WritingEditor > .WritingEditorCursorEndHitbox {
+    flex: 1;
+    min-width: 1px;
+}
+.WritingEditor > .WritingEditorNewline {
+    width: 100%;
+    height: 0px;
+}
+
+.WritingEditorDirection_LeftToRight {
+    flex-direction: row;
+}
+
+.WritingEditorDirection_RightToLeft {
+    flex-direction: row-reverse;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .WritingEditorSize_1 > * {
+        height: 48.5%;
+        width: 12.5%;
+    }
+    .WritingEditorSize_2 > *, .WritingEditorSize_3 > *, .WritingEditorSize_4 > * {
+        height: 24.75%;
+        width: 6.25%;
+    }
+}
+
+.WritingEditorCursor {
+    width: 3px;
+    margin: 1px;
+    animation-name: cursor;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes cursor {
+    0%  {background-color: white;}
+    1%  {background-color: transparent;}
+    50% {background-color: transparent;}
+    51% {background-color: white;}
+    100% {background-color: white;}
+}

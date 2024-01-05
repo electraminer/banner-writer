@@ -25,13 +25,13 @@ const RIGHT_TO_LEFT = new Writing(
 
 test("Test fetching URL path to Writing textures.", () => {
     expect(ONE_LINE.imagePath())
-        .toBe("/󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷.png");
+        .toBe("/image/󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷.png");
             // E00E [BANNER_A] [BANNER_B] [BANNER_C] E00A
     expect(MULTI_LINE.imagePath())
-        .toBe("/󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷.png");
+        .toBe("/image/󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷.png");
             // E00E [BANNER_A] 20 [BANNER_B] [BANNER_C] 0A [BANNER_A] [BANNER_B] 20 [BANNER_C] E00A
     expect(RIGHT_TO_LEFT.imagePath())
-        .toBe("/󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷.png");
+        .toBe("/image/󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷.png");
             // E00F [BANNER_A] 20 [BANNER_B] [BANNER_C] 0A [BANNER_A] [BANNER_B] 20 [BANNER_C] E00A
 });
 

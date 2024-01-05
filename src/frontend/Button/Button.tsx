@@ -1,9 +1,10 @@
-import './Button.css'
+import "./Button.css"
 // External dependencies
-import React from 'react';
+import React from "react";
 
 export default function BannerButton(props: {
     children: React.ReactNode,
+    className?: string,
     onLeftClick: () => void,
     onRightClick?: () => void,
 }) {
@@ -19,7 +20,9 @@ export default function BannerButton(props: {
     };
 
     return (
-        <button className='Button' onClick={onClick} onContextMenu={onContextMenu}>
+        <button className={`${props.className} Button`}
+            onClick={onClick}
+            onContextMenu={onContextMenu}>
             {props.children}
         </button>
     );

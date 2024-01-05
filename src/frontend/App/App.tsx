@@ -1,52 +1,52 @@
 import "./App.css";
 // Internal dependencies
-import WritingComponent from "../WritingComponent/WritingComponent";
 import BannerEditor from "frontend/App/BannerEditor/BannerEditor";
 import ForceSize from "../ForceSize/ForceSize";
 import Writing from "../../model/Writing";
 // External dependencies
 import React from "react";
 import { BannerContextProvider } from "./BannerContext";
+import RecentBanners from "./RecentBanners/RecentBanners";
+import { RecentContextProvider } from "./RecentContext";
+import { SavedContextProvider } from "./SavedContext";
+import { WritingContextProvider } from "./WritingContext";
+import WritingEditor from "./WritingEditor/WritingEditor";
+import TitleBar from "./TitleBar/TitleBar";
 
 function App() {
     return (
         <BannerContextProvider>
+        <RecentContextProvider>
+        <SavedContextProvider>
+        <WritingContextProvider>
             <div className="App">
-                <div className="AppHeader">
-                    <div/>
-                </div>
+                <ForceSize className="AppTitleBar">
+                    <TitleBar/>
+                </ForceSize>
                 <ForceSize className="AppWritingEditor">
-                    <div/>
+                    <WritingEditor/>
                 </ForceSize>
                 <div className="AppBannerSelect">
-                    <ForceSize className="AppBannerEditor">
-                        <BannerEditor/>
+                    <ForceSize className="AppBannerEditorSection">
+                        <div className="AppSection">
+                            <ForceSize className="AppBannerEditor">
+                                <BannerEditor/>
+                            </ForceSize>
+                        </div>
                     </ForceSize>
-                    <div className="AppHistorySection">
-                        <div className="AppHeader">
-                            <WritingComponent writing={
-                                Writing.fromString("󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷")[0]
-                            }/>
-                        </div>
+                    <div className="AppSection">
                         <ForceSize className="AppRecentBanners">
-                            <div/>
+                            <RecentBanners/>
                         </ForceSize>
-                        <div className="AppHeader">
-                            <WritingComponent writing={
-                                Writing.fromString("󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷")[0]
-                            }/>
-                            <div className="AppHeaderSpacer"/>
-                            {/* <button onClick={() => savedContext.addWriting(0,
-                                writingContext.writing.rightToLeft, writingContext.writing.characters())}>
-                                <BannerFontText text="󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷"/>
-                            </button> */}
-                        </div>
                         <ForceSize className="AppSavedWritings">
                             <div/>
                         </ForceSize>
                     </div>
                 </div>
             </div>
+        </WritingContextProvider>
+        </SavedContextProvider>
+        </RecentContextProvider>
         </BannerContextProvider>
     );
 }

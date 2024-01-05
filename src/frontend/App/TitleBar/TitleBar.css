@@ -1,0 +1,39 @@
+.TitleBar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.TitleBar > * {
+    height: calc(100% - 2px);
+    margin: 1px 5px;
+}
+.TitleBar > .TitleBarSpacer {
+    flex: 1;
+}
+
+.TitleBar .Button, .TitleBar a {
+    aspect-ratio: 5 / 2;
+}
+
+.TitleBarAnvilDetails {
+    visibility: hidden;
+    position: relative;
+    z-index: 1;
+}
+.Button:hover > .TitleBarAnvilDetails {
+    visibility: visible;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .TitleBar > .TitleBarSpacer {
+        flex: none;
+        width: 100%;
+        height: 0;
+    }
+
+    .TitleBar > * {
+        height: calc(50% - 2px);
+        margin: 1px 5px;
+    }
+}

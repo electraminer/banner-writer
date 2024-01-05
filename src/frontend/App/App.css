@@ -6,49 +6,19 @@
     flex-direction: column;
 }
 
-.AppHeader {
-    display: flex;
-    flex-wrap: wrap;
-
-    color: white;
-    margin: 0px 10px;
-}
-
-.App > .AppHeader { 
-    justify-content: space-evenly;
-}
-
-.AppHeaderSpacer {
-    flex: 1;
-}
-
-.AppHeader > * {
-    margin: 5px;
-    border: 0;
-    padding: 0;
-}
-.AppHeader > button {
-    background-color: transparent;
-    display: flex;
-    height: 20px;
-}
-
-@media (max-width: 782px) {
-    .AppAnvilDetails {
-        visibility: hidden;
-        width: 0px;
-    }
+.AppTitleBar {
+    aspect-ratio: 56/2;
 }
 
 .AppWritingEditor {
     aspect-ratio: 16/2;
 }
 
-.AppScreenshotZone {
-    background-color: #282c34;
-}
+@media (max-aspect-ratio: 1/1) {
+    .AppTitleBar {
+        aspect-ratio: 28/4;
+    }
 
-@media (max-width: 782px) {
     .AppWritingEditor {
         aspect-ratio: 8/4;
     }
@@ -62,7 +32,7 @@
 }
 
 
-@media (max-width: 782px) {
+@media (max-aspect-ratio: 1/1) {
     .AppBannerSelect {
         flex-direction: column;
         overflow-y: scroll
@@ -74,7 +44,12 @@
     /* min-height: 100%; */
 }
 
-.AppHistorySection {
+.AppBannerEditorSection {
+    aspect-ratio: 16/12;
+    /* min-height: 100%; */
+}
+
+.AppSection {
     flex: 1;
 
     display: flex;
@@ -83,14 +58,15 @@
 }
 
 .AppRecentBanners {
-    aspect-ratio: 20/4;
+    aspect-ratio: 17/5.5;
+    max-height: 33%;
 }
 
 .AppSavedWritings {
     flex: 1;
 }
 
-@media (max-width: 782px) {
+@media (max-aspect-ratio: 1/1) {
     .AppRecentBanners {
         aspect-ratio: 12/4;
     }

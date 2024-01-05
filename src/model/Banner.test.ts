@@ -15,7 +15,7 @@ const BANNER = new Banner(
 
 test("Test fetching URL path to Banner textures.", () => {
     expect(BANNER.imagePath())
-        .toBe("/󏿷󏿷󏿷󏿷󏿷.png"); // [BANNER]
+        .toBe("/image/󏿷󏿷󏿷󏿷󏿷.png"); // [BANNER]
 });
 
 

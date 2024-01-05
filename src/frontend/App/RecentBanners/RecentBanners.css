@@ -1,0 +1,34 @@
+.RecentBanners {
+    display: flex;
+    flex-direction: column;
+}
+.RecentBanners > .RecentBannersHeader {
+    flex: 1.5
+}
+.RecentBanners > .RecentBannersScrollBox {
+    flex: 4
+}
+
+.RecentBannersHeader {
+    margin: 1px 5px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+.RecentBannersHeader > .Text {
+    height: 100%;
+}
+
+.RecentBannersScrollBox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    align-content: start;
+}
+.RecentBannersScrollBox > * {
+    aspect-ratio: 1/2;
+    height: 50%;
+}

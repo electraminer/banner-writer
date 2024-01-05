@@ -32,7 +32,7 @@ class Layer {
 
     /** Returns the URL path to an image of this Layer. */
     imagePath(): string {
-        return `/${this.toString()}.png`;
+        return `/image/${this.toString()}.png`;
     }
 
     /** Returns the /getbannercode code which encodes this Layer. */

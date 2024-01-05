@@ -34,7 +34,7 @@ class Banner {
 
     /** Returns the URL path to an image of this Banner. */
     imagePath(): string {
-        return `/${this.toString()}.png`;
+        return `/image/${this.toString()}.png`;
     }
 
     

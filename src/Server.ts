@@ -7,7 +7,7 @@ const app = Express();
 
 app.use('/', Express.static('build'));
 
-app.get("/:bannerfont", async (req, res, next) => {
+app.get("/image/:bannerfont", async (req, res, next) => {
     const bannerfont = req.params.bannerfont;
     let canvas = undefined;
     console.log("test");
@@ -23,6 +23,6 @@ app.get("/:bannerfont", async (req, res, next) => {
     res.end(canvas.toBuffer("image/png"));
 });
 
-app.listen(80, () => {
+app.listen(3000, () => {
     console.log("Server is active");
 });

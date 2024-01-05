@@ -15,9 +15,9 @@ test("Test fetching URL path to statically served Layer textures.", () => {
 
 test("Test fetching URL path to dynamically served Layer textures.", () => {
     expect(BG_LAYER.imagePath())
-        .toBe("/.png"); // E000
+        .toBe("/image/.png"); // E000
     expect(LAYER.imagePath())
-        .toBe("/.png"); // E631
+        .toBe("/image/.png"); // E631
 });
 
 test("Test /getbannercode encoding of Layers.", () => {

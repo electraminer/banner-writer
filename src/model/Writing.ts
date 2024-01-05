@@ -24,7 +24,7 @@ export default class Writing {
 
     /** Returns the URL path to an image of this Writing. */
     imagePath(): string {
-        return `/${this.toString()}.png`;
+        return `/image/${this.toString()}.png`;
     }
 
     /** Returns the BannerFont string which encodes this Writing. */
