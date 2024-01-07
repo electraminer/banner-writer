@@ -12,8 +12,9 @@ export default async function loadLayer(layer: Layer): Promise<Image> {
         console.log(`Found layer image in cache`);
         return LAYER_CACHE[path];
     }
-    console.log(`Could not find in cache, loading from filesystem`);
-    const image = await loadImage("./build" + path);
+    console.log(`Could not find in cache, loading ${path} from filesystem`);
+    const image = await loadImage(`https://banner-writer.web.app${path}`);
+    console.log(`Loaded image`);
     LAYER_CACHE[path] = image;
     return image;
 }

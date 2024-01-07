@@ -2,10 +2,11 @@
 import loadImage from "./image/LoadImage";
 // External dependencies
 import Express from "express";
+import path from "path";
 
-const app = Express();
+const server = Express();
 
-app.get("/image/:bannerfont", async (req, res, next) => {
+server.get("/image/:bannerfont", async (req, res, next) => {
     const bannerfont = req.params.bannerfont;
     let canvas = undefined;
     console.log("test");
@@ -21,11 +22,10 @@ app.get("/image/:bannerfont", async (req, res, next) => {
     res.end(canvas.toBuffer("image/png"));
 });
 
-app.use('/', Express.static('build'));
+server.use('/', Express.static('build'));
 
-app.use("/", (req, res) => {
-    const basePath = __dirname.replace(/\\ts-build\\src$/, "");
-    res.sendFile(`${basePath}/build/index.html`);
+server.use("/", (req, res) => {
+    res.sendFile(path.resolve(`${__dirname}/../../../build/index.html`));
 });
 
-export default app;
+export default server;
