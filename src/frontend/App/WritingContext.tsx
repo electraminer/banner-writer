@@ -23,10 +23,16 @@ export function WritingContextProvider(props: {children: React.ReactNode}) {
         setCursorPos(cursorPos);
     }
 
-    const setWritingAndCursor = function(writing: Writing) {
+    const setWritingAndCursor = function(writing: Writing, save?: boolean) {
+        save ??= true;
+
         setWriting(writing);
 
         setCursor(writing.lines.length - 1, writing.lines[writing.lines.length - 1].length);
+    
+        if (save) {
+            savedContext.updateSelected(writing);
+        }
     }
 
     const updateWriting = function(update: (writing: Writing) => void) {

@@ -1,0 +1,57 @@
+.SavedWritings {
+    display: flex;
+    flex-direction: column;
+}
+.SavedWritings > .SavedWritingsHeader {
+    flex: 1.5
+}
+.SavedWritings > .SavedWritingsScrollBox {
+    flex: 10
+}
+
+.SavedWritingsHeaderArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.SavedWritingsHeaderArea > * {
+    height: calc(100% - 4px);
+    margin: 2px 5px;
+}
+.SavedWritingsHeaderArea > .Button {
+    aspect-ratio: 1/2;
+}
+.SavedWritingsHeaderArea > .Button > * {
+    margin: 0;
+}
+
+.SavedWritingsScrollBox {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    align-content: start;
+}
+
+.SavedWritingsWriting {
+    display: flex;
+    flex-direction: row;
+}
+.SavedWritingsWriting > .SavedWritingsText {
+    flex: 20;
+}
+.SavedWritingsWriting > .SavedWritingsControls {
+    flex: 6;
+}
+
+.SavedWritingsControls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+.SavedWritingsControls > * {
+    flex: 1;
+}
+.SavedWritingsControls > .SavedWritingsSelectButton {
+    flex: 3.7;
+}

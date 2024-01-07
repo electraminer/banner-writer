@@ -5,8 +5,6 @@ import Express from "express";
 
 const app = Express();
 
-app.use('/', Express.static('build'));
-
 app.get("/image/:bannerfont", async (req, res, next) => {
     const bannerfont = req.params.bannerfont;
     let canvas = undefined;
@@ -23,6 +21,11 @@ app.get("/image/:bannerfont", async (req, res, next) => {
     res.end(canvas.toBuffer("image/png"));
 });
 
-app.listen(3000, () => {
-    console.log("Server is active");
+app.use('/', Express.static('build'));
+
+app.use("/", (req, res) => {
+    const basePath = __dirname.replace(/\\ts-build\\src$/, "");
+    res.sendFile(`${basePath}/build/index.html`);
 });
+
+export default app;

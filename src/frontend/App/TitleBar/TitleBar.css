@@ -3,13 +3,15 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
-.TitleBar > * {
-    height: calc(100% - 2px);
-    margin: 1px 5px;
+.TitleBar > .Text, .TitleBar > .Button, .TitleBar > a {
+    height: calc(100% - 4px);
+    margin: 2px 5px;
 }
 .TitleBar > .TitleBarSpacer {
     flex: 1;
+}
+.TitleBar > .Button > * {
+    margin: 0;
 }
 
 .TitleBar .Button, .TitleBar a {
@@ -32,7 +34,7 @@
         height: 0;
     }
 
-    .TitleBar > * {
+    .TitleBar > .Text, .TitleBar > .Button, .TitleBar > a {
         height: calc(50% - 2px);
         margin: 1px 5px;
     }

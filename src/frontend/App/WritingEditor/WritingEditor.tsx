@@ -32,7 +32,6 @@ export default function WritingEditor() {
         <div className={`WritingEditor WritingEditorDirection_${dir} WritingEditorSize_${size}`}>
             {writingContext.writing.lines.map((line, i) =>
                 <>
-                    {/* <div className='WritingEditorLine' key={i}> */}
                     {line.map((banner, j) =>
                         <>
                             {writingContext.cursor[0] == i && writingContext.cursor[1] == j &&
@@ -57,7 +56,6 @@ export default function WritingEditor() {
                         <div/>
                     </Button>
                     <div className="WritingEditorNewline"/>
-                    {/* </div> */}
                 </>
             )}
         </div>

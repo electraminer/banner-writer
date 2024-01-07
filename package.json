@@ -22,10 +22,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "tsc & react-scripts build && node ts-build/src/Server.js",
-    "build": "tsc & react-scripts build",
-    "test": "tsc & jest js",
-    "eject": "react-scripts eject"
+    "start": "tsc & react-app-rewired build && node ts-build/src/backend/index.js",
+    "build": "tsc & react-app-rewired build",
+    "test": "tsc & jest js"
   },
   "eslintConfig": {
     "extends": [

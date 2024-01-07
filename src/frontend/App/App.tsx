@@ -1,17 +1,17 @@
 import "./App.css";
 // Internal dependencies
-import BannerEditor from "frontend/App/BannerEditor/BannerEditor";
-import ForceSize from "../ForceSize/ForceSize";
-import Writing from "../../model/Writing";
-// External dependencies
-import React from "react";
-import { BannerContextProvider } from "./BannerContext";
+import TitleBar from "./TitleBar/TitleBar";
+import BannerEditor from "./BannerEditor/BannerEditor";
 import RecentBanners from "./RecentBanners/RecentBanners";
+import SavedWritings from "./SavedWritings/SavedWritings";
+import WritingEditor from "./WritingEditor/WritingEditor";
+import { WritingContextProvider } from "./WritingContext";
 import { RecentContextProvider } from "./RecentContext";
 import { SavedContextProvider } from "./SavedContext";
-import { WritingContextProvider } from "./WritingContext";
-import WritingEditor from "./WritingEditor/WritingEditor";
-import TitleBar from "./TitleBar/TitleBar";
+import { BannerContextProvider } from "./BannerContext";
+import ForceSize from "frontend/ForceSize/ForceSize";
+// External dependencies
+import React from "react";
 
 function App() {
     return (
@@ -27,20 +27,22 @@ function App() {
                     <WritingEditor/>
                 </ForceSize>
                 <div className="AppBannerSelect">
-                    <ForceSize className="AppBannerEditorSection">
-                        <div className="AppSection">
-                            <ForceSize className="AppBannerEditor">
-                                <BannerEditor/>
+                    <div className="AppBannerSelectScrollBox">
+                        <ForceSize className="AppBannerEditorSection">
+                            <div className="AppSection">
+                                <ForceSize className="AppBannerEditor">
+                                    <BannerEditor/>
+                                </ForceSize>
+                            </div>
+                        </ForceSize>
+                        <div className="AppSection AppHistorySection">
+                            <ForceSize className="AppRecentBanners">
+                                <RecentBanners/>
+                            </ForceSize>
+                            <ForceSize className="AppSavedWritings">
+                                <SavedWritings/>
                             </ForceSize>
                         </div>
-                    </ForceSize>
-                    <div className="AppSection">
-                        <ForceSize className="AppRecentBanners">
-                            <RecentBanners/>
-                        </ForceSize>
-                        <ForceSize className="AppSavedWritings">
-                            <div/>
-                        </ForceSize>
                     </div>
                 </div>
             </div>

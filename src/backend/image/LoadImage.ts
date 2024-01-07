@@ -1,6 +1,6 @@
 // Internal dependencies
 import renderImage from "./RenderImage";
-import Writing from "../model/Writing";
+import Writing from "../../model/Writing";
 // External dependencies
 import { Canvas } from "canvas";
 

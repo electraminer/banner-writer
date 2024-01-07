@@ -1,6 +1,6 @@
 // Internal dependencies
 import loadLayer from "./LoadLayer";
-import Writing from "../model/Writing";
+import Writing from "../../model/Writing";
 // External dependencies
 import { Canvas, createCanvas } from "canvas";
 
@@ -36,10 +36,14 @@ export default async function renderImage(writing: Writing): Promise<Canvas> {
                 const image = await loadLayer(layer);
                 ctx.drawImage(
                     image,
-                    RENDER_IMAGE_MARGIN + (RENDER_IMAGE_SIZE + RENDER_IMAGE_MARGIN) * x,
+                    (writing.rightToLeft ?
+                        RENDER_IMAGE_MARGIN + (RENDER_IMAGE_SIZE + RENDER_IMAGE_MARGIN) * (width - 1 - x)
+                    :
+                        RENDER_IMAGE_MARGIN + (RENDER_IMAGE_SIZE + RENDER_IMAGE_MARGIN) * x
+                    ),
                     RENDER_IMAGE_MARGIN + (RENDER_IMAGE_SIZE * 2 + RENDER_IMAGE_MARGIN) * y,
                     RENDER_IMAGE_SIZE,
-                    RENDER_IMAGE_SIZE * 2
+                    RENDER_IMAGE_SIZE * 2,
                 );
             }
         }

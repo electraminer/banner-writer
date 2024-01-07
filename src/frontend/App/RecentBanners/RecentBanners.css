@@ -10,14 +10,13 @@
 }
 
 .RecentBannersHeader {
-    margin: 1px 5px;
-
     display: flex;
     flex-direction: row;
     justify-content: left;
 }
-.RecentBannersHeader > .Text {
-    height: 100%;
+.RecentBannersHeader > * {
+    height: calc(100% - 4px);
+    margin: 2px 5px;
 }
 
 .RecentBannersScrollBox {

@@ -1,5 +1,5 @@
 // Internal dependencies
-import Layer from "../model/Layer";
+import Layer from "../../model/Layer";
 // External dependencies
 import { loadImage, Image } from "canvas";
 

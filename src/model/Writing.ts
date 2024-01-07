@@ -3,7 +3,8 @@ import Banner from "./Banner";
 // External dependencies
 import {immerable} from "immer";
 
-export const CODEPOINT_WRITING_END = 0xE00A;
+export const CODEPOINT_WRITING_NEWLINE = 0xE00A;
+export const CODEPOINT_WRITING_END = 0xE00D;
 export const CODEPOINT_WRITING_DIR_LTR = 0xE00E;
 export const CODEPOINT_WRITING_DIR_RTL = 0xE00F;
 
@@ -24,7 +25,8 @@ export default class Writing {
 
     /** Returns the URL path to an image of this Writing. */
     imagePath(): string {
-        return `/image/${this.toString()}.png`;
+        return `/image/${this.toString()}.png`
+            .replaceAll(/\n| /g, "_");
     }
 
     /** Returns the BannerFont string which encodes this Writing. */
@@ -32,7 +34,7 @@ export default class Writing {
         let str = String.fromCodePoint(this.rightToLeft ? CODEPOINT_WRITING_DIR_RTL : CODEPOINT_WRITING_DIR_LTR);
         for (let i = 0; i < this.lines.length; i++) {
             if (i != 0) {
-                str += "\n";
+                str += String.fromCodePoint(CODEPOINT_WRITING_NEWLINE) + "\n";
             }
             const line = this.lines[i];
             for (const banner of this.rightToLeft ? line.slice().reverse() : line) {
@@ -74,27 +76,24 @@ export default class Writing {
                 break;
             }
             // Newline
-            if (codePoint == 0x0A) {
-                index++;
-                lines.push(line);
-                line = [];
-                continue;
-            }
-            if (codePoint == 0x0D) {
+            if (codePoint == CODEPOINT_WRITING_NEWLINE) {
                 index++;
 
-                const nextCodePoint = str.codePointAt(index);
-                if (nextCodePoint != 0x0A) {
-                    throw new Error("Carriage return was not followed by a line feed");
+                if (str.codePointAt(index) == 0x0D) {
+                    index++;
                 }
-                index++;
+                if (str.codePointAt(index) == 0x0A
+                    || str.codePointAt(index) == 0x20
+                    || str.codePointAt(index) == 0x5F) {
+                    index++;
+                }
 
                 lines.push(line);
                 line = [];
                 continue;
             }
             // Space
-            if (codePoint == 0x20) {
+            if (codePoint == 0x20 || codePoint == 0x5F) {
                 index++;
                 line.push(undefined);
                 continue;
