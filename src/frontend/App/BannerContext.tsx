@@ -12,8 +12,10 @@ export function BannerContextProvider(props: {children: React.ReactNode}) {
     const [banner, setBanner] = React.useState(new Banner(Color.WHITE));
 
     const updateBanner = function(update: (banner: Banner) => void) {
+        console.log("update banner");
         setBanner(produce(banner, (banner: Banner) => {
             update(banner);
+            console.log(banner);
         }));
     }
 

@@ -19,10 +19,10 @@ export default function LayerDisplay(props: {index: number}) {
         <div className="LayerDisplay">
             <Button
                 onLeftClick={() => bannerContext.updateBanner(
-                    (banner: Banner) => banner.layers[props.index] = colorContext.primary
+                    (banner: Banner) => banner.layers[props.index].color = colorContext.primary
                 )}
                 onRightClick={() => bannerContext.updateBanner(
-                    (banner: Banner) => banner.layers[props.index] = colorContext.secondary
+                    (banner: Banner) => banner.layers[props.index].color = colorContext.secondary
                 )}>
                 <BannerComponent banner={new Banner(contrastingColor(layer.color), layer)}/>
             </Button>

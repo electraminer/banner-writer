@@ -16,7 +16,7 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "start": "tsc & react-scripts build && firebase emulators:start",
+    "start": "tsc & react-scripts build & robocopy ./build ./functions/build /mir & robocopy ./ts-build ./functions/ts-build /mir & firebase emulators:start",
     "build": "tsc & react-scripts build",
     "test": "tsc & jest js"
   },
