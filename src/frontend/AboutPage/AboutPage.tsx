@@ -50,7 +50,9 @@ export default function AboutPage({}) {
                         without typing it (for instance, to edit it and create a similar
                         banner.) The "RECENT BANNERS" area contains all of the banners
                         you have ever used sorted by recency, so you can always find
-                        a banner you've used before here.
+                        a banner you've used before here. If you type incorrectly and want
+                        to get rid of a banner in "RECENT BANNERS", you can use the red
+                        X button in that section to toggle deletion mode.
                     </li><br/>
                     <li>
                         Saving and organizing banners<br/>
