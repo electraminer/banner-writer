@@ -25,5 +25,5 @@ You can mark the end of BannerFont with `E00F`. This is optional but can be used
 
 ## Building and running
 
-If you want to develop the app and run the server, you can just run `npm start`, which builds the app with typescript and launches the built-in Express server.
-Running `npm run build` will prepare the app to be deployed using Firebase.
+If you want to develop the app and run the server using Firebase, you can just run `npm start`, which builds the app and launches a Firebase emulator.
+If you prefer to run the server without Firebase, you can use `npm run build` and then start the Express server at `ts-build/server/index.js`.
