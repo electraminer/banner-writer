@@ -17,11 +17,18 @@ export function RecentContextProvider(props: {children: React.ReactNode}) {
         setRecent(newRecent);
         localStorage.recent = new Writing(false, newRecent).toString();
     }
+    
+    const deleteBanner = function(banner: Banner) {
+        let newRecent = recent.filter((b) => b.toCode() != banner.toCode());
+        setRecent(newRecent);
+        localStorage.recent = new Writing(false, newRecent).toString();
+    }
 
     return (
         <RecentContext.Provider value={{
             recent: recent,
             addBanner: addBanner,
+            deleteBanner: deleteBanner,
         }}>
             {props.children}
         </RecentContext.Provider>
