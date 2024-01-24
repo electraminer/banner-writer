@@ -1,0 +1,7 @@
+.PatternSelector {
+    display: flex;
+    flex-wrap: wrap;
+}
+.PatternSelector > * {
+    width: 10%;
+}

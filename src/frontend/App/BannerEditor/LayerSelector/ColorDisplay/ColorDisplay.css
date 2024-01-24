@@ -1,0 +1,11 @@
+.ColorDisplay {
+    display: flex;
+    flex-direction: column;
+}
+.ColorDisplay > * {
+    flex: 1;
+}
+
+.ColorDisplay > * img {
+    aspect-ratio: 1;
+}

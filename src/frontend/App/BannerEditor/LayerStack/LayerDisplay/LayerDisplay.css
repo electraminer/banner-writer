@@ -1,0 +1,20 @@
+.LayerDisplay {
+    display: flex;
+    flex-direction: row;
+}
+.LayerDisplay > * {
+    flex: 1;
+}
+
+.LayerDisplayControls {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.LayerDisplayControls > * {
+    flex: 1;
+}
+
+.LayerDisplayControls > * img {
+    aspect-ratio: 1/1;
+}

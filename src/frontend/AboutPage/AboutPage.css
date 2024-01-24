@@ -1,0 +1,23 @@
+.AboutPage {
+    background-color: #282c34;
+    width: calc(100% - 20px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 10px;
+
+    font-family: Consolas, monospace;
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.AboutPage p {
+    margin: 0;
+    color: rgb(235,241,241);
+}
+
+.AboutPage a {
+    color: rgb(55,170,207);
+
+}

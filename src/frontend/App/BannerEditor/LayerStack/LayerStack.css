@@ -1,0 +1,13 @@
+.LayerStack {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.LayerStackBackgroundSquare > * {
+    width: 100%;
+}
+
+.LayerStackBackgroundSquare img {
+    aspect-ratio: 1/1;
+}

@@ -1,0 +1,13 @@
+.Button {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.Button:hover, a:hover {    
+    filter: brightness(1.15);
+}
+
+.Button:active, a:active {
+    filter: brightness(1.3);
+}

@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "outDir": "ts-build",
+        "rootDir": "./",
+        "esModuleInterop": true,
+        "jsx": "react",
+        "target": "ES5",
+        "lib": ["es2021", "DOM"],
+    },
+}

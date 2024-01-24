@@ -1,0 +1,15 @@
+.BannerDisplay {
+    display: flex;
+    flex-direction: column;
+}
+.BannerDisplayControls {
+    flex: 1;
+}
+
+.BannerDisplayControls {
+    display: flex;
+    flex-direction: column;
+}
+.BannerDisplaySpacer {
+    flex: 1;
+}
