@@ -1,20 +1,21 @@
 import "./TitleBar.css"
 // Internal dependencies
 import WritingContext from "../WritingContext";
-import BannerContext from "../BannerContext";
 import SettingsContext from "../../SettingsContext";
 import Text from "frontend/Text/Text";
 import Button from "frontend/Button/Button";
+import ActionContext from "frontend/action/ActionContext";
+import { Action } from "frontend/action/Action";
 import Writing from "model/Writing";
+import Banner from "model/Banner";
 import Color from "model/Color";
 // External dependencies
 import React from "react";
-import Banner from "model/Banner";
 
 export default function TitleBar() {
     const settingsContext = React.useContext(SettingsContext);
     const writingContext = React.useContext(WritingContext);
-    const bannerContext = React.useContext(BannerContext);
+    const actionContext = React.useContext(ActionContext);
 
     const optimized = writingContext.writing.toOptimizedString();
     let optimizedLen = optimized.length as string;
@@ -97,7 +98,7 @@ export default function TitleBar() {
                     if (!str) {
                         return;
                     }
-                    bannerContext.setBanner(Banner.fromCode(str)[0]);
+                    actionContext.invoke(Action.SET_BANNER, {banner: Banner.fromCode(str)[0]});
                 }}>
                 <Text text="CODE" backgroundColor={Color.GREEN} length={5}/>
             </Button>

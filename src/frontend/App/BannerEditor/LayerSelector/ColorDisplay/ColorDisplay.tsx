@@ -1,22 +1,24 @@
 import "./ColorDisplay.css";
 // Internal dependencies
-import ColorContext from "../../ColorContext";
 import BannerComponent from "frontend/BannerComponent/BannerComponent";
 import Button from "frontend/Button/Button";
 import Banner from "model/Banner";
+import Color from "model/Color";
 // External dependencies
 import React from "react";
 
-export default function ColorDisplay() {
-    let colorContext = React.useContext(ColorContext);
-
+export default function ColorDisplay(props: {
+    primary: Color,
+    secondary: Color,
+    onSwap: () => void,
+}) {
     return (
         <div className="ColorDisplay">
-            <Button onLeftClick={colorContext.swap} onRightClick={colorContext.swap}>
-                <BannerComponent banner={new Banner(colorContext.primary)}/>
+            <Button onLeftClick={props.onSwap}>
+                <BannerComponent banner={new Banner(props.primary)}/>
             </Button>
-            <Button onLeftClick={colorContext.swap} onRightClick={colorContext.swap}>
-                <BannerComponent banner={new Banner(colorContext.secondary)}/>
+            <Button onLeftClick={props.onSwap}>
+                <BannerComponent banner={new Banner(props.secondary)}/>
             </Button>
         </div>
     );

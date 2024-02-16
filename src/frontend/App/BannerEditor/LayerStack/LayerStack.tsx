@@ -1,33 +1,30 @@
 import "./LayerStack.css"
 // Internal dependencies
 import LayerDisplay from "./LayerDisplay/LayerDisplay";
-import ColorContext from "../ColorContext";
-import BannerContext from "../../BannerContext";
 import BannerComponent from "frontend/BannerComponent/BannerComponent";
 import Button from "frontend/Button/Button";
+import ActionContext from "frontend/action/ActionContext";
+import { Action } from "frontend/action/Action";
 import Banner from "model/Banner";
 // External dependencies
 import React from "react";
 
-export default function LayerStack() {
-    const colorContext = React.useContext(ColorContext);
-    const bannerContext = React.useContext(BannerContext);
+export default function LayerStack(props: {banner: Banner}) {
+    const actionContext = React.useContext(ActionContext);
 
     return (
         <div className="LayerStack">
-            {bannerContext.banner.layers.map((_, i) =>
-                <LayerDisplay key={i} index={i}/>
+            {props.banner.layers.map((_, i) =>
+                <LayerDisplay key={i} index={i} banner={props.banner}/>
             )}
-            {bannerContext.banner.layers.length == 0 &&
+            {props.banner.layers.length == 0 &&
                 <div className="LayerStackBackgroundSquare">
                     <Button
-                        onLeftClick={() => bannerContext.updateBanner(
-                            (banner: Banner) => banner.background = colorContext.primary
-                        )}
-                        onRightClick={() => bannerContext.updateBanner(
-                            (banner: Banner) => banner.background = colorContext.secondary
-                        )}>
-                        <BannerComponent banner={new Banner(bannerContext.banner.background)}/>
+                        onLeftClick={() => actionContext.invoke(
+                            Action.SET_LAYER_COLOR, {layerIndex: 0, isSecondary: false})}
+                        onRightClick={() => actionContext.invoke(
+                            Action.SET_LAYER_COLOR, {layerIndex: 0, isSecondary: true})}>
+                        <BannerComponent banner={new Banner(props.banner.background)}/>
                     </Button>
                 </div>
             }

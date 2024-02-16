@@ -8,14 +8,17 @@ import WritingEditor from "./WritingEditor/WritingEditor";
 import { WritingContextProvider } from "./WritingContext";
 import { RecentContextProvider } from "./RecentContext";
 import { SavedContextProvider } from "./SavedContext";
-import { BannerContextProvider } from "./BannerContext";
 import ForceSize from "frontend/ForceSize/ForceSize";
 // External dependencies
 import React from "react";
+import KeyHandler from "frontend/action/KeyboardInterface";
+import { ActionContextProvider } from "frontend/action/ActionContext";
+import { DEFAULT_KEY_CONFIG } from "frontend/action/KeyConfig";
 
 function App() {
     return (
-        <BannerContextProvider>
+        <ActionContextProvider>
+        <KeyHandler config={DEFAULT_KEY_CONFIG}>
         <RecentContextProvider>
         <SavedContextProvider>
         <WritingContextProvider>
@@ -49,7 +52,8 @@ function App() {
         </WritingContextProvider>
         </SavedContextProvider>
         </RecentContextProvider>
-        </BannerContextProvider>
+        </KeyHandler>
+        </ActionContextProvider>
     );
 }
 

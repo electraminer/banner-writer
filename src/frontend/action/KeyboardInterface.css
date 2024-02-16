@@ -1,0 +1,9 @@
+.KeyboardInterface {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.KeyboardInterface :not(input) {
+    user-select: none;
+}
