@@ -12,6 +12,11 @@ export default function KeyHandler(props: {
     children: React.ReactNode,
     config: KeyConfig,
 }) {
+    const ref = React.useRef<HTMLDivElement>(undefined);
+    React.useEffect(() => {
+        ref.current.focus();
+    }, [])
+
     const actionContext = React.useContext(ActionContext);
 
     const [_, setHeldKeys] = React.useState<Set<string>>(new Set());
@@ -101,7 +106,7 @@ export default function KeyHandler(props: {
     }
 
     return (
-        <div className="KeyboardInterface" tabIndex={1}
+        <div className="KeyboardInterface" tabIndex={1} ref={ref}
             onKeyDown={(e) => {e.preventDefault(); pressKey(e.code)}}
             onKeyUp={(e) => {e.preventDefault(); releaseKey(e.code)}}>
             {props.children}
