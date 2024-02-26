@@ -3,7 +3,6 @@ import "./SavedWritings.css"
 import WritingComponent from "./WritingComponent/WritingComponent";
 import WritingContext from "../WritingContext";
 import SavedContext from "../SavedContext";
-import BannerContext from "../BannerContext";
 import Text from "frontend/Text/Text";
 import BannerComponent from "frontend/BannerComponent/BannerComponent";
 import Button from "frontend/Button/Button";
@@ -17,7 +16,6 @@ import React from "react";
 
 export default function SavedWritings() {
     const writingContext = React.useContext(WritingContext);
-    const bannerContext = React.useContext(BannerContext);
     const savedContext = React.useContext(SavedContext);
 
     const deleteBanner = new Banner(6,

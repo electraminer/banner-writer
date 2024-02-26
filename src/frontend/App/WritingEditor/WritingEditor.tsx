@@ -1,15 +1,16 @@
 import "./WritingEditor.css"
 // Internal dependencies
 import WritingContext from "../WritingContext";
-import BannerContext from "../BannerContext";
 import BannerComponent from "frontend/BannerComponent/BannerComponent";
 import Button from "frontend/Button/Button";
+import ActionContext from "frontend/action/ActionContext";
+import { Action } from "frontend/action/Action";
 // External dependencies
 import React from "react";
 
 export default function WritingEditor() {
     const writingContext = React.useContext(WritingContext);
-    const bannerContext = React.useContext(BannerContext);
+    const actionContext = React.useContext(ActionContext);
     
     const dir = writingContext.writing.rightToLeft ? "RightToLeft" : "LeftToRight";
     let size = writingContext.writing.lines.length;
@@ -39,7 +40,7 @@ export default function WritingEditor() {
                             }
                             <Button className="WritingEditorBanner"
                                 onLeftClick={() => writingContext.setCursor(i, j)}
-                                onRightClick={() => bannerContext.setBanner(banner)}>
+                                onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}>
                                 {banner ?
                                     <BannerComponent banner={banner} key={j}></BannerComponent>
                                 :

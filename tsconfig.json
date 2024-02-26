@@ -7,5 +7,6 @@
         "jsx": "react",
         "target": "ES5",
         "lib": ["es2021", "DOM"],
+        "downlevelIteration": true,
     },
 }

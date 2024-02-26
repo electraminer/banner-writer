@@ -1,16 +1,17 @@
 import "./WritingComponent.css"
 // Internal dependencies
 import WritingContext from "../../WritingContext";
-import BannerContext from "../../BannerContext";
 import BannerComponent from "frontend/BannerComponent/BannerComponent";
 import Button from "frontend/Button/Button";
+import { Action } from "frontend/action/Action";
+import ActionContext from "frontend/action/ActionContext";
 import Writing from "model/Writing";
 // External dependencies
 import React from "react";
 
 export default function WritingComponent(props: {writing: Writing}) {
     const writingContext = React.useContext(WritingContext);
-    const bannerContext = React.useContext(BannerContext);
+    const actionContext = React.useContext(ActionContext);
     
     const dir = props.writing.rightToLeft ? "RightToLeft" : "LeftToRight";
 
@@ -22,7 +23,7 @@ export default function WritingComponent(props: {writing: Writing}) {
                         <>
                             <Button className="WritingComponentBanner"
                                 onLeftClick={() => writingContext.addBanner(banner)}
-                                onRightClick={() => bannerContext.setBanner(banner)}>
+                                onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}>
                                 {banner ?
                                     <BannerComponent banner={banner} key={j}></BannerComponent>
                                 :

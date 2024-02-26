@@ -71,7 +71,7 @@ export function WritingContextProvider(props: {children: React.ReactNode}) {
     const backspace = function() {
         if (cursorPos == 0) {
             if (cursorLine == 0) {
-                return;
+                return undefined;
             }
             const newCursorPos = writing.lines[cursorLine - 1].length;
             updateWriting((writing: Writing) => {
@@ -80,11 +80,13 @@ export function WritingContextProvider(props: {children: React.ReactNode}) {
                 writing.lines[cursorLine - 1].splice(newCursorPos, 0, ...line);
             });
             setCursor(cursorLine - 1, newCursorPos);
+            return undefined;
         } else {
             updateWriting((writing: Writing) => {
                 writing.lines[cursorLine].splice(cursorPos - 1, 1);
             });
             setCursor(cursorLine, cursorPos - 1);
+            return writing.lines[cursorLine][cursorPos - 1];
         }
     }
 

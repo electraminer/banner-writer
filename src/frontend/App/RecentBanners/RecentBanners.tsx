@@ -2,11 +2,12 @@ import "./RecentBanners.css"
 // Internal dependencies
 import WritingContext from "../WritingContext";
 import RecentContext from "../RecentContext";
-import BannerContext from "../BannerContext";
 import BannerComponent from "frontend/BannerComponent/BannerComponent";
 import Text from "frontend/Text/Text";
 import Button from "frontend/Button/Button";
 import ForceSize from "frontend/ForceSize/ForceSize";
+import ActionContext from "frontend/action/ActionContext";
+import { Action } from "frontend/action/Action";
 // External dependencies
 import React from "react";
 import Banner from "model/Banner";
@@ -15,7 +16,7 @@ import Color from "model/Color";
 export default function RecentBanners() {
     const writingContext = React.useContext(WritingContext);
     const recentContext = React.useContext(RecentContext);
-    const bannerContext = React.useContext(BannerContext);
+    const actionContext = React.useContext(ActionContext);
 
     const [deleting, setDeleting] = React.useState(false);
 
@@ -42,7 +43,7 @@ export default function RecentBanners() {
                                 writingContext.addBanner(banner);
                             }
                         }}
-                        onRightClick={() => bannerContext.setBanner(banner)}>
+                        onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}>
                         <BannerComponent banner={banner}/>
                     </Button>
                 )}
