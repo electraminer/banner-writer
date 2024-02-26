@@ -9,9 +9,8 @@ type KeyConfig = {
 export default KeyConfig;
 
 const MS = ["ShiftLeft"];
-const MC = ["ControlLeft"];
 const MA = ["AltLeft"];
-const SC = ["ShiftLeft, ControlLeft"];
+const SA = ["ShiftLeft", "AltLeft"];
 
 export const DEFAULT_KEY_CONFIG = {
     actions: [
@@ -38,47 +37,42 @@ export const DEFAULT_KEY_CONFIG = {
         {key: "KeyW", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.CURLY_BORDER}},
 
         {key: "KeyE", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_HALF}},
-        {key: "KeyE", modifiers: MC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_HALF}},
+        {key: "KeyE", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_HALF}},
         {key: "KeyE", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.LEFT_HALF}},
-        {key: "KeyE", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.RIGHT_HALF}},
-        {key: "KeyE", modifiers: SC, action: Action.INSERT_LAYER, params: {pattern: Pattern.RIGHT_HALF}},
+        {key: "KeyE", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.RIGHT_HALF}},
         
         {key: "KeyR", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_STRIPE}},
-        {key: "KeyR", modifiers: MC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_STRIPE}},
+        {key: "KeyR", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_STRIPE}},
         {key: "KeyR", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.LEFT_STRIPE}},
-        {key: "KeyR", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.RIGHT_STRIPE}},
-        {key: "KeyR", modifiers: SC, action: Action.INSERT_LAYER, params: {pattern: Pattern.RIGHT_STRIPE}},
+        {key: "KeyR", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.RIGHT_STRIPE}},
         
         {key: "KeyT", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.VERTICAL_STRIPE}},
-        {key: "KeyT", modifiers: MC, action: Action.INSERT_LAYER, params: {pattern: Pattern.HORIZONTAL_STRIPE}},
+        {key: "KeyT", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.HORIZONTAL_STRIPE}},
         {key: "KeyT", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.FORWARD_SLASH}},
-        {key: "KeyT", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BACKWARD_SLASH}},
-        {key: "KeyT", modifiers: SC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BACKWARD_SLASH}},
+        {key: "KeyT", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BACKWARD_SLASH}},
         
         {key: "KeyY", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_GRADIENT}},
-        {key: "KeyY", modifiers: MC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_GRADIENT}},
+        {key: "KeyY", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_GRADIENT}},
         
         {key: "KeyA", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_ZIGZAG}},
-        {key: "KeyA", modifiers: MC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_ZIGZAG}},
+        {key: "KeyA", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_ZIGZAG}},
     
         {key: "KeyS", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_TRIANGLE}},
-        {key: "KeyS", modifiers: MC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_TRIANGLE}},
+        {key: "KeyS", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_TRIANGLE}},
         
         {key: "KeyD", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.ORTHOGONAL_CROSS}},
-        {key: "KeyD", modifiers: MC, action: Action.INSERT_LAYER, params: {pattern: Pattern.DIAGONAL_CROSS}},
+        {key: "KeyD", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.DIAGONAL_CROSS}},
         {key: "KeyD", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.STRIPES}},
         
         {key: "KeyF", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_LEFT_CORNER}},
-        {key: "KeyF", modifiers: MC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_LEFT_CORNER}},
+        {key: "KeyF", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_LEFT_CORNER}},
         {key: "KeyF", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_RIGHT_CORNER}},
-        {key: "KeyF", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_RIGHT_CORNER}},
-        {key: "KeyF", modifiers: SC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_RIGHT_CORNER}},
+        {key: "KeyF", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_RIGHT_CORNER}},
         
         {key: "KeyG", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_LEFT_HALF}},
-        {key: "KeyG", modifiers: MC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_LEFT_HALF}},
+        {key: "KeyG", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_LEFT_HALF}},
         {key: "KeyG", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_RIGHT_HALF}},
-        {key: "KeyG", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_RIGHT_HALF}},
-        {key: "KeyG", modifiers: SC, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_RIGHT_HALF}},
+        {key: "KeyG", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_RIGHT_HALF}},
         
         {key: "KeyZ", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.CREEPER_SYMBOL}},
         {key: "KeyZ", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.SKULL_SYMBOL}},
