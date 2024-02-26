@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+# Banner Writer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This web application was created by Electra, you can message me on Discord at @electraminer
+It was made to allow easy communication using alternative writing scripts in Minecraft.
+You can create banners of the symbols you need and save them to type quickly.
 
-## Available Scripts
+## API
 
-In the project directory, you can run:
+The app is currently hosted on https://banner-writer.web.app. You can use this page to write your banners.
+You can use the URL parameter writing=BANNERFONT to open the page with banners already loaded.
+URLs with the path /image/BANNERFONT will return an image of banners.
 
-### `npm start`
+## BannerFont
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+BannerFont is a Unicode representation of banners using the Private User Area. You can use this standard to represent banners
+in your own programs if needed, as well as to interface with Banner Writer via its API.
+A banner is represented using unicode character `EXYY` where X is the color, in hex, and Y is the pattern, in BCD.
+You can look at the Color.ts and Pattern.ts files for a full list of these values with numbers, or check the order on the site.
+The pattern 00 represents the background of a banner.
+Banner patterns are separated by unicode character `CFFF7`, representing a negative space (so the banner patterns are overlayed)
+A space can be represented by either a space (unicode `20`) or an underscore (unicode `5F`). The underscore is preferred when creating URLs.
+A newline must be represented by the character `E00A`, followed by a whitespace of some kind (either a space, an underscore, /n, or /r/n). This special character is used to differentiate spaces from newlines in URLs, where spaces cannot be used.
+Since banners can be used to write many langugaes, they can either be used left-to-right or right-to-left. While writing BannerFont, you should always write each line from left-to-right, as this is how it will render when displayed as text. You can prefix the text with `E00D` for LTR or `E00E` for RTL to mark the direction, to aid special rendering/editing programs like this.
+You can mark the end of BannerFont with `E00F`. This is optional but can be used to separate BannerFont from other scripts in a message.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Building and running
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you want to develop the app and run the server using Firebase, you can just run `npm start`, which builds the app and launches a Firebase emulator.
+If you prefer to run the server without Firebase, you can use `npm run build` and then start the Express server at `ts-build/src/backend/index.js`.
