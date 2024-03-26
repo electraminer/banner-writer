@@ -25,13 +25,13 @@ const RIGHT_TO_LEFT = new Writing(
 
 test("Test fetching URL path to Writing textures.", () => {
     expect(ONE_LINE.imagePath())
-        .toBe("/image/󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷.png");
+        .toBe("/image/R2.0monp2G.0monpi2G.0mpi2G.png");
             // E00E [BANNER_A] [BANNER_B] [BANNER_C] E00D
     expect(MULTI_LINE.imagePath())
-        .toBe("/image/󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷.png");
+        .toBe("/image/R2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G.png");
             // E00E [BANNER_A] 5F [BANNER_B] [BANNER_C] E00A 5F [BANNER_A] [BANNER_B] 5F [BANNER_C] E00D
     expect(RIGHT_TO_LEFT.imagePath())
-        .toBe("/image/󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷.png");
+        .toBe("/image/L2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G.png");
             // E00F [BANNER_A] 5F [BANNER_B] [BANNER_C] E00A 5F [BANNER_A] [BANNER_B] 5F [BANNER_C] E00D
 });
 
@@ -135,5 +135,22 @@ test("Test optimized BannerFont encoding of writing works.", () => {
         .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷\n󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
     expect(RIGHT_TO_LEFT.toOptimizedString())
         .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷\n󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
-    
+})
+
+test("Test URL encoding of writing works.", () => {
+    expect(ONE_LINE.toUrlSafe())
+        .toBe("R2.0monp2G.0monpi2G.0mpi2G");
+    expect(MULTI_LINE.toUrlSafe())
+        .toBe("R2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G");
+    expect(RIGHT_TO_LEFT.toUrlSafe())
+        .toBe("L2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G");
+})
+
+test("Test URL decoding of writing works.", () => {
+    expect(Writing.fromUrlSafe("R2.0monp2G.0monpi2G.0mpi2G"))
+        .toStrictEqual(ONE_LINE);
+    expect(Writing.fromUrlSafe("R2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G"))
+        .toStrictEqual(MULTI_LINE);
+    expect(Writing.fromUrlSafe("L2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G"))
+        .toStrictEqual(RIGHT_TO_LEFT);
 })

@@ -30,7 +30,15 @@ export default function TitleBar() {
         if (!str) {
             return;
         }
-        writingContext.setWriting(Writing.fromString(str)[0]);
+        let writing = undefined;
+        try {
+            // First try to use the new URL Safe encoding.
+            writing = Writing.fromUrlSafe(str);
+        } catch (_) {
+            // If not, try the old BannerFont encoding for backwards compatibility.
+            [writing] = Writing.fromString(str);
+        }
+        writingContext.setWriting(writing);
     }, [])
 
     return (

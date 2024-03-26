@@ -10,15 +10,22 @@ const BUFFER = Array(BUFFER_LEN).fill(undefined);
 
 const IMAGE_CACHE = {};
 
-export default async function loadImage(bannerfont: string): Promise<Canvas> {
-    console.log(`Loading image of ${bannerfont}`);
-    if (IMAGE_CACHE[bannerfont]) {
+export default async function loadImage(str: string): Promise<Canvas> {
+    console.log(`Loading image of ${str}`);
+    if (IMAGE_CACHE[str]) {
         console.log(`Found image in cache`);
-        return IMAGE_CACHE[bannerfont];
+        return IMAGE_CACHE[str];
     }
 
     console.log(`Could not find in cache, generating image`);
-    const [writing] = Writing.fromString(bannerfont);
+    let writing = undefined;
+    try {
+        // First try to use the new URL Safe encoding.
+        writing = Writing.fromUrlSafe(str);
+    } catch (_) {
+        // If not, try the old BannerFont encoding for backwards compatibility.
+        [writing] = Writing.fromString(str);
+    }
     const canvas = renderImage(writing);
 
     const unloaded = BUFFER[BUFFER_INDEX];
@@ -26,8 +33,8 @@ export default async function loadImage(bannerfont: string): Promise<Canvas> {
         console.log(`Unloading image ${unloaded} from cache`);
         delete IMAGE_CACHE[unloaded];
     }
-    BUFFER[BUFFER_INDEX] = bannerfont;
-    IMAGE_CACHE[bannerfont] = canvas;
+    BUFFER[BUFFER_INDEX] = str;
+    IMAGE_CACHE[str] = canvas;
     BUFFER_INDEX++;
     BUFFER_INDEX %= BUFFER_LEN;
 

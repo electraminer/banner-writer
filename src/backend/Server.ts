@@ -6,12 +6,14 @@ import path from "path";
 
 const server = Express();
 
-server.get("/image/:bannerfont", async (req, res, next) => {
-    const bannerfont = req.params.bannerfont;
+server.get("/image/:filename", async (req, res, next) => {
     let canvas = undefined;
-    console.log("test");
+    const filename = req.params.filename;
     try {
-        canvas = await loadImage(bannerfont);
+        if (filename.slice(-4) !== ".png") {
+            return next();
+        }
+        canvas = await loadImage(filename.slice(0, -4));
     } catch {
         return next();
     }
