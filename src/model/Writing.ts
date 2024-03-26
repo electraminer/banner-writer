@@ -2,11 +2,22 @@
 import Banner from "./Banner";
 // External dependencies
 import {immerable} from "immer";
+import Color from "./Color";
+import Pattern from "./Pattern";
+import Layer from "./Layer";
 
 export const CODEPOINT_WRITING_NEWLINE = 0xE00A;
 export const CODEPOINT_WRITING_END = 0xE00D;
 export const CODEPOINT_WRITING_DIR_LTR = 0xE00E;
 export const CODEPOINT_WRITING_DIR_RTL = 0xE00F;
+
+export const URLSAFE_DIR_LTR = "R";
+export const URLSAFE_DIR_RTL = "L";
+export const URLSAFE_NEWLINE = "~";
+export const URLSAFE_SPACE = "_";
+export const URLSAFE_BACKGROUND = ".";
+export const URLSAFE_COLORS = "0123456789ABCDEF";
+export const URLSAFE_PATTERNS = URLSAFE_BACKGROUND + "GHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 /**
  * A block of Writing consisting of many lines of Banners with spaces.
@@ -25,7 +36,7 @@ export default class Writing {
 
     /** Returns the URL path to an image of this Writing. */
     imagePath(): string {
-        return `/image/${this.toString()}.png`
+        return `/image/${this.toUrlSafe()}.png`
             .replaceAll(/\n| /g, "_");
     }
 
@@ -112,6 +123,78 @@ export default class Writing {
 
         const writing = new Writing(rightToLeft, ...lines);
         return [writing, index];
+    }
+
+    /** Converts the Writing to a compact sequence of URL-safe characters. */
+    toUrlSafe(): string {
+        let str = this.rightToLeft ? URLSAFE_DIR_RTL : URLSAFE_DIR_LTR;
+        // The currently used color. This is written only when it changes.
+        // This helps as banners will often use multiple of the same color in a row,
+        // and this will save characters by needing to write colors less often.
+        let color = Color.WHITE;
+        for (let i = 0; i < this.lines.length; i++) {
+            if (i !== 0) {
+                str += URLSAFE_NEWLINE;
+            }
+            const line = this.lines[i];
+            for (const banner of this.rightToLeft ? line.slice().reverse() : line) {
+                if (banner === undefined) {
+                    str += URLSAFE_SPACE;
+                    continue;
+                }
+                for (const layer of banner.layersWithBackground()) {
+                    if (layer.color !== color) {
+                        // Change the color.
+                        color = layer.color;
+                        str += URLSAFE_COLORS.charAt(color);
+                    }
+                    // URLSAFE_PATTERNS covers up to 46 patterns, which is a bit of leeway for new patterns.
+                    str += URLSAFE_PATTERNS.charAt(layer.pattern);
+                }
+            }
+        }
+
+        return str;
+    }
+    /**
+     * Creates a Writing from a URL-safe string.
+     */
+    static fromUrlSafe(str: string): Writing {
+        let color = Color.WHITE;
+        
+        const rightToLeft = str[0] === URLSAFE_DIR_RTL;
+        let lines: (Banner | undefined)[][] = [[]];
+        for (const char of str.substring(1)) {
+            const line = lines[lines.length - 1];
+            if (char === URLSAFE_NEWLINE) {
+                // Newline
+                lines.push([]);
+            } else if (char === URLSAFE_SPACE) {
+                // Space
+                line.push(undefined);
+            } else if (char === URLSAFE_BACKGROUND) {
+                // Background
+                line.push(new Banner(color));
+            } else if (URLSAFE_COLORS.includes(char)) {
+                color = URLSAFE_COLORS.indexOf(char);
+            } else if (URLSAFE_PATTERNS.includes(char)) {
+                const pattern: Pattern = URLSAFE_PATTERNS.indexOf(char);
+                if (line.length === 0 || line[line.length - 1] === undefined) {
+                    throw new Error("Writing cannot contain a banner with no background layer");
+                }
+                line[line.length - 1].layers.push(new Layer(color, pattern));
+            } else {
+                throw new Error("Unrecognized character detected");
+            }
+        }
+        
+        if (rightToLeft) {
+            for (const line of lines) {
+                line.reverse();
+            }
+        }
+
+        return new Writing(rightToLeft, ...lines);
     }
 
     /** Creates an arbitrary space character jumping the specified number of banners. */
