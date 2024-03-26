@@ -18,7 +18,7 @@
 }
 
 /* From Gigonio */
-.BannerComponent.NoAlias img {    
+.BannerComponent.DisableAA img {    
     image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
     image-rendering: -moz-crisp-edges;          /* Firefox                        */
     image-rendering: -o-crisp-edges;            /* Opera                          */

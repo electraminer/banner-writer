@@ -42,7 +42,7 @@ export default function WritingEditor() {
                                 onLeftClick={() => writingContext.setCursor(i, j)}
                                 onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}>
                                 {banner ?
-                                    <BannerComponent banner={banner} key={j}></BannerComponent>
+                                    <BannerComponent banner={banner} disableAA={true} key={j}></BannerComponent>
                                 :
                                     <div className='BannerComponent'>&nbsp;</div>
                                 }

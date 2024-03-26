@@ -44,7 +44,7 @@ export default function BannerDisplay(props: {banner: Banner}) {
             <Button
                 onLeftClick={() => actionContext.invoke(Action.ADD_BANNER, {banner: props.banner})}
                 onRightClick={() => actionContext.invoke(Action.BACKSPACE)}>
-                <BannerComponent banner={props.banner}/>
+                <BannerComponent banner={props.banner} disableAA={true}/>
             </Button>
             <div className="BannerDisplayControls">
                 <div className="BannerDisplaySpacer"/>
