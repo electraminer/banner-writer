@@ -6,7 +6,7 @@ export default SettingsContext;
 
 export function SettingsContextProvider(props: {children: React.ReactNode}) {
     const [useBannerFont, setUseBannerFont] = React.useState(
-        localStorage.useBannerFont != "false");
+        localStorage.useBannerFont !== "false");
 
     const setUseBannerFontSaved = function(useBannerFont: boolean) {
         setUseBannerFont(useBannerFont);

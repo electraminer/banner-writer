@@ -4,6 +4,7 @@ import Pattern from "./Pattern";
 import Layer from "./Layer";
 // External dependencies
 import {immerable} from "immer";
+import Writing from "./Writing";
 
 /**
  * A Banner consisting of a background and a stack of Layers.
@@ -34,7 +35,8 @@ class Banner {
 
     /** Returns the URL path to an image of this Banner. */
     imagePath(): string {
-        return `/image/${this.toString()}.png`;
+        const writing = new Writing(false, [this]);
+        return writing.imagePath();
     }
 
     
