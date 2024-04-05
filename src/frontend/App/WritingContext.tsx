@@ -14,7 +14,15 @@ export function WritingContextProvider(props: {children: React.ReactNode}) {
     const recentContext = React.useContext(RecentContext);
     const savedContext = React.useContext(SavedContext);
 
-    const [writing, setWriting] = React.useState(new Writing(false, []));
+    const [defaultRightToLeft, setDefaultRightToLeft] = React.useState(
+        localStorage.defaultRightToLeft === "true");
+
+    const setDefaultRightToLeftSaved = function(defaultRightToLeft: boolean) {
+        setDefaultRightToLeft(defaultRightToLeft);
+        localStorage.defaultRightToLeft = defaultRightToLeft;
+    }
+
+    const [writing, setWriting] = React.useState(new Writing(defaultRightToLeft, []));
     const [cursorLine, setCursorLine] = React.useState(0);
     const [cursorPos, setCursorPos] = React.useState(0);
 
@@ -30,6 +38,7 @@ export function WritingContextProvider(props: {children: React.ReactNode}) {
 
         setCursor(writing.lines.length - 1, writing.lines[writing.lines.length - 1].length);
     
+        setDefaultRightToLeftSaved(writing.rightToLeft);
         if (save) {
             savedContext.updateSelected(writing);
         }
@@ -39,6 +48,7 @@ export function WritingContextProvider(props: {children: React.ReactNode}) {
         const newWriting = produce(writing, update);
         setWriting(newWriting);
 
+        setDefaultRightToLeftSaved(newWriting.rightToLeft);
         savedContext.updateSelected(newWriting);
     }
 
@@ -101,6 +111,7 @@ export function WritingContextProvider(props: {children: React.ReactNode}) {
             addSpace: addSpace,
             addLine: addLine,
             backspace: backspace,
+            defaultWriting: new Writing(defaultRightToLeft, []),
         }}>
             {props.children}
         </WritingContext.Provider>

@@ -52,7 +52,7 @@ export default function SavedWritings() {
                         <div className="SavedWritingsControls">
                             <Button className="SavedWritingsSelectButton"
                                 onLeftClick={() => writingContext.setWriting(
-                                    savedContext.select(i == s ? -1 : i), false
+                                    savedContext.select(i == s ? -1 : i) ?? writingContext.defaultWriting, false
                                 )}>
                                 <Text text={i == s ? "SAVE" : "EDIT"}
                                     backgroundColor={i == s ? Color.YELLOW : Color.LIGHT_BLUE}/>

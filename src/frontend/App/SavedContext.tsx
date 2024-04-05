@@ -70,10 +70,10 @@ export function SavedContextProvider(props: {children: React.ReactNode}) {
         setSelected(-1);
     }
 
-    const select = function(index: number): Writing {
+    const select = function(index: number): Writing | undefined {
         setSelected(index);
         if (index < 0) {
-            return new Writing(false, []);
+            return undefined;
         }
         return Writing.fromString(saved[index])[0];
     }
