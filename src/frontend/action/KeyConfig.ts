@@ -99,6 +99,16 @@ export const DEFAULT_KEY_CONFIG = {
         {key: "Enter", action: Action.ADD_LINE},
         {key: "Delete", action: Action.BACKSPACE_SELECT},
         {key: "Delete", modifiers: ["ShiftLeft"], action: Action.BACKSPACE},
+
+        {key: "Backslash", action: Action.TOGGLE_DIRECTION},
+        {key: "Backspace", modifiers: ["AltLeft"], action: Action.CLEAR_WRITING},
+
+        {key: "KeyC", modifiers: ["ControlLeft"], action: Action.COPY_IMAGE},
+        {key: "KeyC", modifiers: ["ControlLeft", "ShiftLeft"], action: Action.COPY_ANVIL},
+        {key: "KeyC", modifiers: ["ControlLeft", "AltLeft"], action: Action.COPY_UNICODE},
+        
+        {key: "KeyV", modifiers: ["ControlLeft"], action: Action.PASTE_CODE},
+        {key: "KeyV", modifiers: ["ControlLeft", "AltLeft"], action: Action.PASTE_UNICODE},
     ],
     modifiers: [
         {modifiers: ["ShiftRight"], params: {isSecondary: true}},
