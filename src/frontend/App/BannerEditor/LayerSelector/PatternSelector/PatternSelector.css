@@ -3,5 +3,5 @@
     flex-wrap: wrap;
 }
 .PatternSelector > * {
-    width: 10%;
+    width: calc(100% / var(--LayerSelectorWidth));
 }

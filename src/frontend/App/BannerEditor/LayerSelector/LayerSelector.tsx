@@ -8,6 +8,8 @@ import { Action } from "frontend/action/Action";
 import Color from "model/Color";
 // External dependencies
 import React from "react";
+import { COLOR_DISPLAY_WIDTH, COLOR_SELECTOR_HEIGHT, COLOR_SELECTOR_WIDTH, LAYER_SELECTOR_WIDTH } from "../BannerEditor";
+import ForceSize from "frontend/ForceSize/ForceSize";
 
 export default function LayerSelector() {
     const actionContext = React.useContext(ActionContext);
@@ -42,13 +44,18 @@ export default function LayerSelector() {
     }, []);
 
     return (
-        <div className="LayerSelector">
+        <div className="LayerSelector" style={{"--LayerSelectorWidth": LAYER_SELECTOR_WIDTH} as any}>
             <div className="LayerSelectorColorRow">
-                <ColorDisplay primary={primary} secondary={secondary}
-                    onSwap={() => actionContext.invoke(Action.SWAP_COLORS)}/>
-                <ColorSelector
-                    onColorSelected={(color, isSecondary) =>
-                        actionContext.invoke(Action.SELECT_COLOR, {color: color, isSecondary: isSecondary})}/>
+                <ForceSize className="LayerSelectorColorDisplay" aspectRatio={`${COLOR_DISPLAY_WIDTH}/${2*COLOR_SELECTOR_HEIGHT}`}>
+                    <ColorDisplay primary={primary} secondary={secondary}
+                        onSwap={() => actionContext.invoke(Action.SWAP_COLORS)}/>
+                </ForceSize>
+                <div className="LayerSelectorColorSpacer"/>
+                <ForceSize className="LayerSelectorColorSelector" aspectRatio={`${COLOR_SELECTOR_WIDTH}/${2*COLOR_SELECTOR_HEIGHT}`}>
+                    <ColorSelector
+                        onColorSelected={(color, isSecondary) =>
+                            actionContext.invoke(Action.SELECT_COLOR, {color: color, isSecondary: isSecondary})}/>
+                </ForceSize>
             </div>
             <PatternSelector color={actionContext.params.color ?? Color.BLACK}
                 onPatternSelected={(pattern, isSecondary) =>

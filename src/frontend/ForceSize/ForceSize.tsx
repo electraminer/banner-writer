@@ -9,6 +9,7 @@ export default function ForceSize(props: {
 }) {
     const ref = React.useRef(null);
 
+    props.className += " ForceSize"
     return (
         <div className={`${props.className} ForceSize`} ref={ref} style={{
             aspectRatio: props.aspectRatio

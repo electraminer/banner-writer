@@ -12,6 +12,24 @@ import Color from "model/Color";
 import { Action } from "frontend/action/Action";
 import { produce } from "immer";
 import Layer from "model/Layer";
+import { NUM_PATTERNS } from "model/Pattern";
+
+export const BANNER_EDITOR_HEIGHT = 6;
+export const COLOR_SELECTOR_HEIGHT = 2;
+export const COLOR_SELECTOR_WIDTH = 8;
+export const COLOR_DISPLAY_WIDTH = 2;
+
+const BANNER_SELECTOR_MIN_WIDTH = COLOR_DISPLAY_WIDTH + COLOR_SELECTOR_WIDTH;
+const LAYER_SELECTOR_HEIGHT = BANNER_EDITOR_HEIGHT - COLOR_SELECTOR_HEIGHT;
+
+const LAYER_STACK_WIDTH = 2;
+const BANNER_DISPLAY_WIDTH = 4;
+
+export let LAYER_SELECTOR_WIDTH = Math.ceil((NUM_PATTERNS - 1) / LAYER_SELECTOR_HEIGHT);
+if (LAYER_SELECTOR_WIDTH < BANNER_SELECTOR_MIN_WIDTH) {
+    LAYER_SELECTOR_WIDTH = BANNER_SELECTOR_MIN_WIDTH;
+}
+export const BANNER_EDITOR_WIDTH = LAYER_SELECTOR_WIDTH + LAYER_STACK_WIDTH + BANNER_DISPLAY_WIDTH;
 
 export default function BannerEditor() {
     const actionContext = React.useContext(ActionContext);
@@ -92,16 +110,17 @@ export default function BannerEditor() {
             setBanner(new Banner(params.color));
         })
     }, []);
+
     
     return (
         <div className="BannerEditor">
-            <ForceSize className="BannerEditorLayerSelector">
+            <ForceSize className="BannerEditorLayerSelector" aspectRatio={`${LAYER_SELECTOR_WIDTH}/${BANNER_EDITOR_HEIGHT*2}`}>
                 <LayerSelector/>
             </ForceSize>
-            <ForceSize className="BannerEditorLayerStack">
+            <ForceSize className="BannerEditorLayerStack" aspectRatio={`${LAYER_STACK_WIDTH}/${BANNER_EDITOR_HEIGHT*2}`}>
                 <LayerStack banner={banner}/>
             </ForceSize>
-            <ForceSize className="BannerEditorBannerDisplay">
+            <ForceSize className="BannerEditorBannerDisplay" aspectRatio={`${BANNER_DISPLAY_WIDTH}/${BANNER_EDITOR_HEIGHT*2}`}>
                 <BannerDisplay banner={banner}/>
             </ForceSize>
         </div>

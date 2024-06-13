@@ -11,7 +11,7 @@ const BUFFER = Array(BUFFER_LEN).fill(undefined);
 const IMAGE_CACHE = {};
 
 export default async function loadImage(str: string): Promise<Canvas> {
-    console.log(`Loading image of ${str}`);
+    // console.log(`Loading image of ${str}`);
     if (IMAGE_CACHE[str]) {
         console.log(`Found image in cache`);
         return IMAGE_CACHE[str];

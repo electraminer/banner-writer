@@ -39,7 +39,8 @@ export default function TitleBar() {
         toggleDirectionHandler((params, invoke) => wcRef.current.updateWriting((writing: Writing) => {
             writing.rightToLeft = !writing.rightToLeft;
         }))
-        clearWritingHandler((params, invoke) => wcRef.current.setWriting(wcRef.current.defaultWriting, true))
+        clearWritingHandler((params, invoke) => confirm("Are you sure you want to clear the writing?") ?
+            wcRef.current.setWriting(wcRef.current.defaultWriting, true) : undefined)
         copyImageHandler((params, invoke) => navigator.clipboard.writeText(
             `https://banner-writer.web.app${wcRef.current.writing.imagePath()}`
         ))
@@ -61,7 +62,7 @@ export default function TitleBar() {
             if (!str) {
                 return;
             }
-            actionContext.invoke(Action.SET_BANNER, {banner: Banner.fromCode(str)[0]});
+            invoke(Action.SET_BANNER, {banner: Banner.fromCode(str)[0]});
         })
     }, [])
 

@@ -1,6 +1,7 @@
 .ColorDisplay {
     display: flex;
     flex-direction: column;
+    aspect-ratio: 1/2;
 }
 .ColorDisplay > * {
     flex: 1;

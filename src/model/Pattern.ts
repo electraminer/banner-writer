@@ -47,15 +47,19 @@ const enum Pattern {
     TOP_TRIANGLE = 38,
     BOTTOM_ZIGZAG = 39,
     TOP_ZIGZAG = 40,
+    
+    FLOW_SYMBOL = 41,
+    GUSTER_SYMBOL = 42,
 }
 export default Pattern;
-export const NUM_PATTERNS = 41;
+export const NUM_PATTERNS = 43;
 
 const PATTERN_CODES = `b
     bo|bri|mc|cre|cr|cbo|ld|rud|lud|rd
     flo|glb|gra|gru|hh|hhb|vh|vhr|moj|pig
     mr|sku|ss|bl|br|tl|tr|sc|bs|cs
     dls|drs|ls|ms|rs|ts|bt|tt|bts|tts
+    flow|guster
 `.trim().split(/\||\n/).map(s=>s.trim());
 export function toPatternCode(pattern: Pattern): string {
     return PATTERN_CODES[pattern];

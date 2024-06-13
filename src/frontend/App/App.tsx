@@ -1,7 +1,7 @@
 import "./App.css";
 // Internal dependencies
 import TitleBar from "./TitleBar/TitleBar";
-import BannerEditor from "./BannerEditor/BannerEditor";
+import BannerEditor, { BANNER_EDITOR_HEIGHT, BANNER_EDITOR_WIDTH } from "./BannerEditor/BannerEditor";
 import RecentBanners from "./RecentBanners/RecentBanners";
 import SavedWritings from "./SavedWritings/SavedWritings";
 import WritingEditor from "./WritingEditor/WritingEditor";
@@ -31,9 +31,9 @@ function App() {
                 </ForceSize>
                 <div className="AppBannerSelect">
                     <div className="AppBannerSelectScrollBox">
-                        <ForceSize className="AppBannerEditorSection">
+                        <ForceSize className="AppBannerEditorSection" aspectRatio={`${BANNER_EDITOR_WIDTH}/${2*BANNER_EDITOR_HEIGHT}`}>
                             <div className="AppSection">
-                                <ForceSize className="AppBannerEditor">
+                                <ForceSize className="AppBannerEditor" aspectRatio={`${BANNER_EDITOR_WIDTH}/${2*BANNER_EDITOR_HEIGHT}`}>
                                     <BannerEditor/>
                                 </ForceSize>
                             </div>

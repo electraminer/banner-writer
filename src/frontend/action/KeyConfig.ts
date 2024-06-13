@@ -101,7 +101,6 @@ export const DEFAULT_KEY_CONFIG = {
         {key: "Delete", modifiers: ["ShiftLeft"], action: Action.BACKSPACE},
 
         {key: "Backslash", action: Action.TOGGLE_DIRECTION},
-        {key: "Backspace", modifiers: ["AltLeft"], action: Action.CLEAR_WRITING},
 
         {key: "KeyC", modifiers: ["ControlLeft"], action: Action.COPY_IMAGE},
         {key: "KeyC", modifiers: ["ControlLeft", "ShiftLeft"], action: Action.COPY_ANVIL},

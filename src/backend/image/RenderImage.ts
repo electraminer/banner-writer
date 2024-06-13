@@ -10,7 +10,7 @@ export const RENDER_IMAGE_BACKGROUND = "rgb(49,51,56)";
 
 /** Renders an image of a Writing, returning a Canvas containing the image. */
 export default async function renderImage(writing: Writing): Promise<Canvas> {
-    // Length of the longest line
+    // Length of th e longest line
     const width = writing.lines
         .map(line => line.length)
         .reduce((l, r) => Math.max(l, r), 0);

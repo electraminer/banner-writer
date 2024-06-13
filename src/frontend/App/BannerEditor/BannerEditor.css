@@ -3,24 +3,3 @@
     flex-direction: row;
     justify-content: center;
 }
-.BannerEditor > .LayerSelector {
-    flex: 10;
-}
-.BannerEditor > .LayerStack {
-    flex: 2;
-}
-.BannerEditor > .BannerDisplay {
-    flex: 4;
-}
-
-.BannerEditorLayerSelector {
-    aspect-ratio: 10/12;
-}
-
-.BannerEditorLayerStack {
-    aspect-ratio: 2/12;
-}
-
-.BannerEditorBannerDisplay {
-    aspect-ratio: 4/12;
-}
