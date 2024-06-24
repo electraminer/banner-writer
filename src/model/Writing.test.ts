@@ -132,9 +132,9 @@ test("Test optimized BannerFont encoding of writing works.", () => {
     expect(ONE_LINE.toOptimizedString())
         .toBe("󏿥󏿥󏿥󏿥󏿥󏿷");
     expect(MULTI_LINE.toOptimizedString())
-        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷\n󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
+        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷󐀉 󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
     expect(RIGHT_TO_LEFT.toOptimizedString())
-        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷\n󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
+        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷󐀉 󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
 })
 
 test("Test URL encoding of writing works.", () => {

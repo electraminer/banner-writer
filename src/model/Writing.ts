@@ -203,7 +203,7 @@ export default class Writing {
     }
 
     /** Optimizes a single group of banners using arbitrary-space characters. */
-    static _optimizeBanners(banners: Banner[]): string {
+    static _optimizeBanners(banners: Banner[], toFinish?: boolean): string {
         let str = "";
         // The maximum layer count of all banners in the list.
         let maxLayer = 0;
@@ -252,6 +252,11 @@ export default class Writing {
                 }
             }
         }
+
+        // Move to the end of the group, if it is required that it end at the finish.
+        if (toFinish && position != banners.length) {
+            str += Writing._generateSpace(banners.length - position);
+        }
         return str;
     }
 
@@ -264,7 +269,7 @@ export default class Writing {
      * Groups of banners between spaces and newlines will be optimized separately.
      */
     toOptimizedString(): string {
-        return this.lines.map(line => {
+        const groups = this.lines.flatMap(line => {
             if (this.rightToLeft) {
                 line = line.slice().reverse();
             }
@@ -277,9 +282,18 @@ export default class Writing {
                     groups.at(-1)!.push(banner);
                 }
             }
-            // optimize groups one at a time
-            return groups.map(group => Writing._optimizeBanners(group))
-                .join(" ")
-        }).join("\n");
+            
+            return groups;
+        });
+        
+        if (groups.length == 0) {
+            return "";
+        }
+        const lastOptimized = Writing._optimizeBanners(groups[groups.length - 1]);
+        if (groups.length == 1) {
+            return lastOptimized;
+        }
+        // optimize groups one at a time
+        return groups.slice(0, -1).map(group => Writing._optimizeBanners(group, true)).join(" ") + " " + lastOptimized
     }
 }
