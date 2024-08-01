@@ -84,6 +84,7 @@ export default function AboutPage({}) {
                         <a href="https://cdn.discordapp.com/attachments/1167155884825256026/1177393544286183485/BannerFont.zip?ex=65a9b72f&is=6597422f&hm=297c23f5466d8886614b941080f5ad7f087653efc7cd6f7adfc3461c2a0a9430&">
                             resource pack.
                         </a><br/>
+                        CMD: Gets a series of Minecraft commands that give you the banners in the writing.<br/>
                         COPY: Exports the current writing as Unicode characters.<br/>
                         PASTE: Imports a string of Unicode characters from the COPY button.<br/>
                         CODE: Imports a banner from the /getbannercode command on Clongcraft.<br/>

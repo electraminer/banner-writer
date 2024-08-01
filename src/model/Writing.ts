@@ -296,4 +296,19 @@ export default class Writing {
         // optimize groups one at a time
         return groups.slice(0, -1).map(group => Writing._optimizeBanners(group, true)).join(" ") + " " + lastOptimized
     }
+
+    /**
+     * Returns a set of Minecraft commands that gives the player all Banners in this Writing.
+     */
+    toCommandCode(): string {
+        let commands = [];
+        for (const line of this.lines) {
+            for (const banner of line) {
+                if (banner !== undefined) {
+                    commands.push(banner.toCommandCode())
+                }
+            }
+        }
+        return commands.join("\n");
+    }
 }

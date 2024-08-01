@@ -2,6 +2,8 @@
 import Color from "./Color";
 import Pattern from "./Pattern";
 import Layer from "./Layer";
+import { toColorName } from "./Color";
+import { toPatternName } from "./Pattern";
 // External dependencies
 import {immerable} from "immer";
 import Writing from "./Writing";
@@ -108,6 +110,14 @@ class Banner {
         }
 
         return [banner, index];
+    }
+
+    /**
+     * Returns a Minecraft command that gives the player this Banner.
+     */
+    toCommandCode() {
+        const patterns = this.layers.map(layer => layer.toCommandCode()).join(",");
+        return `/give @p ${toColorName(this.background)}_banner[banner_patterns=[${patterns}]]`;
     }
 }
 

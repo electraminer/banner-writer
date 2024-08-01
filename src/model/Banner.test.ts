@@ -90,3 +90,13 @@ test("Test BannerFont decoding of Banners fails on empty string.", () => {
     expect(() => Banner.fromString(""))
         .toThrow(Error);
 })
+
+test("Test command generation of Banners", () => {
+    expect(BANNER.toCommandCode())
+        .toEqual(`/give @p white_banner[banner_patterns=[\
+{pattern:"minecraft:stripe_left",color:"red"},\
+{pattern:"minecraft:stripe_middle",color:"red"},\
+{pattern:"minecraft:stripe_right",color:"red"},\
+{pattern:"minecraft:stripe_top",color:"red"},\
+{pattern:"minecraft:border",color:"white"}]]`);
+});

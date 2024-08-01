@@ -33,6 +33,7 @@ export default function TitleBar() {
     const copyImageHandler = actionContext.useHandler(React.useRef(), Action.COPY_IMAGE);
     const copyAnvilHandler = actionContext.useHandler(React.useRef(), Action.COPY_ANVIL);
     const copyUnicodeHandler = actionContext.useHandler(React.useRef(), Action.COPY_UNICODE);
+    const copyCommandHandler = actionContext.useHandler(React.useRef(), Action.COPY_COMMAND);
     const pasteCodeHandler = actionContext.useHandler(React.useRef(), Action.PASTE_CODE);
     const pasteUnicodeHandler = actionContext.useHandler(React.useRef(), Action.PASTE_UNICODE);
     React.useEffect(() => {
@@ -49,6 +50,9 @@ export default function TitleBar() {
         ))
         copyUnicodeHandler((params, invoke) => navigator.clipboard.writeText(
             wcRef.current.writing.toString()
+        ))
+        copyCommandHandler((params, invoke) => navigator.clipboard.writeText(
+            wcRef.current.writing.toCommandCode()
         ))
         pasteUnicodeHandler((params, invoke) => {
             const str = prompt("Insert banner-font writing");
@@ -122,6 +126,11 @@ export default function TitleBar() {
                 <div className="TitleBarAnvilDetails">
                     <Text text={` ${optimizedLen}/50`}/>
                 </div>
+            </Button>
+            {/* The command copy button. */}
+            <Button
+                onLeftClick={() => actionContext.invoke(Action.COPY_COMMAND)}>
+                <Text text="CMD" backgroundColor={Color.PINK} length={5}/>
             </Button>
             {/* The text copy button. */}
             <Button

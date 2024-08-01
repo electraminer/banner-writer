@@ -105,6 +105,7 @@ export const DEFAULT_KEY_CONFIG = {
         {key: "KeyC", modifiers: ["ControlLeft"], action: Action.COPY_IMAGE},
         {key: "KeyC", modifiers: ["ControlLeft", "ShiftLeft"], action: Action.COPY_ANVIL},
         {key: "KeyC", modifiers: ["ControlLeft", "AltLeft"], action: Action.COPY_UNICODE},
+        {key: "KeyC", modifiers: ["ControlLeft", "ShiftLeft", "AltLeft"], action: Action.COPY_COMMAND},
         
         {key: "KeyV", modifiers: ["ControlLeft"], action: Action.PASTE_CODE},
         {key: "KeyV", modifiers: ["ControlLeft", "AltLeft"], action: Action.PASTE_UNICODE},

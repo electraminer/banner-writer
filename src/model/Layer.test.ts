@@ -91,3 +91,8 @@ test("Test BannerFont decoding of Layers fails on empty string.", () => {
     expect(() => Layer.fromString(""))
         .toThrow(Error);
 });
+
+test("Test command generation of Layers", () => {
+    expect(LAYER.toCommandCode())
+        .toEqual(`{pattern:"minecraft:stripe_downleft",color:"red"}`);
+});

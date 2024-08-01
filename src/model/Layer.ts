@@ -1,6 +1,6 @@
 // Internal dependencies
-import Color, { NUM_COLORS, toColorCode, fromColorCode } from "./Color";
-import Pattern, { NUM_PATTERNS, toPatternCode, fromPatternCode } from "./Pattern";
+import Color, { NUM_COLORS, toColorCode, fromColorCode, toColorName } from "./Color";
+import Pattern, { NUM_PATTERNS, toPatternCode, fromPatternCode, toPatternName } from "./Pattern";
 // External dependencies
 import {immerable} from "immer";
 
@@ -112,6 +112,13 @@ class Layer {
         index++;
 
         return [layer, index]
+    }
+
+    /**
+     * Returns the JSON representing this Layer in Minecraft commands.
+     */
+    toCommandCode() {
+        return `{pattern:"minecraft:${toPatternName(this.pattern)}",color:"${toColorName(this.color)}"}`;
     }
 }
 

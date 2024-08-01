@@ -15,6 +15,9 @@ import Layer from "model/Layer";
 import { NUM_PATTERNS } from "model/Pattern";
 
 export const BANNER_EDITOR_HEIGHT = 6;
+// const MAX_BANNERS = BANNER_EDITOR_HEIGHT;
+const MAX_BANNERS = 16;
+
 export const COLOR_SELECTOR_HEIGHT = 2;
 export const COLOR_SELECTOR_WIDTH = 8;
 export const COLOR_DISPLAY_WIDTH = 2;
@@ -55,7 +58,7 @@ export default function BannerEditor() {
             if (index < 0 || index > params.banner.layers.length) {
                 return;
             }
-            if (params.banner.layers.length >= 6) {
+            if (params.banner.layers.length >= MAX_BANNERS) {
                 return;
             }
             const layer = new Layer(params.color, params.pattern);

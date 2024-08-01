@@ -59,7 +59,7 @@ const PATTERN_CODES = `b
     flo|glb|gra|gru|hh|hhb|vh|vhr|moj|pig
     mr|sku|ss|bl|br|tl|tr|sc|bs|cs
     dls|drs|ls|ms|rs|ts|bt|tt|bts|tts
-    flow|guster
+    flw|gus
 `.trim().split(/\||\n/).map(s=>s.trim());
 export function toPatternCode(pattern: Pattern): string {
     return PATTERN_CODES[pattern];
@@ -76,4 +76,18 @@ export function fromPatternCode(code: string): Pattern {
         throw new Error(`${code} is not a valid Pattern code.`);
     }
     return pattern;
+}
+const PATTERN_NAMES = `base
+    border|bricks|circle|creeper|cross
+    curly_border|diagonal_left|diagonal_right|diagonal_up_left|diagonal_up_right
+    flower|globe|gradient|gradient_up|half_horizontal
+    half_horizontal_bottom|half_vertical|half_vertical_right|mojang|piglin
+    rhombus|skull|small_stripes|square_bottom_left|square_bottom_right
+    square_top_left|square_top_right|straight_cross|stripe_bottom|stripe_center
+    stripe_downleft|stripe_downright|stripe_left|stripe_middle|stripe_right
+    stripe_top|triangle_bottom|triangle_top|triangles_bottom|triangles_top
+    flow|guster
+`.trim().split(/\||\n/).map(s=>s.trim());
+export function toPatternName(pattern: Pattern): string {
+    return PATTERN_NAMES[pattern];
 }

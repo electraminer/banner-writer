@@ -51,3 +51,10 @@ export function contrastingColor(color: Color, dark?: Color, light?: Color): Col
     dark ??= Color.GRAY;
     return LIGHT_COLORS.includes(color) ? dark : light;
 }
+const COLOR_NAMES = `
+    white|light_gray|gray|black|yellow|orange|red|brown
+    lime|green|light_blue|cyan|blue|pink|magenta|purple
+`.trim().split(/\||\n/).map(s=>s.trim());
+export function toColorName(color: Color): string {
+    return COLOR_NAMES[color];
+}
