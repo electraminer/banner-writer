@@ -46,12 +46,12 @@ export default function LayerSelector() {
     return (
         <div className="LayerSelector" style={{"--LayerSelectorWidth": LAYER_SELECTOR_WIDTH} as any}>
             <div className="LayerSelectorColorRow">
-                <ForceSize className="LayerSelectorColorDisplay" aspectRatio={`${COLOR_DISPLAY_WIDTH}/${2*COLOR_SELECTOR_HEIGHT}`}>
+                <ForceSize className="LayerSelectorColorDisplay">
                     <ColorDisplay primary={primary} secondary={secondary}
                         onSwap={() => actionContext.invoke(Action.SWAP_COLORS)}/>
                 </ForceSize>
                 <div className="LayerSelectorColorSpacer"/>
-                <ForceSize className="LayerSelectorColorSelector" aspectRatio={`${COLOR_SELECTOR_WIDTH}/${2*COLOR_SELECTOR_HEIGHT}`}>
+                <ForceSize className="LayerSelectorColorSelector">
                     <ColorSelector
                         onColorSelected={(color, isSecondary) =>
                             actionContext.invoke(Action.SELECT_COLOR, {color: color, isSecondary: isSecondary})}/>

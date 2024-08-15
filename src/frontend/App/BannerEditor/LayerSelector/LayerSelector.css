@@ -12,6 +12,12 @@
 .LayerSelectorColorRow {
     display: flex;
 }
+.LayerSelectorColorRow > .LayerSelectorColorDisplay {
+    flex: 2;
+}
 .LayerSelectorColorRow > .LayerSelectorColorSpacer {
     flex: 1;
+}
+.LayerSelectorColorRow > .LayerSelectorColorSelector {
+    flex: 8;
 }
