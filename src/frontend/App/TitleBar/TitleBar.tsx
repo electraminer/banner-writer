@@ -50,10 +50,8 @@ export default function TitleBar() {
             `https://banner-writer.web.app${wcRef.current.writing.imagePath()}`
         ))
         copyImageHandler(async (params, invoke) => {
-            const writingEditor = document.getElementsByClassName("WritingEditor")[0] as HTMLElement;
-            const canvas = await html2canvas(writingEditor, {backgroundColor:null});
-            console.log(canvas);
-            const blob = await new Promise(resolve => canvas.toBlob(resolve)) as Blob;
+            const response = await fetch(wcRef.current.writing.imagePath());
+            const blob = await response.blob();
             if (navigator.clipboard.write == undefined) {
                 if (navigator.userAgent.toLowerCase().includes('firefox')) {
                     alert("To allow copying images to clipboard, you must change your Firefox settings.\n\
