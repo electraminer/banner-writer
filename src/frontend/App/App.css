@@ -7,6 +7,7 @@
 }
 .App > .AppTitleBar {
     aspect-ratio: 64/2;
+    z-index: 1;
 }
 .App > .AppWritingEditor {
     aspect-ratio: 16/2;

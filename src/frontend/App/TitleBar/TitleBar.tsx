@@ -11,6 +11,7 @@ import Banner from "model/Banner";
 import Color from "model/Color";
 // External dependencies
 import React from "react";
+import html2canvas from "html2canvas";
 
 export default function TitleBar() {
     const settingsContext = React.useContext(SettingsContext);
@@ -22,6 +23,8 @@ export default function TitleBar() {
 
     const actionContext = React.useContext(ActionContext);
 
+    const [dropdownActive, setDropdownActive] = React.useState(false);
+
     const optimized = writingContext.writing.toOptimizedString();
     let optimizedLen = optimized.length as string;
     if (optimizedLen.length == 1) {
@@ -30,7 +33,8 @@ export default function TitleBar() {
 
     const toggleDirectionHandler = actionContext.useHandler(React.useRef(), Action.TOGGLE_DIRECTION);
     const clearWritingHandler = actionContext.useHandler(React.useRef(), Action.CLEAR_WRITING);
-    const copyImageHandler = actionContext.useHandler(React.useRef(), Action.COPY_IMAGE);
+    const copyImageLinkHandler = actionContext.useHandler(React.useRef(), Action.COPY_IMAGE_LINK);
+    const copyImageHandler = actionContext.useHandler(React.useRef(), Action.COPY_IMAGE)
     const copyAnvilHandler = actionContext.useHandler(React.useRef(), Action.COPY_ANVIL);
     const copyUnicodeHandler = actionContext.useHandler(React.useRef(), Action.COPY_UNICODE);
     const copyCommandHandler = actionContext.useHandler(React.useRef(), Action.COPY_COMMAND);
@@ -42,9 +46,35 @@ export default function TitleBar() {
         }))
         clearWritingHandler((params, invoke) => confirm("Are you sure you want to clear the writing?") ?
             wcRef.current.setWriting(wcRef.current.defaultWriting, true) : undefined)
-        copyImageHandler((params, invoke) => navigator.clipboard.writeText(
+        copyImageLinkHandler((params, invoke) => navigator.clipboard.writeText(
             `https://banner-writer.web.app${wcRef.current.writing.imagePath()}`
         ))
+        copyImageHandler(async (params, invoke) => {
+            const writingEditor = document.getElementsByClassName("WritingEditor")[0] as HTMLElement;
+            const canvas = await html2canvas(writingEditor, {backgroundColor:null});
+            console.log(canvas);
+            const blob = await new Promise(resolve => canvas.toBlob(resolve)) as Blob;
+            if (navigator.clipboard.write == undefined) {
+                if (navigator.userAgent.toLowerCase().includes('firefox')) {
+                    alert("To allow copying images to clipboard, you must change your Firefox settings.\n\
+                    Here are some steps to fix this issue:\n\
+                    1) Navigate to the url 'about:config'.\n\
+                    2) Click 'Accept the Risk and Continue'.\n\
+                    3) Type 'dom.events.asyncClipboard.clipboardItem' in the box.\n\
+                    4) Click the button with the two-arrows symbol to the right.\n\
+                    5) The value in the middle should now appear as 'true'.\n\
+                    6) Return to banner-writer and reload the page.")
+                } else {
+                    alert("Copying images to your clipboard is unsupported for an unknown reason.\n\
+                    Contact Electra with information about your browser to get this fixed.")
+                }
+                
+            } else {
+                navigator.clipboard.write([new window.ClipboardItem(
+                    { [blob.type]: blob }
+                )])
+            }
+        })
         copyAnvilHandler((params, invoke) => navigator.clipboard.writeText(
             wcRef.current.writing.toOptimizedString()
         ))
@@ -116,6 +146,11 @@ export default function TitleBar() {
             <div className="TitleBarSpacer"/>
             {/* The image copy button. */}
             <Button
+                onLeftClick={() => actionContext.invoke(Action.COPY_IMAGE_LINK)}>
+                <Text text="LINK" backgroundColor={Color.LIGHT_BLUE} length={5}/>
+            </Button>
+            {/* The image copy button. */}
+            <Button
                 onLeftClick={() => actionContext.invoke(Action.COPY_IMAGE)}>
                 <Text text="IMAGE" backgroundColor={Color.CYAN} length={5}/>
             </Button>
@@ -123,7 +158,7 @@ export default function TitleBar() {
             <Button
                 onLeftClick={() => actionContext.invoke(Action.COPY_ANVIL)}>
                 <Text text="ANVIL" backgroundColor={Color.ORANGE} length={5}/>
-                <div className="TitleBarAnvilDetails">
+                <div className="TitleBarDropdown">
                     <Text text={` ${optimizedLen}/50`}/>
                 </div>
             </Button>
@@ -132,21 +167,27 @@ export default function TitleBar() {
                 onLeftClick={() => actionContext.invoke(Action.COPY_COMMAND)}>
                 <Text text="CMD" backgroundColor={Color.PINK} length={5}/>
             </Button>
-            {/* The text copy button. */}
-            <Button
-                onLeftClick={() => actionContext.invoke(Action.COPY_UNICODE)}>
-                <Text text="COPY" backgroundColor={Color.LIME} length={5}/>
-            </Button>
-            {/* The text paste button. */}
-            <Button
-                onLeftClick={() => actionContext.invoke(Action.PASTE_UNICODE)}>
-                <Text text="PASTE" backgroundColor={Color.LIGHT_BLUE} length={5}/>
-            </Button>
-            
             {/* The code paste button. */}
             <Button
                 onLeftClick={() => actionContext.invoke(Action.PASTE_CODE)}>
                 <Text text="CODE" backgroundColor={Color.GREEN} length={5}/>
+            </Button>
+            {/* Dropdown for more elements. */}
+            <Button
+                onLeftClick={() => setDropdownActive(s => !s)}>
+                <Text text="MORE" backgroundColor={Color.LIGHT_GRAY} length={5}/>
+                <div className={"TitleBarDropdown" + (dropdownActive ? " TitleBarDropdownActive" : "")}>
+                    {/* The text copy button. */}
+                    <Button
+                        onLeftClick={() => actionContext.invoke(Action.COPY_UNICODE)}>
+                        <Text text="COPY" backgroundColor={Color.LIME} length={5}/>
+                    </Button>
+                    {/* The text paste button. */}
+                    <Button
+                        onLeftClick={() => actionContext.invoke(Action.PASTE_UNICODE)}>
+                        <Text text="PASTE" backgroundColor={Color.LIGHT_BLUE} length={5}/>
+                    </Button>
+                 </div>
             </Button>
         </div>
     )
