@@ -101,8 +101,8 @@ class Banner {
         let banner = new Banner(backgroundLayer.color);
         index = newIndex;
 
-        while (str.codePointAt(index) == 0xCFFF7) {
-            index += 2;
+        while (str.codePointAt(index) == 0xCFFF7 || str.codePointAt(index) == 0xF039) {
+            index += str.codePointAt(index) == 0xCFFF7 ? 2 : 1;
 
             let [layer, newIndex] = Layer.fromString(str, index);
             banner.layers.push(layer);

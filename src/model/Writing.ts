@@ -199,62 +199,40 @@ export default class Writing {
 
     /** Creates an arbitrary space character jumping the specified number of banners. */
     static _generateSpace(size: number): string {
-        return String.fromCodePoint(0xD0000 + size * 9);
+        return String.fromCodePoint(0xF040 + size);
     }
 
     /** Optimizes a single group of banners using arbitrary-space characters. */
-    static _optimizeBanners(banners: Banner[], toFinish?: boolean): string {
+    static _optimizeBanners(banners: Banner[]): string {
         let str = "";
         // The maximum layer count of all banners in the list.
         let maxLayer = 0;
         // The number of "skips" (extra background layers) to add to each banner.
-        let skipCounts: number[] = [];
         for (const banner of banners) {
             // Begin by adding all background layers
             str += banner.backgroundLayer().toString();
             maxLayer = Math.max(maxLayer, banner.layers.length)
-            skipCounts.push(0);
         }
         // The current position of the cursor while typing
         let position = banners.length;
-        // Iterate through each banner in each layer
-        for (let layer = 0; layer <= maxLayer; layer++) {
-            for (let i = 0; i < banners.length; i++) {
-                const banner = banners[i];
-                if (layer < banner.layers.length) {
-                    // If you would need to skip exactly one banner, add a skip.
-                    // This is because adding 1 layer is 1 char less than a space.
-                    if (position == i - 1) {
-                        skipCounts[position] += 1;
-                    }
-                    position = i + 1;
-                }
-            }
-        }
-        // Reset the position now that skip counts have been calculated
         position = banners.length;
         for (let layer = 0; layer <= maxLayer; layer++) {
             for (let i = 0; i < banners.length; i++) {
                 const banner = banners[i];
                 // If the banner needs to be written
-                if (layer - skipCounts[i] < banner.layers.length) {
+                if (layer < banner.layers.length) {
                     // Move to the correct position if needed
                     if (position != i) {
                         str += Writing._generateSpace(i - position);
                     }
-                    // Add a "skip" or the next layer of the banner
-                    if (layer - skipCounts[i] < 0) {
-                        str += banner.backgroundLayer().toString();
-                    } else {
-                        str += banner.layers[layer - skipCounts[i]].toString();
-                    }
+                    str += banner.layers[layer].toString();
                     position = i + 1;
                 }
             }
         }
 
         // Move to the end of the group, if it is required that it end at the finish.
-        if (toFinish && position != banners.length) {
+        if (position != banners.length) {
             str += Writing._generateSpace(banners.length - position);
         }
         return str;
@@ -294,7 +272,7 @@ export default class Writing {
             return lastOptimized;
         }
         // optimize groups one at a time
-        return groups.slice(0, -1).map(group => Writing._optimizeBanners(group, true)).join(" ") + " " + lastOptimized
+        return groups.slice(0, -1).map(group => Writing._optimizeBanners(group)).join(" ") + " " + lastOptimized
     }
 
     /**

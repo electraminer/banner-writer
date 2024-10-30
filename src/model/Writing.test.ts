@@ -130,11 +130,11 @@ test("Test BannerFont decoding of Writings fails with non-BannerFont characters.
 
 test("Test optimized BannerFont encoding of writing works.", () => {
     expect(ONE_LINE.toOptimizedString())
-        .toBe("󏿥󏿥󏿥󏿥󏿥󏿷");
-    expect(MULTI_LINE.toOptimizedString())
-        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷󐀉 󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
+        .toBe("");
+    expect(MULTI_LINE.toOptimizedString()) 
+        .toBe("   ");
     expect(RIGHT_TO_LEFT.toOptimizedString())
-        .toBe("󏿷󏿷󏿷󏿷󏿷 󏿮󏿮󏿮󏿮󏿮󏿷󐀉 󏿮󏿮󏿮󏿮󏿮󏿷 󏿷󏿷󏿷󏿷");
+        .toBe("   ");
 })
 
 test("Test URL encoding of writing works.", () => {

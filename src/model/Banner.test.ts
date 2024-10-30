@@ -91,6 +91,11 @@ test("Test BannerFont decoding of Banners fails on empty string.", () => {
         .toThrow(Error);
 })
 
+test("Test BannerFont decoding of Banners works with new backspace.", () => {
+    expect(Banner.fromString(""))
+        .toStrictEqual([BANNER, 11]);
+});
+
 test("Test command generation of Banners", () => {
     expect(BANNER.toCommandCode())
         .toEqual(`/give @p white_banner[banner_patterns=[\
