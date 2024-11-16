@@ -76,6 +76,8 @@ export const DEFAULT_KEY_CONFIG = {
         
         {key: "KeyZ", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.CREEPER_SYMBOL}},
         {key: "KeyZ", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.SKULL_SYMBOL}},
+        {key: "KeyZ", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.FLOW_SYMBOL}},
+        {key: "KeyZ", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.GUSTER_SYMBOL}},
         
         {key: "KeyX", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.FLOWER_SYMBOL}},
         {key: "KeyX", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.GLOBE_SYMBOL}},
