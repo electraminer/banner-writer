@@ -53,12 +53,18 @@ export const DEFAULT_KEY_CONFIG = {
         
         {key: "KeyY", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_GRADIENT}},
         {key: "KeyY", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_GRADIENT}},
+        {key: "KeyY", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_GRADIENT}},
+        {key: "KeyY", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_GRADIENT}},
         
         {key: "KeyA", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_ZIGZAG}},
         {key: "KeyA", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_ZIGZAG}},
+        {key: "KeyA", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_ZIGZAG}},
+        {key: "KeyA", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_ZIGZAG}},
     
         {key: "KeyS", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.TOP_TRIANGLE}},
         {key: "KeyS", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_TRIANGLE}},
+        {key: "KeyS", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_TRIANGLE}},
+        {key: "KeyS", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_TRIANGLE}},
         
         {key: "KeyD", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.ORTHOGONAL_CROSS}},
         {key: "KeyD", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.DIAGONAL_CROSS}},
@@ -75,8 +81,8 @@ export const DEFAULT_KEY_CONFIG = {
         {key: "KeyG", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.BOTTOM_RIGHT_HALF}},
         
         {key: "KeyZ", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.CREEPER_SYMBOL}},
-        {key: "KeyZ", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.SKULL_SYMBOL}},
         {key: "KeyZ", modifiers: MA, action: Action.INSERT_LAYER, params: {pattern: Pattern.FLOW_SYMBOL}},
+        {key: "KeyZ", modifiers: MS, action: Action.INSERT_LAYER, params: {pattern: Pattern.SKULL_SYMBOL}},
         {key: "KeyZ", modifiers: SA, action: Action.INSERT_LAYER, params: {pattern: Pattern.GUSTER_SYMBOL}},
         
         {key: "KeyX", modifiers: [], action: Action.INSERT_LAYER, params: {pattern: Pattern.FLOWER_SYMBOL}},
