@@ -14,7 +14,6 @@ import React from "react";
 import html2canvas from "html2canvas";
 
 export default function TitleBar() {
-    const settingsContext = React.useContext(SettingsContext);
 
     const writingContext = React.useContext(WritingContext);
     // JANKY FIX - Will remove Writing Context in the future
@@ -123,12 +122,10 @@ export default function TitleBar() {
             <a href="/about">
                 <Text text="ABOUT" backgroundColor={Color.PURPLE} length={5}/>
             </a>
-            <Button
-                onLeftClick={() => settingsContext.setUseBannerFont(
-                    !settingsContext.useBannerFont
-                )}>
-                <Text text={"FONT"} backgroundColor={Color.BROWN} length={5}/>
-            </Button>
+            <a href="/cfg">
+                <Text text="CFG" backgroundColor={Color.BROWN} length={5}/>
+            </a>
+
             {/* The writing direction toggle button. */}
             <Button
                 onLeftClick={() => actionContext.invoke(Action.TOGGLE_DIRECTION)}>

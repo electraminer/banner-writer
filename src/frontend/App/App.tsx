@@ -14,11 +14,14 @@ import React from "react";
 import KeyHandler from "frontend/action/KeyboardInterface";
 import { ActionContextProvider } from "frontend/action/ActionContext";
 import { DEFAULT_KEY_CONFIG } from "frontend/action/KeyConfig";
+import SettingsContext from "frontend/SettingsContext";
 
 function App() {
+    const settingsContext = React.useContext(SettingsContext);
+    
     return (
         <ActionContextProvider>
-        <KeyHandler config={DEFAULT_KEY_CONFIG}>
+        <KeyHandler config={settingsContext.keyConfig}>
         <RecentContextProvider>
         <SavedContextProvider>
         <WritingContextProvider>

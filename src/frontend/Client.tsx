@@ -6,6 +6,7 @@ import { SettingsContextProvider } from './SettingsContext';
 // External dependencies
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ConfigPage from './ConfigPage/ConfigPage';
 
 const router = createBrowserRouter([
     {path: "/", element:
@@ -14,7 +15,14 @@ const router = createBrowserRouter([
         </SettingsContextProvider>,
     },
     {path: "/about", element:
-        <AboutPage/>,
+        <SettingsContextProvider>
+            <AboutPage/>
+        </SettingsContextProvider>,
+    },
+    {path: "/cfg", element:
+        <SettingsContextProvider>
+            <ConfigPage/>
+        </SettingsContextProvider>,
     }
 ]);
 
