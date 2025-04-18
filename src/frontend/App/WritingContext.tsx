@@ -6,6 +6,7 @@ import Banner from "model/Banner";
 // External dependencies
 import React from "react";
 import { produce } from "immer";
+import Ligature from "model/Ligature";
 
 const WritingContext = React.createContext(null);
 export default WritingContext;
@@ -100,10 +101,26 @@ export function WritingContextProvider(props: {children: React.ReactNode}) {
         }
     }
 
+    const ligatures = [
+        new Ligature(
+            Writing.fromString("󏿷󏿷")[0],
+            Writing.fromString("󏿷")[0],
+        ),
+        new Ligature(
+            Writing.fromString("󏿷󏿷")[0],
+            Writing.fromString("󏿷󏿷")[0],
+        ),
+        new Ligature(
+            Writing.fromString("󏿷󏿷󏿷󏿷")[0],
+            Writing.fromString("")[0],
+        ),
+
+    ]
+
     return (
         <WritingContext.Provider value={{
             cursor: [cursorLine, cursorPos],
-            writing: writing,
+            writing: writing.applyLigatures(ligatures, 10),
             setCursor: setCursor,
             setWriting: setWritingAndCursor,
             updateWriting: updateWriting,

@@ -5,6 +5,7 @@ import {immerable} from "immer";
 import Color from "./Color";
 import Pattern from "./Pattern";
 import Layer from "./Layer";
+import Ligature from "./Ligature";
 
 export const CODEPOINT_WRITING_NEWLINE = 0xE00A;
 export const CODEPOINT_WRITING_END = 0xE00D;
@@ -288,5 +289,78 @@ export default class Writing {
             }
         }
         return commands.join("\n");
+    }
+
+    flatten(): (Banner | " " | "\n")[] {
+        const flattened = [];
+        for (const line of this.lines) {
+            for (const banner of line) {
+                if (banner === undefined) {
+                    flattened.push(" ")
+                } else {   
+                    flattened.push(banner);
+                }
+            }
+            flattened.push("\n")
+        }
+        flattened.pop();
+        return flattened;
+    }
+
+    static unflatten(flattened: (Banner | " " | "\n")[], rightToLeft: boolean): Writing {
+
+        const lines = [[]];
+        for (const char of flattened) {
+            if (char === "\n") {
+                lines.push([]);
+            } else if (char === " ") {
+                lines.at(-1).push(undefined)
+            } else {
+                lines.at(-1).push(char)
+            }
+        }
+        return new Writing(rightToLeft, ...lines);
+    }
+
+    applyLigatures(ligatures: Ligature[], depth?: number): Writing {
+        depth ??= 1;
+        let text = this.flatten();
+        for (let i = 0; i < depth; i++) {
+            let changed = false;
+            for (const ligature of ligatures) {
+                const pattern = ligature.pattern.flatten();
+                const replace = ligature.replace.flatten();
+    
+                const newText = [];
+                // For each character
+                for (let i = 0; i < text.length; i++) {
+                    // Try to match with ligature
+                    if (i + pattern.length <= text.length) {
+                        let isMatch = true;
+                        for (let j = 0; j < pattern.length; j++) {
+                            if (text[i + j].toString() !== pattern[j].toString()) {
+                                isMatch = false;
+                                break;
+                            }
+                        }
+                        if (isMatch) {
+                            // Skip over the rest of the characters in the ligature
+                            changed = true;
+                            i += pattern.length - 1;
+                            newText.push(...replace);
+                            continue;
+                        }
+                    }
+                    newText.push(text[i]);
+                }
+                text = newText;
+            }
+            if (!changed) {
+                // If no ligatures were replaced, we can stop early
+                break;
+            }
+        }
+        
+        return Writing.unflatten(text, this.rightToLeft);
     }
 }
