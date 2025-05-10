@@ -48,6 +48,18 @@ export function SavedContextProvider(props: {children: React.ReactNode}) {
         setSelected(index);
     }
 
+    const updateWriting = function(index: number, writing: Writing): Writing | undefined {
+        if (index >= 0 && index < saved.length) {
+            updateSaved((saved: string[]) => {
+                saved[index] = writing.toString();
+            })
+            if (selected == index) {
+                return writing;
+            }
+        }
+        return undefined;
+    }
+
     const swap = function(index: number) {
         updateSaved((saved: string[]) => {
             const temp = saved[index];
@@ -87,6 +99,7 @@ export function SavedContextProvider(props: {children: React.ReactNode}) {
             addWriting: addWriting,
             swap: swap,
             removeSelected: removeSelected,
+            updateWriting: updateWriting,
         }}>
             {props.children}
         </SavedContext.Provider>

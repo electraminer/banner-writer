@@ -1,0 +1,13 @@
+.DragContext {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.DragContext_DraggedBanner {
+    position: absolute;
+    width: 20px;
+    height: 40px;
+    pointer-events: none;
+}

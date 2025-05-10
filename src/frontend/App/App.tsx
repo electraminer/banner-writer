@@ -15,6 +15,7 @@ import KeyHandler from "frontend/action/KeyboardInterface";
 import { ActionContextProvider } from "frontend/action/ActionContext";
 import { DEFAULT_KEY_CONFIG } from "frontend/action/KeyConfig";
 import SettingsContext from "frontend/SettingsContext";
+import { DragContextProvider } from "./DragContext";
 
 function App() {
     const settingsContext = React.useContext(SettingsContext);
@@ -22,6 +23,7 @@ function App() {
     return (
         <ActionContextProvider>
         <KeyHandler config={settingsContext.keyConfig}>
+        <DragContextProvider>
         <RecentContextProvider>
         <SavedContextProvider>
         <WritingContextProvider>
@@ -55,6 +57,7 @@ function App() {
         </WritingContextProvider>
         </SavedContextProvider>
         </RecentContextProvider>
+        </DragContextProvider>
         </KeyHandler>
         </ActionContextProvider>
     );

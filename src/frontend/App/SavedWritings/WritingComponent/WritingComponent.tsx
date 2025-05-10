@@ -8,10 +8,18 @@ import ActionContext from "frontend/action/ActionContext";
 import Writing from "model/Writing";
 // External dependencies
 import React from "react";
+import { produce } from "immer";
+import DragContext from "frontend/App/DragContext";
+import RecentContext from "frontend/App/RecentContext";
 
-export default function WritingComponent(props: {writing: Writing}) {
+export default function WritingComponent(props: {
+        writing: Writing,
+        setWriting: (writing: Writing) => void,
+    }) {
     const writingContext = React.useContext(WritingContext);
     const actionContext = React.useContext(ActionContext);
+    const dragContext = React.useContext(DragContext);
+    const recentContext = React.useContext(RecentContext);
     
     const dir = props.writing.rightToLeft ? "RightToLeft" : "LeftToRight";
 
@@ -23,11 +31,32 @@ export default function WritingComponent(props: {writing: Writing}) {
                         <>
                             <Button className="WritingComponentBanner"
                                 onLeftClick={() => writingContext.addBanner(banner)}
-                                onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}>
+                                onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}
+                                onEndDrag={(isRight) => {
+                                    if (dragContext.draggedBanner) {
+                                        const isForward = isRight != props.writing.rightToLeft;
+                                        props.setWriting(produce(props.writing, writing => {
+                                            writing.lines[i].splice(j + (isForward ? 1 : 0), 0, dragContext.draggedBanner);
+                                        }));
+                                        recentContext.addBanner(dragContext.draggedBanner);
+                                    }
+                                }}>
                                 {banner ?
                                     <BannerComponent banner={banner} key={j}></BannerComponent>
                                 :
-                                    <div className='BannerComponent'>&nbsp;</div>
+                                    <Button className='BannerComponent'
+                                        onLeftClick={() => 0}
+                                        onEndDrag={(isRight) => {
+                                            if (dragContext.draggedBanner) {
+                                                const isForward = isRight != props.writing.rightToLeft;
+                                                props.setWriting(produce(props.writing, writing => {
+                                                    writing.lines[i].splice(j + (isForward ? 1 : 0), 0, dragContext.draggedBanner);
+                                                }));
+                                                recentContext.addBanner(dragContext.draggedBanner);
+                                            }
+                                        }}>
+                                        &nbsp;
+                                    </Button>
                                 }
                             </Button>
                         </>
@@ -37,6 +66,18 @@ export default function WritingComponent(props: {writing: Writing}) {
                             <div className='BannerComponent'>&nbsp;</div>
                         </div>
                     }
+                    <Button className="WritingComponentCursorEndHitbox"
+                        onLeftClick={() => 0}
+                        onEndDrag={() => {
+                            if (dragContext.draggedBanner) {
+                                props.setWriting(produce(props.writing, writing => {
+                                    writing.lines[i].push(dragContext.draggedBanner);
+                                }));
+                                recentContext.addBanner(dragContext.draggedBanner);
+                            }
+                        }}>
+                        <div/>
+                    </Button>
                     <div className="WritingComponentNewline"/>
                 </>
             )}

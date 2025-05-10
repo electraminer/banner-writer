@@ -5,16 +5,32 @@ import React from "react";
 export default function BannerButton(props: {
     children: React.ReactNode,
     className?: string,
-    onLeftClick: () => void,
-    onRightClick?: () => void,
+    onLeftClick: (isRight: boolean) => void,
+    onRightClick?: (isRight: boolean) => void,
+    onBeginDrag?: (isRight: boolean) => void,
+    onEndDrag?: (isRight: boolean) => void,
 }) {
-    const onClick = function(e) {
-        props.onLeftClick();
+    const isRight = function(e: React.MouseEvent<HTMLButtonElement>) {
+        const target = e.currentTarget;
+        const rect = target.getBoundingClientRect();
+        return e.clientX > rect.left + rect.width / 2;
+    }
+
+    const onClick = function(e: React.MouseEvent<HTMLButtonElement>) {
+        props.onLeftClick(isRight(e));
     };
 
-    const onContextMenu = function(e) {
+    const onBeginDrag = function(e: React.MouseEvent<HTMLButtonElement>) {
+        props.onBeginDrag(isRight(e));
+    }
+
+    const onEndDrag = function(e: React.MouseEvent<HTMLButtonElement>) {
+        props.onEndDrag(isRight(e));
+    }
+
+    const onContextMenu = function(e: React.MouseEvent<HTMLButtonElement>) {
         if (props.onRightClick) {
-            props.onRightClick();
+            props.onRightClick(isRight(e));
             e.preventDefault();
         }
     };
@@ -22,7 +38,9 @@ export default function BannerButton(props: {
     return (
         <button className={`${props.className} Button`}
             onClick={onClick}
-            onContextMenu={onContextMenu}>
+            onContextMenu={onContextMenu}
+            onMouseDown={onBeginDrag}
+            onMouseUp={onEndDrag}>
             {props.children}
         </button>
     );

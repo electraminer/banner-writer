@@ -10,10 +10,10 @@ export default function BannerComponent(props: {banner: Banner, disableAA?: bool
     const aliasClass = props.disableAA ? "DisableAA" : "EnableAA"
     return (
         <div className={"BannerComponent " + aliasClass}>
-            <img className='BannerComponentBackground'
+            <img className='BannerComponentBackground' draggable='false'
                 src={props.banner.backgroundLayer().staticImagePath()}/>
             {props.banner.layers.map((layer, i) =>
-                <img key={i} className='BannerComponentLayer'
+                <img key={i} className='BannerComponentLayer' draggable='false'
                     src={layer.staticImagePath()}/>
             )}
         </div>

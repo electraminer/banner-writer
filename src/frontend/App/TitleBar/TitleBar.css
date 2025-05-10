@@ -19,7 +19,7 @@
 }
 
 .TitleBarDropdown {
-    visibility: hidden;
+    display: none;
     position: relative;
     z-index: 1000;
     background-color: rgb(64,80,80);
@@ -28,10 +28,10 @@
     width: 100%;
 }
 .Button:hover > .TitleBarDropdown {
-    visibility: visible;
+    display: block;
 }
 .TitleBarDropdownActive {
-    visibility: visible;
+    display: block;
 }
 
 @media (max-aspect-ratio: 1/1) {

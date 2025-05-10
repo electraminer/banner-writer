@@ -6,6 +6,10 @@
 .WritingComponent > .WritingComponentBanner {
     width: 5%;
 }
+.WritingComponent > .WritingComponentCursorEndHitbox {
+    flex: 1;
+    min-width: 1px;
+}
 .WritingComponent > .WritingComponentNewline {
     width: 100%;
     height: 0px;

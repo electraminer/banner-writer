@@ -7,10 +7,15 @@ import ActionContext from "frontend/action/ActionContext";
 import { Action } from "frontend/action/Action";
 // External dependencies
 import React from "react";
+import DragContext from "../DragContext";
+import { produce } from "immer";
+import RecentContext from "../RecentContext";
 
 export default function WritingEditor() {
     const writingContext = React.useContext(WritingContext);
+    const recentContext = React.useContext(RecentContext);
     const actionContext = React.useContext(ActionContext);
+    const dragContext = React.useContext(DragContext);
     
     const dir = writingContext.writing.rightToLeft ? "RightToLeft" : "LeftToRight";
     let size = writingContext.writing.lines.length;
@@ -39,8 +44,21 @@ export default function WritingEditor() {
                                 <div className="WritingEditorCursor"/>              
                             }
                             <Button className="WritingEditorBanner"
-                                onLeftClick={() => writingContext.setCursor(i, j)}
-                                onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}>
+                                onLeftClick={(isRight) => {
+                                    const isForward = isRight != writingContext.writing.rightToLeft;
+                                    writingContext.setCursor(i, j + (isForward ? 1 : 0));
+                                }}
+                                onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}
+                                onEndDrag={(isRight) => {
+                                    if (dragContext.draggedBanner) {
+                                        const isForward = isRight != writingContext.writing.rightToLeft;
+                                        writingContext.setWriting(produce(writingContext.writing, writing => {
+                                            writing.lines[i].splice(j + (isForward ? 1 : 0), 0, dragContext.draggedBanner);
+                                        }));
+                                        writingContext.setCursor(i, j + 1 + (isForward ? 1 : 0));
+                                        recentContext.addBanner(dragContext.draggedBanner);
+                                    }
+                                }}>
                                 {banner ?
                                     <BannerComponent banner={banner} disableAA={true} key={j}></BannerComponent>
                                 :
@@ -53,7 +71,16 @@ export default function WritingEditor() {
                         <div className="WritingEditorCursor"/>   
                     }
                     <Button className="WritingEditorCursorEndHitbox"
-                        onLeftClick={() => writingContext.setCursor(i, line.length)}>
+                        onLeftClick={() => writingContext.setCursor(i, line.length)}
+                        onEndDrag={() => {
+                            if (dragContext.draggedBanner) {
+                                writingContext.setWriting(produce(writingContext.writing, writing => {
+                                    writing.lines[i].push(dragContext.draggedBanner);
+                                }));
+                                writingContext.setCursor(i, line.length + 1);
+                                recentContext.addBanner(dragContext.draggedBanner);
+                            }
+                        }}>
                         <div/>
                     </Button>
                     <div className="WritingEditorNewline"/>

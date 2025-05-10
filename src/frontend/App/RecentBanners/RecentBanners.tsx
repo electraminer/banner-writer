@@ -12,11 +12,13 @@ import { Action } from "frontend/action/Action";
 import React from "react";
 import Banner from "model/Banner";
 import Color from "model/Color";
+import DragContext from "../DragContext";
 
 export default function RecentBanners() {
     const writingContext = React.useContext(WritingContext);
     const recentContext = React.useContext(RecentContext);
     const actionContext = React.useContext(ActionContext);
+    const dragContext = React.useContext(DragContext);
 
     const [deleting, setDeleting] = React.useState(false);
 
@@ -43,7 +45,8 @@ export default function RecentBanners() {
                                 writingContext.addBanner(banner);
                             }
                         }}
-                        onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}>
+                        onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}
+                        onBeginDrag={() => dragContext.setDraggedBanner(banner)}>
                         <BannerComponent banner={banner}/>
                     </Button>
                 )}

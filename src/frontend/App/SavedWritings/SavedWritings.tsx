@@ -47,7 +47,13 @@ export default function SavedWritings() {
                 {savedContext.saved.map((str, i) =>
                     <div className="SavedWritingsWriting" key={i}>
                         <div className="SavedWritingsText">
-                            <WritingComponent writing={Writing.fromString(str)[0]}/>
+                            <WritingComponent writing={Writing.fromString(str)[0]}
+                            setWriting={(w) => {
+                                const toUpdateSelected = savedContext.updateWriting(i, w)
+                                if (toUpdateSelected) {
+                                    writingContext.setWriting(toUpdateSelected, false)
+                                }
+                            }}/>
                         </div>
                         <div className="SavedWritingsControls">
                             <Button className="SavedWritingsSelectButton"
