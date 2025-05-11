@@ -21,11 +21,15 @@ export default function BannerButton(props: {
     };
 
     const onBeginDrag = function(e: React.MouseEvent<HTMLButtonElement>) {
-        props.onBeginDrag(isRight(e));
+        if (props.onBeginDrag) {
+            props.onBeginDrag(isRight(e));
+        }
     }
 
     const onEndDrag = function(e: React.MouseEvent<HTMLButtonElement>) {
-        props.onEndDrag(isRight(e));
+        if (props.onEndDrag) {
+            props.onEndDrag(isRight(e));
+        }
     }
 
     const onContextMenu = function(e: React.MouseEvent<HTMLButtonElement>) {

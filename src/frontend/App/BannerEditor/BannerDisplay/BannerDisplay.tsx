@@ -10,6 +10,7 @@ import Banner from "model/Banner";
 import Color from "model/Color";
 // External dependencies
 import React from "react";
+import DragContext from "frontend/App/DragContext";
 
 export default function BannerDisplay(props: {banner: Banner}) {
     const writingContext = React.useContext(WritingContext);
@@ -18,6 +19,7 @@ export default function BannerDisplay(props: {banner: Banner}) {
     wcRef.current = writingContext;
 
     const actionContext = React.useContext(ActionContext);
+    const dragContext = React.useContext(DragContext);
 
     const addBannerHandler = actionContext.useHandler(React.useRef(), Action.ADD_BANNER);
     const addSpaceHandler = actionContext.useHandler(React.useRef(), Action.ADD_SPACE);
@@ -43,7 +45,13 @@ export default function BannerDisplay(props: {banner: Banner}) {
         <div className="BannerDisplay">
             <Button
                 onLeftClick={() => actionContext.invoke(Action.ADD_BANNER, {banner: props.banner})}
-                onRightClick={() => actionContext.invoke(Action.BACKSPACE)}>
+                onRightClick={() => actionContext.invoke(Action.BACKSPACE)}
+                onBeginDrag={() => dragContext.setDraggedBanner(props.banner)}
+                onEndDrag={() => {
+                    if (dragContext.draggedBanner) {
+                        actionContext.invoke(Action.SET_BANNER, {banner: dragContext.draggedBanner});
+                    }
+                }}>
                 <BannerComponent banner={props.banner} disableAA={true}/>
             </Button>
             <div className="BannerDisplayControls">

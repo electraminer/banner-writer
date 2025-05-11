@@ -13,12 +13,14 @@ import React from "react";
 import Banner from "model/Banner";
 import Color from "model/Color";
 import DragContext from "../DragContext";
+import SavedContext from "../SavedContext";
 
 export default function RecentBanners() {
     const writingContext = React.useContext(WritingContext);
     const recentContext = React.useContext(RecentContext);
     const actionContext = React.useContext(ActionContext);
     const dragContext = React.useContext(DragContext);
+    const savedContext = React.useContext(SavedContext);
 
     const [deleting, setDeleting] = React.useState(false);
 
@@ -35,7 +37,18 @@ export default function RecentBanners() {
                     </Button>
                 </div>
             </ForceSize>
-            <div className="RecentBannersScrollBox">
+            <div className="RecentBannersScrollBox"
+                onMouseUp={() => {
+                    console.log(dragContext.draggedBanner, dragContext.index, dragContext.line, dragContext.cursor);
+                    if (dragContext.draggedBanner && dragContext.index != null) {
+                        const toUpdateWriting = savedContext.modifyWriting(dragContext.index, writing => {
+                            writing.lines[dragContext.line].splice(dragContext.cursor, 1);
+                        })
+                        if (toUpdateWriting) {
+                            writingContext.setWriting(toUpdateWriting);
+                        }
+                    }
+                }}>
                 {recentContext.recent.slice().reverse().map((banner, i) =>
                     <Button key={i}
                         onLeftClick={() => {

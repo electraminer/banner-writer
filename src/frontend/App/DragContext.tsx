@@ -11,8 +11,18 @@ export default DragContext;
 
 export function DragContextProvider(props: {children: React.ReactNode}) {
     const [draggedBanner, setDraggedBanner] = React.useState<Banner>(null);
+    const [draggedIndex, setDraggedIndex] = React.useState<number>(null);
+    const [draggedLine, setDraggedLine] = React.useState<number>(null);
+    const [draggedCursor, setDraggedCursor] = React.useState<number>(null);
     const [draggedX, setDraggedX] = React.useState<number>(-100);
     const [draggedY, setDraggedY] = React.useState<number>(-100);
+
+    function setDragged(banner: Banner, index?: number, line?: number, cursor?: number) {
+        setDraggedBanner(banner);
+        setDraggedIndex(index ?? null);
+        setDraggedLine(line ?? null);
+        setDraggedCursor(cursor ?? null);
+    }
 
     return (
         <div className="DragContext"
@@ -23,7 +33,10 @@ export function DragContextProvider(props: {children: React.ReactNode}) {
             onMouseUp={() => setDraggedBanner(null)}>
             <DragContext.Provider value={{
                 draggedBanner: draggedBanner,
-                setDraggedBanner: setDraggedBanner,
+                index: draggedIndex,
+                line: draggedLine,
+                cursor: draggedCursor,
+                setDraggedBanner: setDragged,
             }}>
                 {props.children}
             </DragContext.Provider>
