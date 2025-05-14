@@ -73,22 +73,23 @@ export default function WritingComponent(props: {
                                 {banner ?
                                     <BannerComponent banner={banner} key={j}></BannerComponent>
                                 :
-                                    <Button className='BannerComponent'
-                                        onLeftClick={() => 0}
-                                        onEndDrag={(isRight) => {
-                                            const isForward = isRight != props.writing.rightToLeft;
-                                            moveBannerIntoPosition(i, j + (isForward ? 1 : 0))
-                                        }}>
+                                    <div className='BannerComponent'>
                                         &nbsp;
-                                    </Button>
+                                    </div>
                                 }
                             </Button>
                         </>
                     )}
                     {line.length == 0 && 
-                        <div className="WritingComponentBanner">
-                            <div className='BannerComponent'>&nbsp;</div>
-                        </div>
+                        <Button className="WritingComponentBanner"
+                            onLeftClick={() => 0}
+                            onEndDrag={() => {
+                                moveBannerIntoPosition(i, 0)
+                            }}>
+                            <div className='BannerComponent' style={{aspectRatio:"1/2"}}>
+                                &nbsp;
+                            </div>
+                        </Button>
                     }
                     <Button className="WritingComponentCursorEndHitbox"
                         onLeftClick={() => 0}
