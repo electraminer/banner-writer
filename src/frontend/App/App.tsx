@@ -19,6 +19,31 @@ import { DragContextProvider } from "./DragContext";
 
 function App() {
     const settingsContext = React.useContext(SettingsContext);
+
+    const [resizing, setResizing] = React.useState(false);
+    const [height, setHeight] = React.useState(null);
+    const ref = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        if (resizing) {
+            const onMouseMove = (e: MouseEvent) => {
+                let height = e.clientY - ref.current.getBoundingClientRect().top;
+                if (height > ref.current.getBoundingClientRect().height - 60) {
+                    height = ref.current.getBoundingClientRect().height - 60;
+                }
+                setHeight(height);
+            }
+            const onMouseUp = (e: MouseEvent) => {
+                setResizing(false);
+            }
+            window.addEventListener("mousemove", onMouseMove);
+            window.addEventListener("mouseup", onMouseUp);
+            return () => {
+                window.removeEventListener("mousemove", onMouseMove);
+                window.removeEventListener("mouseup", onMouseUp);
+            }
+        }
+    }, [resizing, setResizing, setHeight])
     
     return (
         <ActionContextProvider>
@@ -43,10 +68,18 @@ function App() {
                                 </ForceSize>
                             </div>
                         </ForceSize>
-                        <div className="AppSection AppHistorySection">
-                            <ForceSize className="AppRecentBanners">
+                        <div className="AppSection AppHistorySection" ref={ref}>
+                            <ForceSize className="AppRecentBanners" style={{
+                                height: height!==null ? `${height}px` : undefined,
+                                flex: height!==null ? "0 0 auto" : undefined,
+                                minHeight: "60px",
+                            }}>
                                 <RecentBanners/>
                             </ForceSize>
+                            <button className="AppHistorySection_ResizeBar"
+                                onMouseDown={() => setResizing(true)}
+                            >
+                            </button>
                             <ForceSize className="AppSavedWritings">
                                 <SavedWritings/>
                             </ForceSize>

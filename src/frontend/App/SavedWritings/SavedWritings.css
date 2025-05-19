@@ -3,7 +3,7 @@
     flex-direction: column;
 }
 .SavedWritings > .SavedWritingsHeader {
-    flex: 1.5
+    aspect-ratio: 20/1;
 }
 .SavedWritings > .SavedWritingsScrollBox {
     flex: 10

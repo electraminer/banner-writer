@@ -3,7 +3,7 @@
     flex-direction: column;
 }
 .RecentBanners > .RecentBannersHeader {
-    flex: 1.5
+    aspect-ratio: 20/1;
 }
 .RecentBanners > .RecentBannersScrollBox {
     flex: 4
@@ -35,5 +35,5 @@
 }
 .RecentBannersScrollBox > * {
     aspect-ratio: 1/2;
-    height: 50%;
+    height: calc(2/27*100vh);
 }

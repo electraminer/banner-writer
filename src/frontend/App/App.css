@@ -76,3 +76,12 @@
         flex: 1;
     }
 }
+
+.AppHistorySection_ResizeBar {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: rgb(67,75,78);
+    height: 10px;
+    z-index: 1003;
+}
