@@ -83,7 +83,7 @@ function App() {
                             <ForceSize className="AppSavedWritings">
                                 <SavedWritings/>
                             </ForceSize>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>
