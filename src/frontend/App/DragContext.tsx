@@ -26,6 +26,12 @@ export function DragContextProvider(props: {children: React.ReactNode}) {
 
     return (
         <div className="DragContext"
+            onMouseDown={(e) => {
+                if (draggedBanner) {
+                    setDraggedX(e.clientX);
+                    setDraggedY(e.clientY);
+                }
+            }}
             onMouseMove={(e) => {
                 if (draggedBanner) {
                     setDraggedX(e.clientX);
