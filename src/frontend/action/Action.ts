@@ -31,8 +31,7 @@ export enum Action {
     COPY_UNICODE = "COPY_UNICODE",
     COPY_COMMAND = "COPY_COMMAND",
 
-    PASTE_UNICODE = "PASTE_UNICODE",
-    PASTE_CODE = "PASTE_CODE",
+    PASTE_SMART = "PASTE_SMART",
 }
 
 export type ActionParams = {

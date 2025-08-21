@@ -37,8 +37,7 @@ export default function TitleBar() {
     const copyAnvilHandler = actionContext.useHandler(React.useRef(), Action.COPY_ANVIL);
     const copyUnicodeHandler = actionContext.useHandler(React.useRef(), Action.COPY_UNICODE);
     const copyCommandHandler = actionContext.useHandler(React.useRef(), Action.COPY_COMMAND);
-    const pasteCodeHandler = actionContext.useHandler(React.useRef(), Action.PASTE_CODE);
-    const pasteUnicodeHandler = actionContext.useHandler(React.useRef(), Action.PASTE_UNICODE);
+    const pasteSmartHandler = actionContext.useHandler(React.useRef(), Action.PASTE_SMART);
     React.useEffect(() => {
         toggleDirectionHandler((params, invoke) => wcRef.current.updateWriting((writing: Writing) => {
             writing.rightToLeft = !writing.rightToLeft;
@@ -81,19 +80,20 @@ export default function TitleBar() {
         copyCommandHandler((params, invoke) => navigator.clipboard.writeText(
             wcRef.current.writing.toCommandCode()
         ))
-        pasteUnicodeHandler((params, invoke) => {
-            const str = prompt("Insert banner-font writing");
+        pasteSmartHandler((params, invoke) => {
+            const str = prompt("Insert banner-font writing, link, or banner code");
             if (!str) {
                 return;
             }
-            wcRef.current.setWriting(Writing.fromString(str)[0]);
-        })
-        pasteCodeHandler((params, invoke) => {
-            const str = prompt("Insert code from /getbannercode");
-            if (!str) {
-                return;
+
+            try {
+                // If string was a banner code, set the banner
+                invoke(Action.SET_BANNER, {banner: Banner.fromCode(str)[0]});
+            } catch (e) {
+                // Otherwise set the writing by parsing the string
+                wcRef.current.setWriting(Writing.fromStringSmart(str));
             }
-            invoke(Action.SET_BANNER, {banner: Banner.fromCode(str)[0]});
+            
         })
     }, [])
 
@@ -162,27 +162,15 @@ export default function TitleBar() {
                 onLeftClick={() => actionContext.invoke(Action.COPY_COMMAND)}>
                 <Text text="CMD" backgroundColor={Color.PINK} length={5}/>
             </Button>
-            {/* The code paste button. */}
+            {/* The text copy button. */}
             <Button
-                onLeftClick={() => actionContext.invoke(Action.PASTE_CODE)}>
-                <Text text="CODE" backgroundColor={Color.GREEN} length={5}/>
+                onLeftClick={() => actionContext.invoke(Action.COPY_UNICODE)}>
+                <Text text="RAW" backgroundColor={Color.LIME} length={5}/>
             </Button>
-            {/* Dropdown for more elements. */}
+            {/* The text paste button. */}
             <Button
-                onLeftClick={() => setDropdownActive(s => !s)}>
-                <Text text="MORE" backgroundColor={Color.LIGHT_GRAY} length={5}/>
-                <div className={"TitleBarDropdown" + (dropdownActive ? " TitleBarDropdownActive" : "")}>
-                    {/* The text copy button. */}
-                    <Button
-                        onLeftClick={() => actionContext.invoke(Action.COPY_UNICODE)}>
-                        <Text text="COPY" backgroundColor={Color.LIME} length={5}/>
-                    </Button>
-                    {/* The text paste button. */}
-                    <Button
-                        onLeftClick={() => actionContext.invoke(Action.PASTE_UNICODE)}>
-                        <Text text="PASTE" backgroundColor={Color.LIGHT_BLUE} length={5}/>
-                    </Button>
-                 </div>
+                onLeftClick={() => actionContext.invoke(Action.PASTE_SMART)}>
+                <Text text="PASTE" backgroundColor={Color.LIGHT_BLUE} length={5}/>
             </Button>
         </div>
     )

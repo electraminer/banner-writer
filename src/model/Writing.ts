@@ -75,7 +75,9 @@ export default class Writing {
         }
         
         let lines: (Banner | undefined)[][] = [];
-        let line: (Banner | undefined)[] = [];
+        let banners: Map<number, Banner> = new Map();
+        let maxPosition = 0;
+        let position = 0;
         while (true) {
             const codePoint = str.codePointAt(index);
             // End of writing / file
@@ -87,34 +89,73 @@ export default class Writing {
                 break;
             }
             // Newline
+            let newline = false;
             if (codePoint == CODEPOINT_WRITING_NEWLINE) {
                 index++;
-
-                if (str.codePointAt(index) == 0x0D) {
-                    index++;
+                newline = true;
+            }
+            if (str.codePointAt(index) == 0x0D) {
+                index++;
+                newline = true;
+            }
+            if (str.codePointAt(index) == 0x0A
+                || (str.codePointAt(index) == 0x20 && newline)
+                || (str.codePointAt(index) == 0x5F && newline)) {
+                index++;
+                newline = true;
+            }
+            if (newline) {
+                const line = [];
+                for (let i = 0; i <= maxPosition; i++) {
+                    line.push(banners.get(i));
                 }
-                if (str.codePointAt(index) == 0x0A
-                    || str.codePointAt(index) == 0x20
-                    || str.codePointAt(index) == 0x5F) {
-                    index++;
-                }
-
                 lines.push(line);
-                line = [];
+                banners = new Map();
+                maxPosition = 0;
+                position = 0;
                 continue;
             }
             // Space
             if (codePoint == 0x20 || codePoint == 0x5F) {
                 index++;
-                line.push(undefined);
+                position++;
                 continue;
             }
-            // Banner
-            const [banner, newIndex] = Banner.fromString(str, index);
-            line.push(banner);
+
+            // Variable space
+            if (codePoint >= 0xF000 && codePoint <= 0xF080) {
+                position += codePoint - 0xF040;
+                index++;
+                continue;
+            }
+            if (codePoint >= 0xCF000 && codePoint <= 0xD1000) {
+                position += ~~((codePoint - 0xD0000) / 9);
+                index++;
+                index++;
+                continue;
+            }
+
+            const [layer, newIndex] = Layer.fromString(str, index);
+            if (layer.pattern === Pattern.BACKGROUND) {
+                banners.set(position, new Banner(layer.color));
+                maxPosition = Math.max(position, maxPosition);
+            } else {
+                const banner = banners.get(position);
+                if (banner === undefined) {
+                    throw new Error("Banner did not begin with a background Layer.");
+                }
+                banner.layers.push(layer);
+            }
             index = newIndex;
+            position++;
+        }
+
+        const line = [];
+        for (let i = 0; i <= maxPosition; i++) {
+            line.push(banners.get(i));
         }
         lines.push(line);
+
         if (rightToLeft) {
             for (const line of lines) {
                 line.reverse();
@@ -123,6 +164,39 @@ export default class Writing {
 
         const writing = new Writing(rightToLeft, ...lines);
         return [writing, index];
+    }
+
+    /**
+     * Creates a Writing from a BannerFont string or Banner Writer link, depending on context.
+     */
+    static fromStringSmart(str: string): Writing {
+        str = this.trimLink(str);
+        
+        let writing = undefined;
+        try {
+            // First try to use the new URL Safe encoding.
+            writing = Writing.fromUrlSafe(str);
+        } catch (_) {
+            // If not, try the old BannerFont encoding for backwards compatibility.
+            [writing] = Writing.fromString(str);
+        }
+
+        return writing;
+    }
+
+    /**
+     * If the string passed is a Banner Writer link, trim it down to only the relevant part.
+     */
+    static trimLink(str: string): string {
+        // Trim file extension if any
+        if (str.endsWith(".png")) {
+            str = str.substring(0, str.length - 4)
+        }
+        // Remove parts of any URL before the actual URL-safe part
+        let lastIndexSlash = str.lastIndexOf("/");
+        let lastIndexEq = str.lastIndexOf("=");
+        const lastIndex = Math.max(lastIndexSlash, lastIndexEq);
+        return str.substring(lastIndex+1);
     }
 
     /** Converts the Writing to a compact sequence of URL-safe characters. */

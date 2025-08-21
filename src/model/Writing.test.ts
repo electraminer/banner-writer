@@ -48,45 +48,45 @@ test("Test BannerFont encoding of Writings.", () => {
 });
 
 test("Test BannerFont decoding of Writings works on canonical representation.", () => {
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷"))
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00E [BANNER_A] [BANNER_B] [BANNER_C] E00D
-        .toStrictEqual([ONE_LINE, 50]);
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+        .toStrictEqual(ONE_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00E [BANNER_A] 20 [BANNER_B] [BANNER_C] E00A 0A [BANNER_A] [BANNER_B] 20 [BANNER_C] E00D
-        .toStrictEqual([MULTI_LINE, 102]);
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00F [BANNER_A] 20 [BANNER_B] [BANNER_C] E00A 0A [BANNER_A] [BANNER_B] 20 [BANNER_C] E00D
-        .toStrictEqual([RIGHT_TO_LEFT, 102]);
+        .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
 });
 
 test("Test BannerFont decoding of Writings works on CRLF line endings.", () => {
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\r\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\r\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00E [BANNER_A] 20 [BANNER_B] [BANNER_C] E00A 0D 0A [BANNER_A] [BANNER_B] 20 [BANNER_C] E00D
-        .toStrictEqual([MULTI_LINE, 103]);
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\r\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\r\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00F [BANNER_A] 20 [BANNER_B] [BANNER_C] E00A 0D 0A [BANNER_A] [BANNER_B] 20 [BANNER_C] E00D
-        .toStrictEqual([RIGHT_TO_LEFT, 103]);
+        .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
 });
 
 test("Test BannerFont decoding of Writings works on EOF.", () => {
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷"))
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00E [BANNER_A] [BANNER_B] [BANNER_C]
-        .toStrictEqual([ONE_LINE, 49]);
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+        .toStrictEqual(ONE_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00E [BANNER_A] 20 [BANNER_B] [BANNER_C] E00A 0A [BANNER_A] [BANNER_B] 20 [BANNER_C]
-        .toStrictEqual([MULTI_LINE, 101]);
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00F [BANNER_A] 20 [BANNER_B] [BANNER_C] E00A 0A [BANNER_A] [BANNER_B] 20 [BANNER_C]
-        .toStrictEqual([RIGHT_TO_LEFT, 101]);
+        .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
 });
 
 test("Test BannerFont decoding of Writings works with no direction marker.", () => {
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷"))
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷").toUrlSafe())
             // [BANNER_A] [BANNER_B] [BANNER_C] E00D
-        .toStrictEqual([ONE_LINE, 49]);
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+        .toStrictEqual(ONE_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷\n󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷").toUrlSafe())
             // [BANNER_A] 20 [BANNER_B] [BANNER_C] E00A 0A [BANNER_A] [BANNER_B] 20 [BANNER_C] E00D
-        .toStrictEqual([MULTI_LINE, 101]);
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
 });
 
 test("Test BannerFont decoding of Writings works with different starting and ending point.", () => {
@@ -102,31 +102,32 @@ test("Test BannerFont decoding of Writings works with different starting and end
 });
 
 test("Test BannerFont decoding of Writings works with space instead of /n.", () => {
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00E [BANNER_A] 20 [BANNER_B] [BANNER_C] E00A 20 [BANNER_A] [BANNER_B] 20 [BANNER_C] E00D
-        .toStrictEqual([MULTI_LINE, 102]);
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00F [BANNER_A] 20 [BANNER_B] [BANNER_C] E00A 20 [BANNER_A] [BANNER_B] 20 [BANNER_C] E00D
-        .toStrictEqual([RIGHT_TO_LEFT, 102]);
+        .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
 })
 
 test("Test BannerFont decoding of Writings works with underscores.", () => {
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷"))
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00E [BANNER_A] 5F [BANNER_B] [BANNER_C] E00A 5F [BANNER_A] [BANNER_B] 5F [BANNER_C] E00D
-        .toStrictEqual([MULTI_LINE, 102]);
-    expect(Writing.fromString("󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷"))
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷_󏿷󏿷󏿷󏿷").toUrlSafe())
             // E00F [BANNER_A] 5F [BANNER_B] [BANNER_C] E00A 5F [BANNER_A] [BANNER_B] 5F [BANNER_C] E00D
-        .toStrictEqual([RIGHT_TO_LEFT, 102]);
+        .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
 })
 
 test("Test BannerFont decoding of Writings fails with non-BannerFont characters.", () => {
-    expect(() => Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷abc󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+    expect(() => Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷abc󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
             // E00E [BANNER_A] 20 [BANNER_B] [BANNER_C] abc [BANNER_A] [BANNER_B] 20 [BANNER_C] E00D
         .toThrow(Error);
-    expect(() => Writing.fromString("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷abc󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
+    expect(() => Writing.fromStringSmart("󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷abc󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷󏿷 󏿷󏿷󏿷󏿷"))
             // E00F [BANNER_A] 20 [BANNER_B] [BANNER_C] abc [BANNER_A] [BANNER_B] 20 [BANNER_C] E00D
         .toThrow(Error);
 })
+
 
 test("Test optimized BannerFont encoding of writing works.", () => {
     expect(ONE_LINE.toOptimizedString())
@@ -135,6 +136,15 @@ test("Test optimized BannerFont encoding of writing works.", () => {
         .toBe("   ");
     expect(RIGHT_TO_LEFT.toOptimizedString())
         .toBe("   ");
+})
+
+test("Test BannerFont decoding of Writings works with optimized writings.", () => {
+    expect(Writing.fromStringSmart("").toUrlSafe())
+        .toStrictEqual(ONE_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart(" \n ").toUrlSafe())
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart(" \n ").toUrlSafe())
+        .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
 })
 
 test("Test URL encoding of writing works.", () => {
@@ -153,4 +163,31 @@ test("Test URL decoding of writing works.", () => {
         .toStrictEqual(MULTI_LINE);
     expect(Writing.fromUrlSafe("L2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G"))
         .toStrictEqual(RIGHT_TO_LEFT);
+})
+
+test("Test BannerFont decoding of Writings works with URL encoded.", () => {
+    expect(Writing.fromStringSmart("R2.0monp2G.0monpi2G.0mpi2G").toUrlSafe())
+        .toStrictEqual(ONE_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("R2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G").toUrlSafe())
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("L2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G").toUrlSafe())
+        .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
+})
+
+test("Test BannerFont decoding of Writings works with image links.", () => {
+    expect(Writing.fromStringSmart("https://banner-writer.web.app/image/R2.0monp2G.0monpi2G.0mpi2G.png").toUrlSafe())
+        .toStrictEqual(ONE_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("https://banner-writer.web.app/image/R2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G.png").toUrlSafe())
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("https://banner-writer.web.app/image/L2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G.png").toUrlSafe())
+        .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
+})
+
+test("Test BannerFont decoding of Writings works with writing links.", () => {
+    expect(Writing.fromStringSmart("https://banner-writer.web.app/?writing=R2.0monp2G.0monpi2G.0mpi2G").toUrlSafe())
+        .toStrictEqual(ONE_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("https://banner-writer.web.app/?writing=R2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G").toUrlSafe())
+        .toStrictEqual(MULTI_LINE.toUrlSafe());
+    expect(Writing.fromStringSmart("https://banner-writer.web.app/?writing=L2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G").toUrlSafe())
+        .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
 })
