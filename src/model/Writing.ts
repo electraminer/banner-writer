@@ -76,7 +76,7 @@ export default class Writing {
         
         let lines: (Banner | undefined)[][] = [];
         let banners: Map<number, Banner> = new Map();
-        let maxPosition = 0;
+        let maxPosition = -1;
         let position = 0;
         while (true) {
             const codePoint = str.codePointAt(index);
@@ -111,7 +111,7 @@ export default class Writing {
                 }
                 lines.push(line);
                 banners = new Map();
-                maxPosition = 0;
+                maxPosition = -1;
                 position = 0;
                 continue;
             }

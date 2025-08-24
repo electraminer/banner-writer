@@ -191,3 +191,9 @@ test("Test BannerFont decoding of Writings works with writing links.", () => {
     expect(Writing.fromStringSmart("https://banner-writer.web.app/?writing=L2.0monp2G_.0monpi2G.0mpi2G~.0monp2G.0monpi2G_.0mpi2G").toUrlSafe())
         .toStrictEqual(RIGHT_TO_LEFT.toUrlSafe());
 })
+
+
+test("Test BannerFont decoding of Writings works from an empty string.", () => {
+    expect(Writing.fromStringSmart("").toUrlSafe())
+        .toStrictEqual((new Writing(false, [])).toUrlSafe());
+})
