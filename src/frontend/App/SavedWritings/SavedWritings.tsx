@@ -1,6 +1,7 @@
 import "./SavedWritings.css"
 // Internal dependencies
 import WritingComponent from "./WritingComponent/WritingComponent";
+import WritingContext from "../WritingContext";
 import SavedContext from "../SavedContext";
 import Text from "frontend/Text/Text";
 import BannerComponent from "frontend/BannerComponent/BannerComponent";
@@ -14,6 +15,7 @@ import Color from "model/Color";
 import React from "react";
 
 export default function SavedWritings() {
+    const writingContext = React.useContext(WritingContext);
     const savedContext = React.useContext(SavedContext);
 
     const deleteBanner = new Banner(6,
@@ -36,7 +38,7 @@ export default function SavedWritings() {
                 <div className="SavedWritingsHeaderArea">
                     <Text text="SAVED WRITINGS"/>
                     <Button
-                        onLeftClick={() => savedContext.addWriting(0, new Writing(false, []))}>
+                        onLeftClick={() => savedContext.addWriting(0, writingContext.writing)}>
                         <BannerComponent banner={Banner.fromString("󏿷󏿷")[0]}/>
                     </Button>
                 </div>
@@ -49,15 +51,15 @@ export default function SavedWritings() {
                             setWriting={(w) => {
                                 const toUpdateSelected = savedContext.updateWriting(i, w)
                                 if (toUpdateSelected) {
-                                    // writingContext.setWriting(toUpdateSelected, false)
+                                    writingContext.setWriting(toUpdateSelected, false)
                                 }
                             }}/>
                         </div>
                         <div className="SavedWritingsControls">
                             <Button className="SavedWritingsSelectButton"
-                                onLeftClick={() => [] //writingContext.setWriting(
-                                    //</div>savedContext.select(i == s ? -1 : i) ?? writingContext.defaultWriting, false
-                                /*)*/}>
+                                onLeftClick={() => writingContext.setWriting(
+                                    savedContext.select(i == s ? -1 : i) ?? writingContext.defaultWriting, false
+                                )}>
                                 <Text text={i == s ? "SAVE" : "EDIT"}
                                     backgroundColor={i == s ? Color.YELLOW : Color.LIGHT_BLUE}/>
                             </Button>
@@ -80,7 +82,7 @@ export default function SavedWritings() {
                             :
                                 <Button
                                     onLeftClick={() => savedContext.addWriting(
-                                        i + 1, new Writing(false, [])
+                                        i + 1, writingContext.writing
                                     )}>
                                     <BannerComponent banner={Banner.fromString("󏿷󏿷")[0]}/>
                                 </Button>

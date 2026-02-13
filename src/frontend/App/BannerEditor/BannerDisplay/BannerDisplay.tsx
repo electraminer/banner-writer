@@ -1,5 +1,6 @@
 import "./BannerDisplay.css"
 // Internal dependencies
+import WritingContext from "../../WritingContext";
 import BannerComponent from "frontend/BannerComponent/BannerComponent";
 import Button from "frontend/Button/Button";
 import Text from "frontend/Text/Text";
@@ -10,11 +11,35 @@ import Color from "model/Color";
 // External dependencies
 import React from "react";
 import DragContext from "frontend/App/DragContext";
-import Writing from "model/Writing";
 
 export default function BannerDisplay(props: {banner: Banner}) {
+    const writingContext = React.useContext(WritingContext);
+    // JANKY FIX - Will remove Writing Context in the future
+    const wcRef = React.useRef(writingContext);
+    wcRef.current = writingContext;
+
     const actionContext = React.useContext(ActionContext);
     const dragContext = React.useContext(DragContext);
+
+    const addBannerHandler = actionContext.useHandler(React.useRef(), Action.ADD_BANNER);
+    const addSpaceHandler = actionContext.useHandler(React.useRef(), Action.ADD_SPACE);
+    const addLineHandler = actionContext.useHandler(React.useRef(), Action.ADD_LINE);
+    const backspaceHandler = actionContext.useHandler(React.useRef(), Action.BACKSPACE);
+    const addClearBannerHandler = actionContext.useHandler(React.useRef(), Action.ADD_CLEAR_BANNER);
+    const backspaceSelectHandler = actionContext.useHandler(React.useRef(), Action.BACKSPACE_SELECT);
+    React.useEffect(() => {
+        addBannerHandler(params => wcRef.current.addBanner(params.banner))
+        addSpaceHandler(params => wcRef.current.addSpace())
+        addLineHandler(params => wcRef.current.addLine())
+        backspaceHandler(params => wcRef.current.backspace())
+        addClearBannerHandler(params => wcRef.current.addBanner(params.banner))
+        backspaceSelectHandler((params, invoke) => {
+            const banner = wcRef.current.backspace();
+            if (banner) {
+                invoke(Action.SET_BANNER, {banner: banner});
+            }
+        })
+    }, [])
 
     return (
         <div className="BannerDisplay">

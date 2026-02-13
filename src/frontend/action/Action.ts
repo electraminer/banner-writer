@@ -1,10 +1,8 @@
 import Color from "model/Color";
 import Pattern from "model/Pattern";
 import Banner from "model/Banner";
-import Writing from "model/Writing";
 
 export enum Action {
-
     SELECT_COLOR = "SELECT_COLOR",
     SWAP_COLORS = "SWAP_COLORS",
 
@@ -16,7 +14,6 @@ export enum Action {
     SET_BANNER = "SET_BANNER",
     CLEAR_BANNER = "CLEAR_BANNER",
 
-    ADD_WRITING = "ADD_WRITING",
     ADD_BANNER = "ADD_BANNER",
     ADD_SPACE = "ADD_SPACE",
     ADD_LINE = "ADD_LINE",
@@ -35,19 +32,6 @@ export enum Action {
     COPY_COMMAND = "COPY_COMMAND",
 
     PASTE_SMART = "PASTE_SMART",
-
-    // Jank!
-    UPDATE_OPTIMIZE_LEN = "UPDATE_OPTIMIZE_LEN",
-
-    SET_CURSOR = "SET_CURSOR",
-
-    UP = "UP",
-    DOWN = "DOWN",
-    LEFT = "LEFT",
-    RIGHT = "RIGHT",
-
-    UNDO = "UNDO",
-    REDO = "REDO",
 }
 
 export type ActionParams = {
@@ -61,11 +45,4 @@ export type ActionParams = {
     layerIndex: number,
 
     banner: Banner,
-
-    cursor: {} | {cursorLine: number, cursorPos: number} | {cursorLine: number, cursorPos: number, startCursorLine: number, startCursorPos: number},
-    clearSelection: boolean,
-
-    writing: Writing,
-
-    writingId: number,
 }
