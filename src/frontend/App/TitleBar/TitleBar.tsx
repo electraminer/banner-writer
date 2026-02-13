@@ -1,6 +1,5 @@
 import "./TitleBar.css"
 // Internal dependencies
-import WritingContext from "../WritingContext";
 import SettingsContext from "../../SettingsContext";
 import Text from "frontend/Text/Text";
 import Button from "frontend/Button/Button";
@@ -15,40 +14,23 @@ import html2canvas from "html2canvas";
 
 export default function TitleBar() {
 
-    const writingContext = React.useContext(WritingContext);
-    // JANKY FIX - Will remove Writing Context in the future
-    const wcRef = React.useRef(writingContext);
-    wcRef.current = writingContext;
-
     const actionContext = React.useContext(ActionContext);
 
-    const [dropdownActive, setDropdownActive] = React.useState(false);
+    const [optimizedLen, setOptimizedLen] = React.useState("");
 
-    const optimized = writingContext.writing.toOptimizedString();
-    let optimizedLen = optimized.length as string;
-    if (optimizedLen.length == 1) {
-        optimizedLen = " " + optimizedLen;
-    }
-
-    const toggleDirectionHandler = actionContext.useHandler(React.useRef(), Action.TOGGLE_DIRECTION);
-    const clearWritingHandler = actionContext.useHandler(React.useRef(), Action.CLEAR_WRITING);
     const copyImageLinkHandler = actionContext.useHandler(React.useRef(), Action.COPY_IMAGE_LINK);
     const copyImageHandler = actionContext.useHandler(React.useRef(), Action.COPY_IMAGE)
     const copyAnvilHandler = actionContext.useHandler(React.useRef(), Action.COPY_ANVIL);
     const copyUnicodeHandler = actionContext.useHandler(React.useRef(), Action.COPY_UNICODE);
     const copyCommandHandler = actionContext.useHandler(React.useRef(), Action.COPY_COMMAND);
     const pasteSmartHandler = actionContext.useHandler(React.useRef(), Action.PASTE_SMART);
+    const updateOptimizeLenHandler = actionContext.useHandler(React.useRef(), Action.UPDATE_OPTIMIZE_LEN);
     React.useEffect(() => {
-        toggleDirectionHandler((params, invoke) => wcRef.current.updateWriting((writing: Writing) => {
-            writing.rightToLeft = !writing.rightToLeft;
-        }))
-        clearWritingHandler((params, invoke) => confirm("Are you sure you want to clear the writing?") ?
-            wcRef.current.setWriting(wcRef.current.defaultWriting, true) : undefined)
         copyImageLinkHandler((params, invoke) => navigator.clipboard.writeText(
-            `https://banner-writer.web.app${wcRef.current.writing.imagePath()}`
+            `https://banner-writer.web.app${params.writing.imagePath()}`
         ))
         copyImageHandler(async (params, invoke) => {
-            const response = await fetch(wcRef.current.writing.imagePath());
+            const response = await fetch(params.writing.imagePath());
             const blob = await response.blob();
             if (navigator.clipboard.write == undefined) {
                 if (navigator.userAgent.toLowerCase().includes('firefox')) {
@@ -72,29 +54,37 @@ export default function TitleBar() {
             }
         })
         copyAnvilHandler((params, invoke) => navigator.clipboard.writeText(
-            wcRef.current.writing.toOptimizedString()
+            params.writing.toOptimizedString()
         ))
         copyUnicodeHandler((params, invoke) => navigator.clipboard.writeText(
-            wcRef.current.writing.toString()
+            params.writing.toString()
         ))
         copyCommandHandler((params, invoke) => navigator.clipboard.writeText(
-            wcRef.current.writing.toCommandCode()
+            params.writing.toCommandCode()
         ))
         pasteSmartHandler((params, invoke) => {
-            const str = prompt("Insert banner-font writing, link, or banner code");
-            if (!str) {
-                return;
-            }
+            const str = navigator.clipboard.read().toString();
 
             try {
                 // If string was a banner code, set the banner
-                invoke(Action.SET_BANNER, {banner: Banner.fromCode(str)[0]});
+                invoke(Action.ADD_BANNER, {banner: Banner.fromCode(str)[0]});
             } catch (e) {
                 // Otherwise set the writing by parsing the string
-                wcRef.current.setWriting(Writing.fromStringSmart(str));
+                invoke(Action.ADD_WRITING, {writing: Writing.fromStringSmart(str)});
             }
             
         })
+        updateOptimizeLenHandler((params, invoke) => {
+
+            const optimized = params.writing.toOptimizedString();
+            let optimizedLen = optimized.length.toString();
+            if (optimizedLen.length == 1) {
+                optimizedLen = " " + optimizedLen;
+            }
+            setOptimizedLen(optimizedLen);
+        })
+
+
     }, [])
 
 
@@ -113,7 +103,7 @@ export default function TitleBar() {
             // If not, try the old BannerFont encoding for backwards compatibility.
             [writing] = Writing.fromString(str);
         }
-        writingContext.setWriting(writing);
+        actionContext.invoke(Action.ADD_WRITING, {writing, cursor: {}});
     }, [])
 
     return (
@@ -130,7 +120,7 @@ export default function TitleBar() {
             <Button
                 onLeftClick={() => actionContext.invoke(Action.TOGGLE_DIRECTION)}>
                 <Text text={
-                    writingContext.writing.rightToLeft ? "L<--R" : "L-->R"
+                    localStorage.defaultRightToLeft ? "L<--R" : "L-->R"
                  } backgroundColor={Color.YELLOW} length={5}/>
             </Button>
             {/* The clear writing button. */}

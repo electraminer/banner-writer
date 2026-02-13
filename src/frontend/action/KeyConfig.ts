@@ -116,6 +116,11 @@ export const DEFAULT_KEY_CONFIG = {
         {key: "KeyC", modifiers: ["ControlLeft", "ShiftLeft", "AltLeft"], action: Action.COPY_COMMAND},
         
         {key: "KeyV", modifiers: ["ControlLeft"], action: Action.PASTE_SMART},
+
+        {key: "ArrowUp", action: Action.UP},
+        {key: "ArrowDown", action: Action.DOWN},
+        {key: "ArrowLeft", action: Action.LEFT},
+        {key: "ArrowRight", action: Action.RIGHT},
     ],
     modifiers: [
         {modifiers: ["ShiftRight"], params: {isSecondary: true}},
@@ -132,6 +137,9 @@ export const DEFAULT_KEY_CONFIG = {
         {modifiers: ["Backquote", "Digit4"], params: {layerIndex: 4}},
         {modifiers: ["Backquote", "Digit5"], params: {layerIndex: 5}},
         {modifiers: ["Backquote", "Digit6"], params: {layerIndex: 6}},
+
+        {modifiers: ["ShiftLeft"], params: {useSelection: true}},
+        {modifiers: ["ShiftRight"], params: {useSelection: true}},
     ]
 }
 

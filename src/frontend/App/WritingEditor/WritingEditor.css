@@ -65,3 +65,7 @@
     51% {background-color: white;}
     100% {background-color: white;}
 }
+
+.WritingEditorSelected {
+    background-color: #08f;
+}

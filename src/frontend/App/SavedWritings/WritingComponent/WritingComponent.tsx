@@ -63,7 +63,7 @@ export default function WritingComponent(props: {
                     {line.map((banner, j) =>
                         <>
                             <Button className="WritingComponentBanner"
-                                onLeftClick={() => writingContext.addBanner(banner)}
+                                onLeftClick={() => actionContext.invoke(Action.ADD_BANNER, {banner: banner})}
                                 onRightClick={() => actionContext.invoke(Action.SET_BANNER, {banner: banner})}
                                 onBeginDrag={() => dragContext.setDraggedBanner(banner, props.index, i, j)}
                                 onEndDrag={(isRight) => {
