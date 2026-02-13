@@ -29,14 +29,20 @@ export default function ConfigPage({}) {
         <p> Enable colorblind mode (adds checkerboard patterns to more easily distinguish colors) 
             <Button
                 onLeftClick={() => settingsContext.setColorblindMode(
-                    settingsContext.colorblindMode === "rg" ? "b" :
-                    settingsContext.colorblindMode === "b" ? undefined :
-                    "rg" 
+                    settingsContext.colorblindMode === "sat" ? "rg" :
+                    settingsContext.colorblindMode === "rg" ? "rgsat" :
+                    settingsContext.colorblindMode === "rgsat" ? "b" :
+                    settingsContext.colorblindMode === "b" ? "bsat" :
+                    settingsContext.colorblindMode === "bsat" ? undefined :
+                    "sat" 
                 )}>
                 <Text text={
-                    settingsContext.colorblindMode === "rg" ? "PRO/DEUTANOPIA" :
-                    settingsContext.colorblindMode === "b" ?  "TRITANOPIA (WIP)" :
-                    "DISABLED"
+                    settingsContext.colorblindMode === "sat" ? "SATURATED" :
+                    settingsContext.colorblindMode === "rg" ? "PROTAN/DEUTAN" :
+                    settingsContext.colorblindMode === "rgsat" ? "PRO/DEU SAT" :
+                    settingsContext.colorblindMode === "b" ? "TRITAN" :
+                    settingsContext.colorblindMode === "bsat" ? "TRITAN SAT" :
+                    "DEFAULT"
                 } backgroundColor={Color.LIME} length={15}/>
             </Button>
         </p>

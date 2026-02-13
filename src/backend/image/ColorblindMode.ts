@@ -1,6 +1,12 @@
 import { Canvas } from "canvas";
+import convert from "color-convert";
 
 export default function applyColorblindMode(canvas: Canvas, colorblindMode?: string) {
+    const saturate = colorblindMode.endsWith("sat");
+    if (saturate) {
+        colorblindMode = colorblindMode.slice(0, -3);
+    }
+
     const ctx = canvas.getContext("2d");
     
     // Get pixel data
@@ -17,6 +23,15 @@ export default function applyColorblindMode(canvas: Canvas, colorblindMode?: str
                 a: imageData.data[(v * canvas.width + u) * 4 + 3] / 255,
             }
             
+            if (saturate) {
+                let [h, s, v] = convert.rgb.hsv(color.r * 255, color.g * 255, color.b * 255);
+                s = -0.01*s*(s-100)+s;
+                let [r, g, b] = convert.hsv.rgb(h, s, v);
+                color.r = r / 255;
+                color.g = g / 255;
+                color.b = b / 255;
+
+            }
             if (colorblindMode === "rg") {
                 applyRedGreenColorblindMode(u, v, color);
             }
@@ -129,12 +144,12 @@ function applyBlueColorblindMode(u: number, v: number, color: {r: number, g: num
     if (r >= b && b >= g) {
         if ((u + v) % 2 == 0) {
             color.r = r;
-            color.g = b;
-            color.b = b;
+            color.g = g;
+            color.b = g;
         } else {
             color.r = g;
-            color.g = b;
-            color.b = b;
+            color.g = b*b + (1-b)*g;
+            color.b = (2-b)*b + (b-1)*g;
         }
     }
 
@@ -142,8 +157,8 @@ function applyBlueColorblindMode(u: number, v: number, color: {r: number, g: num
     if (r >= g && g >= b) {
         if ((u + v) % 2 == 0) {
             color.r = r;
-            color.g = g;
-            color.b = g;
+            color.g = (2-g)*g + (g-1)*b;
+            color.b = g*g + (1-g)*b;
         } else {
             color.r = g;
             color.g = b;
@@ -155,8 +170,8 @@ function applyBlueColorblindMode(u: number, v: number, color: {r: number, g: num
     if (g >= r && r >= b) {
         if ((u + v) % 2 == 0) {
             color.r = g;
-            color.g = g;
-            color.b = g;
+            color.g = (2-g)*g + (g-1)*b;
+            color.b = g*g + (1-g)*b;
         } else {
             color.r = r;
             color.g = b;
@@ -172,8 +187,8 @@ function applyBlueColorblindMode(u: number, v: number, color: {r: number, g: num
             color.b = b;
         } else {
             color.r = g;
-            color.g = g;
-            color.b = g;
+            color.g = (2-g)*g + (g-1)*b;
+            color.b = g*g + (1-g)*b;
         }
     }
 
@@ -185,8 +200,8 @@ function applyBlueColorblindMode(u: number, v: number, color: {r: number, g: num
             color.b = g;
         } else {
             color.r = g;
-            color.g = b;
-            color.b = b;
+            color.g = b*b + (1-b)*g;
+            color.b = (2-b)*b + (b-1)*g;
         }
     }
 
@@ -198,8 +213,8 @@ function applyBlueColorblindMode(u: number, v: number, color: {r: number, g: num
             color.b = g;
         } else {
             color.r = g;
-            color.g = b;
-            color.b = b;
+            color.g = b*b + (1-b)*g;
+            color.b = (2-b)*b + (b-1)*g;
         }
     }
 }

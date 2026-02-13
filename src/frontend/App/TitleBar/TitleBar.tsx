@@ -15,6 +15,8 @@ import html2canvas from "html2canvas";
 
 export default function TitleBar() {
 
+    const settingsContext = React.useContext(SettingsContext);
+
     const writingContext = React.useContext(WritingContext);
     // JANKY FIX - Will remove Writing Context in the future
     const wcRef = React.useRef(writingContext);
@@ -45,10 +47,10 @@ export default function TitleBar() {
         clearWritingHandler((params, invoke) => confirm("Are you sure you want to clear the writing?") ?
             wcRef.current.setWriting(wcRef.current.defaultWriting, true) : undefined)
         copyImageLinkHandler((params, invoke) => navigator.clipboard.writeText(
-            `https://banner-writer.web.app${wcRef.current.writing.imagePath()}`
+            `https://banner-writer.web.app${wcRef.current.writing.imagePath(settingsContext.colorblindMode)}`
         ))
         copyImageHandler(async (params, invoke) => {
-            const response = await fetch(wcRef.current.writing.imagePath());
+            const response = await fetch(wcRef.current.writing.imagePath(settingsContext.colorblindMode));
             const blob = await response.blob();
             if (navigator.clipboard.write == undefined) {
                 if (navigator.userAgent.toLowerCase().includes('firefox')) {
