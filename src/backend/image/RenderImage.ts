@@ -11,7 +11,7 @@ export const RENDER_IMAGE_BACKGROUND = "rgb(49,51,56)";
 const MAX_LINE_LENGTH = 64;
 
 /** Renders an image of a Writing, returning a Canvas containing the image. */
-export default async function renderImage(writing: Writing): Promise<Canvas> {
+export default async function renderImage(writing: Writing, colorblindMode?: string): Promise<Canvas> {
     // Length of the longest line
     let width = writing.lines
         .map(line => line.length)
@@ -48,7 +48,7 @@ export default async function renderImage(writing: Writing): Promise<Canvas> {
                 overflows += 1;
             }
             for (const layer of banner.layersWithBackground()) {
-                const image = await loadLayer(layer);
+                const image = await loadLayer(layer, colorblindMode);
                 // Effective x and y, after taking into account overflows
                 const ex = x % MAX_LINE_LENGTH;
                 const ey = y + overflows;

@@ -35,8 +35,8 @@ export default class Writing {
     }
 
     /** Returns the URL path to an image of this Writing. */
-    imagePath(): string {
-        return `/image/${this.toUrlSafe()}.png`
+    imagePath(colorblindMode?: string): string {
+        return `/image/${colorblindMode ? `${colorblindMode}/` : ""}${this.toUrlSafe()}.png`
             .replaceAll(/\n| /g, "_");
     }
 

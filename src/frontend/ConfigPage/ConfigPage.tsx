@@ -26,6 +26,20 @@ export default function ConfigPage({}) {
                 <Text text={"TOGGLE FONT"} backgroundColor={Color.BROWN} length={15}/>
             </Button>
         </p>
+        <p> Enable colorblind mode (adds checkerboard patterns to more easily distinguish colors) 
+            <Button
+                onLeftClick={() => settingsContext.setColorblindMode(
+                    settingsContext.colorblindMode === "rg" ? "b" :
+                    settingsContext.colorblindMode === "b" ? undefined :
+                    "rg" 
+                )}>
+                <Text text={
+                    settingsContext.colorblindMode === "rg" ? "PRO/DEUTANOPIA" :
+                    settingsContext.colorblindMode === "b" ?  "TRITANOPIA (WIP)" :
+                    "DISABLED"
+                } backgroundColor={Color.LIME} length={15}/>
+            </Button>
+        </p>
         <p>
             Edit your keybinds here. For now, you'll need to edit the .json config file directly.
             For now, feel free to DM Electra to ask about any details about how the JSON config works (I'll add a UI for this later)

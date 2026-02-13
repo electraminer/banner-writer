@@ -8,11 +8,18 @@ export default SettingsContext;
 export function SettingsContextProvider(props: {children: React.ReactNode}) {
     const [useBannerFont, setUseBannerFont] = React.useState(
         localStorage.useBannerFont !== "false");
-        
+
+    const [colorblindMode, setColorblindMode] = React.useState(
+        localStorage.colorblindMode);
 
     const setUseBannerFontSaved = function(useBannerFont: boolean) {
         setUseBannerFont(useBannerFont);
         localStorage.useBannerFont = useBannerFont;
+    } 
+
+    const setColorblindModeSaved = function(colorblindMode: boolean) {
+        setColorblindMode(colorblindMode);
+        localStorage.colorblindMode = colorblindMode;
     } 
     
     const [keyConfig, setKeyConfig] = React.useState<KeyConfig>(() => {
@@ -32,6 +39,8 @@ export function SettingsContextProvider(props: {children: React.ReactNode}) {
         <SettingsContext.Provider value={{
             useBannerFont: useBannerFont,
             setUseBannerFont: setUseBannerFontSaved,
+            colorblindMode: colorblindMode,
+            setColorblindMode: setColorblindModeSaved,
             keyConfig: keyConfig,
             setKeyConfig: setKeyConfigSaved,
         }}>

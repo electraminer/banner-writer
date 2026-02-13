@@ -23,7 +23,7 @@ export default function Text(props: {
         Color.BLACK
     );
 
-    const image = new Banner(backgroundColor).backgroundLayer().staticImagePath();
+    const image = new Banner(backgroundColor).backgroundLayer().staticImagePath(settingsContext.colorblindMode);
 
     const banners = asciiWriting(props.text, backgroundColor, textColor);
     const length = props.length ?? banners.length;

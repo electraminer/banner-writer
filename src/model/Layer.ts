@@ -25,14 +25,14 @@ class Layer {
     }
 
     /** Returns the URL path to a statically served image of this Layer. */
-    staticImagePath(): string {
+    staticImagePath(colorblindMode?: string): string {
         const hexCode = this.color.toString(16) + this.pattern.toString(10).padStart(2, '0');
-        return `/textures/${hexCode}.png`;
+        return `/textures/${colorblindMode ? `${colorblindMode}/` : ""}${hexCode}.png`;
     }
 
     /** Returns the URL path to an image of this Layer. */
-    imagePath(): string {
-        return `/image/${this.toString()}.png`;
+    imagePath(colorblindMode?: string): string {
+        return `/image/${colorblindMode ? `${colorblindMode}/` : ""}${this.toString()}.png`;
     }
 
     /** Returns the /getbannercode code which encodes this Layer. */

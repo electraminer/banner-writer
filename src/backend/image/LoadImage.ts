@@ -10,11 +10,12 @@ const BUFFER = Array(BUFFER_LEN).fill(undefined);
 
 const IMAGE_CACHE = {};
 
-export default async function loadImage(str: string): Promise<Canvas> {
+export default async function loadImage(str: string, colorblindMode?: string): Promise<Canvas> {
+    const cacheKey = `${colorblindMode}/${str}`
     // console.log(`Loading image of ${str}`);
-    if (IMAGE_CACHE[str]) {
+    if (IMAGE_CACHE[cacheKey]) {
         console.log(`Found image in cache`);
-        return IMAGE_CACHE[str];
+        return IMAGE_CACHE[cacheKey];
     }
 
     console.log(`Could not find in cache, generating image`);
@@ -26,15 +27,15 @@ export default async function loadImage(str: string): Promise<Canvas> {
         // If not, try the old BannerFont encoding for backwards compatibility.
         [writing] = Writing.fromString(str);
     }
-    const canvas = renderImage(writing);
+    const canvas = renderImage(writing, colorblindMode);
 
     const unloaded = BUFFER[BUFFER_INDEX];
     if (unloaded) {
         console.log(`Unloading image ${unloaded} from cache`);
         delete IMAGE_CACHE[unloaded];
     }
-    BUFFER[BUFFER_INDEX] = str;
-    IMAGE_CACHE[str] = canvas;
+    BUFFER[BUFFER_INDEX] = cacheKey;
+    IMAGE_CACHE[cacheKey] = canvas;
     BUFFER_INDEX++;
     BUFFER_INDEX %= BUFFER_LEN;
 

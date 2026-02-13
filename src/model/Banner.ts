@@ -36,9 +36,9 @@ class Banner {
     }
 
     /** Returns the URL path to an image of this Banner. */
-    imagePath(): string {
+    imagePath(colorblindMode?: string): string {
         const writing = new Writing(false, [this]);
-        return writing.imagePath();
+        return writing.imagePath(colorblindMode);
     }
 
     
